@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TestQuery {
     
@@ -22,7 +24,43 @@ public class TestQuery {
             return array;
         }
         catch(Exception e){System.out.println(e);}
-        return null;        
-       
+        return null;           
     }
+    
+        public static String[] TableNames (String statement ){
+        
+            Pattern rawPattern = Pattern.compile("SELECT.*FROM"); // catches hole SELECT ... FROM
+            Matcher rawMatcher = rawPattern.matcher(statement); 
+            rawMatcher.find();
+
+            Pattern selectPattern = Pattern.compile("SELECT");      //prepares to remove SELCT from the sql statement
+            Matcher selectMatcher = selectPattern.matcher(statement);
+            selectMatcher.find();
+            int selectStart = selectMatcher.start(); 
+            int selectEnd = selectMatcher.end();
+
+            Pattern fromPattern = Pattern.compile("FROM");          //prepares to remove FROM from the sql statement
+            Matcher fromMatcher = fromPattern.matcher(statement);
+            fromMatcher.find();
+            int fromStart = fromMatcher.start();
+            int fromEnd = fromMatcher.end();
+
+
+            StringBuffer raw = new StringBuffer(" ");                                    // SELECT and FROM gets cut out from Statement Stringbuffer 
+            String tableLong = rawMatcher.group();                                       //and splited to an array of words (the collum names)
+            raw.insert(0,tableLong);
+            System.out.println(raw);
+            raw.delete(fromStart, fromEnd); 
+            raw.delete(selectStart, selectEnd);
+            tableLong = raw.toString();
+            String[] table = tableLong.split(" ");
+
+
+        
+        
+        for (String table1 : table) {
+            System.out.println(table1);
+        }
+        return table;
+    } 
 }
