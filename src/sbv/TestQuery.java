@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class TestQuery {
     
-    public static ArrayList<String> Test() throws Exception{
+    public static ArrayList<String> anyQuery() throws Exception{
         try{
             Connection con = DbConnector.getConnection(); //connect
             PreparedStatement statement = con.prepareStatement("SELECT * FROM sbm_books LIMIT 0,30");//SQL Query
@@ -25,8 +25,11 @@ public class TestQuery {
         }
         catch(Exception e){System.out.println(e);}
         return null;           
-    }
+    } //will be modified to execute and output any SQL statement
     
+        /*
+        Input is SQL statement Return is an Array of collum Names 
+        */
         public static String[] TableNames (String statement ){
         
             Pattern rawPattern = Pattern.compile("SELECT.*FROM"); // catches hole SELECT ... FROM
@@ -53,7 +56,7 @@ public class TestQuery {
             raw.delete(fromStart, fromEnd); 
             raw.delete(selectStart, selectEnd);
             tableLong = raw.toString();
-            String[] table = tableLong.split(" ");
+            String[] table = tableLong.split(", ");
 
 
         
