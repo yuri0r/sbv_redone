@@ -36,7 +36,7 @@ public class TestQuery {
             Matcher rawMatcher = rawPattern.matcher(statement); 
             rawMatcher.find();
 
-            Pattern selectPattern = Pattern.compile("SELECT");      //prepares to remove SELCT from the sql statement
+            Pattern selectPattern = Pattern.compile("SELECT ");      //prepares to remove SELCT from the sql statement
             Matcher selectMatcher = selectPattern.matcher(statement);
             selectMatcher.find();
             int selectStart = selectMatcher.start(); 
@@ -48,6 +48,7 @@ public class TestQuery {
             int fromStart = fromMatcher.start();
             int fromEnd = fromMatcher.end();
 
+            String kommaPattern = "," ;                                                  //for removing the "," of the SQL statement
 
             StringBuffer raw = new StringBuffer(" ");                                    // SELECT and FROM gets cut out from Statement Stringbuffer 
             String tableLong = rawMatcher.group();                                       //and splited to an array of words (the collum names)
@@ -56,14 +57,9 @@ public class TestQuery {
             raw.delete(fromStart, fromEnd); 
             raw.delete(selectStart, selectEnd);
             tableLong = raw.toString();
-            String[] table = tableLong.split(", ");
+            tableLong = tableLong.replaceAll(kommaPattern,"");
+            String[] table = tableLong.split(" ");
 
-
-        
-        
-        for (String table1 : table) {
-            System.out.println(table1);
-        }
         return table;
     } 
 }
