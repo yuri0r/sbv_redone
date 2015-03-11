@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DbConnector{
-    
+
   
 
 public static Connection getConnection() throws Exception{

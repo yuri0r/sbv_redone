@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TestQuery {
+    
     /*
     executes any SQL query 
     */
@@ -67,6 +68,10 @@ public class TestQuery {
         return table;
     }
     
+    
+    /*
+    primitiv method vor SystemPrinting SQL Results
+    */
   
     public static void output(ArrayList<String> result, String[] collums){
         int rows = collums.length;
