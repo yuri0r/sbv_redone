@@ -8,29 +8,33 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TestQuery {
-    
-    public static ArrayList<String> anyQuery() throws Exception{
+    /*
+    executes any SQL query 
+    */
+    public static ArrayList<String> anyQuery(String input) throws Exception{
         try{
             Connection con = DbConnector.getConnection(); //connect
-            PreparedStatement statement = con.prepareStatement("SELECT * FROM sbm_books LIMIT 0,30");//SQL Query
-            
+            PreparedStatement statement = con.prepareStatement(input);//SQL Query
             ResultSet result = statement.executeQuery();        // gets results
+            ArrayList<String> array = new ArrayList();          //Arraylist for Resluts
+            String[] collum = TableNames(input);                //gets collum names
+            int collum_nr = collum.length;                      //gets number ov collums 
             
-            ArrayList<String> array = new ArrayList();          //saves Resuts in ArryList
-            while (result.next()){                              //prints results
-                System.out.println(result.getString("label"));
-                array.add(result.getString("label"));
+            while (result.next()){                              //Saves results
+                for (int i =0; i<collum_nr;i++){
+                    array.add(result.getString(collum[i]));
+                }     
             }
             return array;
         }
         catch(Exception e){System.out.println(e);}
-        return null;           
-    } //will be modified to execute and output any SQL statement
+        return null;     
+    } 
     
-        /*
-        Input is SQL statement Return is an Array of collum Names 
-        */
-        public static String[] TableNames (String statement ){
+    /*
+    Input is SQL statement Return is an Array of collum Names 
+    */
+    public static String[] TableNames (String statement ){
         
             Pattern rawPattern = Pattern.compile("SELECT.*FROM"); // catches hole SELECT ... FROM
             Matcher rawMatcher = rawPattern.matcher(statement); 
@@ -61,5 +65,19 @@ public class TestQuery {
             String[] table = tableLong.split(" ");
 
         return table;
-    } 
+    }
+    
+  
+    public static void output(ArrayList<String> result, String[] collums){
+        int rows = collums.length;
+        
+        for (int i = 0 ; i < result.size() ; i=i+rows){
+            for(int o=i; o < (rows+i); o++){
+                System.out.print(result.get(o));
+                System.out.print(" ");
+            }
+            System.out.println(" ");
+        }
+        
+    }
 }
