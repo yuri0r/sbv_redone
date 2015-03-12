@@ -6,13 +6,32 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.io.*;
 
 public class TestQuery {
     
     /*
+    SQL Console
+    */
+    public static void Console()throws Exception{
+        InputStreamReader Input = new InputStreamReader(System.in);
+        BufferedReader DataIn = new BufferedReader(Input);
+        ArrayList<String> result = new ArrayList();
+        Connection con = DbConnector.getConnection(); //tests Connection
+        
+        while(con != null){
+            System.out.println("Enter SQL Statement");
+            String statement = DataIn.readLine();
+            String[] collums =TestQuery.TableNames(statement);
+            result = TestQuery.anyQuery(statement);
+            TestQuery.output(result,collums);
+        }
+    }    
+    
+    /*
     executes any SQL query 
     */
-    public static ArrayList<String> anyQuery(String input) throws Exception{
+    public static ArrayList<String> anyQuery(String input) {
         try{
             Connection con = DbConnector.getConnection(); //connect
             PreparedStatement statement = con.prepareStatement(input);//SQL Query
@@ -20,7 +39,7 @@ public class TestQuery {
             ArrayList<String> array = new ArrayList();          //Arraylist for Resluts
             String[] collum = TableNames(input);                //gets collum names
             int collum_nr = collum.length;                      //gets number ov collums 
-            
+            //42 <3
             while (result.next()){                              //Saves results
                 for (int i =0; i<collum_nr;i++){
                     array.add(result.getString(collum[i]));
@@ -58,7 +77,7 @@ public class TestQuery {
             StringBuffer raw = new StringBuffer(" ");                                    // SELECT and FROM gets cut out from Statement Stringbuffer 
             String tableLong = rawMatcher.group();                                       //and splited to an array of words (the collum names)
             raw.insert(0,tableLong);
-            System.out.println(raw);
+            //System.out.println(raw);                                                  //testing purpuse
             raw.delete(fromStart, fromEnd); 
             raw.delete(selectStart, selectEnd);
             tableLong = raw.toString();
@@ -72,7 +91,6 @@ public class TestQuery {
     /*
     primitiv method vor SystemPrinting SQL Results
     */
-  
     public static void output(ArrayList<String> result, String[] collums){
         int rows = collums.length;
         
