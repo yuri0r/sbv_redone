@@ -28,6 +28,19 @@ public class TestQuery {
         }
     }    
     
+    public static String getLabel(String isbn) {
+        try{
+        Connection con = DbConnector.getConnection(); //connect
+        PreparedStatement statement = con.prepareStatement("SELECT label FROM sbm_books WHERE isbn LIKE " +isbn);
+        ResultSet result = statement.executeQuery();
+        ArrayList<String> labelBookA = new ArrayList();
+        String labelBook = labelBookA.toString();
+        return labelBook;
+        }
+        catch(Exception e){System.out.println(e);}
+        return null;  
+    }
+        
     /*
     executes any SQL query 
     */
@@ -36,7 +49,7 @@ public class TestQuery {
             Connection con = DbConnector.getConnection(); //connect
             PreparedStatement statement = con.prepareStatement(input);//SQL Query
             ResultSet result = statement.executeQuery();        // gets results
-            ArrayList<String> array = new ArrayList();          //Arraylist for Resluts
+            ArrayList<String> array = new ArrayList();          //Arraylist for Results
             String[] collum = TableNames(input);                //gets collum names
             int collum_nr = collum.length;                      //gets number ov collums 
             //42 <3
