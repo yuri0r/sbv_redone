@@ -9,6 +9,21 @@ import java.util.regex.Pattern;
 import java.io.*;
 
 public class TestQuery {
+         
+    //example get method just copy paste and modifie it :3
+    public static String getExample() {
+        try{
+            Connection con = DbConnector.getConnection(); //connect
+            PreparedStatement statement = con.prepareStatement("fill me");
+            ResultSet result = statement.executeQuery();
+            result.next();
+            String returnString = result.getString("label");
+
+            return returnString;
+        }
+        catch(Exception e){System.out.println(e);}
+            return null;  
+    }
     
     /*
     SQL Console

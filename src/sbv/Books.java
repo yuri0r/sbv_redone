@@ -15,19 +15,18 @@ import java.util.ArrayList;
  * @author Mack
  */
 public class Books {
-    
+      
     public static String getLabel(String isbn) {
         try{
-        Connection con = DbConnector.getConnection(); //connect
-        PreparedStatement statement = con.prepareStatement("SELECT label FROM sbm_books WHERE isbn LIKE " +isbn);
-        ResultSet result = statement.executeQuery();
-        result.next();
-        String label = result.getString("label");
+            Connection con = DbConnector.getConnection(); //connect
+            PreparedStatement statement = con.prepareStatement("SELECT label FROM sbm_books WHERE isbn LIKE " +isbn);
+            ResultSet result = statement.executeQuery();
+            result.next();
+            String label = result.getString("label");
 
-        return label;
+            return label;
         }
         catch(Exception e){System.out.println(e);}
-        return null;  
-    }
-    
+            return null;  
+    }   
 }
