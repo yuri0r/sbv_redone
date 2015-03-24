@@ -178,6 +178,7 @@ public class Oberflaeche extends javax.swing.JFrame {
         mainPanel.add(homePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 1200, 750));
         mainPanel.validate();
         mainPanel.repaint();
+        currentPanel = "home";
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
