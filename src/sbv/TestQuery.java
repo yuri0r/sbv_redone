@@ -27,25 +27,7 @@ public class TestQuery {
             TestQuery.output(result,collums);
         }
     }    
-    
-    public static String getLabel(String isbn) {
-        try{
-        Connection con = DbConnector.getConnection(); //connect
-        PreparedStatement statement = con.prepareStatement("SELECT label FROM sbm_books WHERE isbn LIKE " +isbn);
-        ResultSet result = statement.executeQuery();
-        ArrayList<String> labelBookA = new ArrayList();
-        
-        while (result.next()){ 
-            labelBookA.add(result.getString("label"));
-        }
-        
-        String labelBook = labelBookA.toString();
-        return labelBook;
-        }
-        catch(Exception e){System.out.println(e);}
-        return null;  
-    }
-        
+           
     /*
     executes any SQL query 
     */

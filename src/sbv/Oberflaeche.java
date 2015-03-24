@@ -136,7 +136,7 @@ public class Oberflaeche extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        label1.setText(TestQuery.getLabel(jTextField2.getText()));
+        label1.setText(Books.getLabel(jTextField2.getText()));
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
