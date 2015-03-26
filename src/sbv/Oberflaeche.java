@@ -1,15 +1,30 @@
 
 package sbv;
 
-
+import net.proteanit.sql.DbUtils;
+import java.sql.*;
+import javax.swing.*;
 public class Oberflaeche extends javax.swing.JFrame {
     
-     static String currentPanel = "home";
-
-   
+     static int currentPanel=1; 
+     Connection conn = null;
+    ResultSet rs = null;
+    PreparedStatement pst = null;
+    
+    private void UpdateTable() {
+        String sql= "SELECT isbn, label, buy FROM sbm_books";
+        try{
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            buecherTable.setModel(DbUtils.resultSetToTableModel(rs));
+        }
+        catch (Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        } 
+    }
     public Oberflaeche() {
         initComponents();
-        
+        initPanels();
     }
 
  
@@ -28,6 +43,9 @@ public class Oberflaeche extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         homePanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        buecherPanel = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        buecherTable = new javax.swing.JTable();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -107,6 +125,34 @@ public class Oberflaeche extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Home");
 
+        buecherPanel.setMaximumSize(new java.awt.Dimension(1200, 750));
+        buecherPanel.setMinimumSize(new java.awt.Dimension(1200, 750));
+        buecherPanel.setPreferredSize(new java.awt.Dimension(1200, 750));
+
+        buecherTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(buecherTable);
+
+        javax.swing.GroupLayout buecherPanelLayout = new javax.swing.GroupLayout(buecherPanel);
+        buecherPanel.setLayout(buecherPanelLayout);
+        buecherPanelLayout.setHorizontalGroup(
+            buecherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+        buecherPanelLayout.setVerticalGroup(
+            buecherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+
         javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
         homePanel.setLayout(homePanelLayout);
         homePanelLayout.setHorizontalGroup(
@@ -115,13 +161,16 @@ public class Oberflaeche extends javax.swing.JFrame {
                 .addGap(263, 263, 263)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(276, Short.MAX_VALUE))
+            .addComponent(buecherPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         homePanelLayout.setVerticalGroup(
             homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homePanelLayout.createSequentialGroup()
-                .addGap(137, 137, 137)
+                .addContainerGap()
+                .addComponent(buecherPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 739, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addGap(145, 145, 145))
         );
 
         mainPanel.add(homePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 1200, 750));
@@ -141,6 +190,10 @@ public class Oberflaeche extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void initPanels() {
+      buecherPanel.setVisible(false);
+    }
+    
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
@@ -154,20 +207,14 @@ public class Oberflaeche extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        if(currentPanel.equals("home")) {    
-            mainPanel.remove(homePanel);
+        buecherPanel.setVisible(true);
+        try{
+            conn = DbConnector.getConnection();
         }
-       /** if(currentPanel.equals("schüler")) {    
-            mainPanel.remove(schuelerPanel);
-        }
-        if(currentPanel.equals("klassen")) {    
-            mainPanel.remove(klassenPanel);
-        }*/
-        //mainPanel.add(buecherPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 1200, 750));
-        mainPanel.validate();
-        mainPanel.repaint();
-        currentPanel = "bücher";
-        
+        catch (Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        } 
+        UpdateTable();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -175,10 +222,8 @@ public class Oberflaeche extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        mainPanel.add(homePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 1200, 750));
-        mainPanel.validate();
-        mainPanel.repaint();
-        currentPanel = "home";
+        buecherPanel.setVisible(false);
+        homePanel.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -217,6 +262,8 @@ public class Oberflaeche extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel buecherPanel;
+    private javax.swing.JTable buecherTable;
     private javax.swing.JPanel homePanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -226,6 +273,7 @@ public class Oberflaeche extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel mainPanel;
     // End of variables declaration//GEN-END:variables
