@@ -36,7 +36,7 @@ public class Books {
      public static ArrayList<String> SingleBookSerch ( String copyId) {    
          try{
             Connection con = DbConnector.getConnection(); //connect
-            PreparedStatement statement = con.prepareStatement(copyId);//SQL Query
+            PreparedStatement statement = con.prepareStatement(" SELECT ID, copy_id, student_id, distributed, collected, bought, notice, paid FROM sbm_copieshistory WHERE ID LIKE " + copyId);//SQL Query
             ResultSet result = statement.executeQuery();        // gets results
             ArrayList<String> array = new ArrayList();          //Arraylist for Results
             String[] collum = TableNames(copyId);                //gets collum names
