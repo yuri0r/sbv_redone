@@ -6,8 +6,7 @@ public class Sbv {
     //Oberflaeche.main(args);
     
     //Leave these methods where they are for testing purposes//////////////
-    //UpdateDb.createTables();
-    //UpdateDb.UpdateAll();
-    Query.Console();
+    UpdateDb.UpdateAll();
+    //Query.Console();
     }    
 }

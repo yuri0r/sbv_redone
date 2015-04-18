@@ -12,6 +12,7 @@ public class Home {
         return  Query.getString("SELECT COUNT(ID) FROM sbm_copieshistory WHERE collected LIKE '' AND bought = 0","COUNT(ID)");
     }
     
-    
-    
+    public static String CauchtCopyCount() throws Exception {
+        return  Query.getString("SELECT COUNT(ID) FROM sbm_copieshistory WHERE collected LIKE '' AND bought = 0","COUNT(ID)");
+    }   
 }
