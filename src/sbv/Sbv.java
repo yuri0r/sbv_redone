@@ -3,7 +3,7 @@ package sbv;
 public class Sbv {
 
     public static void main(String[] args) throws Exception {
-    TestQuery.Console();
+    //Query.Console();
     Oberflaeche.main(args);
     }    
 }

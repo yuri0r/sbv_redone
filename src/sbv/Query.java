@@ -8,16 +8,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.*;
 
-public class TestQuery {
+public class Query {
          
     //example get method just copy paste and modifie it :3
-    public static String getExample() {
+    public static String getString(String Statement, String label) {
         try{
             Connection con = DbConnector.getConnection(); //connect
-            PreparedStatement statement = con.prepareStatement("fill me");
+            PreparedStatement statement = con.prepareStatement(Statement);
             ResultSet result = statement.executeQuery();
             result.next();
-            String returnString = result.getString("label");
+            String returnString = result.getString(label);
 
             return returnString;
         }
@@ -37,9 +37,9 @@ public class TestQuery {
         while(con != null){
             System.out.println("Enter SQL Statement");
             String statement = DataIn.readLine();
-            String[] collums =TestQuery.TableNames(statement);
-            result = TestQuery.anyQuery(statement);
-            TestQuery.output(result,collums);
+            String[] collums =Query.TableNames(statement);
+            result = Query.anyQuery(statement);
+            Query.output(result,collums);
         }
     }    
            
