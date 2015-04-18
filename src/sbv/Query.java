@@ -11,7 +11,7 @@ import java.io.*;
 public class Query {
          
     //example get method just copy paste and modifie it :3
-    public static String getString(String Statement, String label) {
+    public static String getString(String Statement, String label) throws Exception {
         try{
             Connection con = DbConnector.getConnection(); //connect
             PreparedStatement statement = con.prepareStatement(Statement);
@@ -25,9 +25,8 @@ public class Query {
             return null;  
     }
     
-    /*
-    SQL Console
-    */
+
+    //SQL Console
     public static void Console()throws Exception{
         InputStreamReader Input = new InputStreamReader(System.in);
         BufferedReader DataIn = new BufferedReader(Input);
@@ -43,12 +42,11 @@ public class Query {
         }
     }    
            
-    /*
-    executes any SQL query 
-    */
-    public static ArrayList<String> anyQuery(String input) {
+   
+    //executes any SQL query 
+    public static ArrayList<String> anyQuery(String input) throws Exception {
+        Connection con = DbConnector.getConnection(); //connect    
         try{
-            Connection con = DbConnector.getConnection(); //connect
             PreparedStatement statement = con.prepareStatement(input);//SQL Query
             ResultSet result = statement.executeQuery();        // gets results
             ArrayList<String> array = new ArrayList();          //Arraylist for Results
@@ -60,15 +58,25 @@ public class Query {
                     array.add(result.getString(collum[i]));
                 }     
             }
+            con.close();
             return array;
         }
         catch(Exception e){System.out.println(e);}
-        return null;     
+        return null;   
     } 
     
-    /*
-    Input is SQL statement Return is an Array of collum Names 
-    */
+    //Executes anny modificational SQL statement
+    public static void anyUpdate(String input) {
+        try{
+            Connection con = DbConnector.getConnection();       //connect
+            PreparedStatement statement = con.prepareStatement(input);//SQL Query
+            statement.executeUpdate(input);                         //updates DB gets results 
+        }
+        catch(Exception e){System.out.println(e);}
+            
+    } 
+    
+    //Input is SQL statement Return is an Array of collum Names
     public static String[] TableNames (String statement ){
         
             Pattern rawPattern = Pattern.compile("SELECT.*FROM"); // catches hole SELECT ... FROM
@@ -101,11 +109,8 @@ public class Query {
 
         return table;
     }
-    
-    
-    /*
-    primitiv method vor SystemPrinting SQL Results
-    */
+ 
+    //primitiv method for SystemPrinting SQL Results
     public static void output(ArrayList<String> result, String[] collums){
         int rows = collums.length;
         
