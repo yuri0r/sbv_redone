@@ -11,7 +11,7 @@ import java.io.*;
 public class Query {
          
     //example get method just copy paste and modifie it :3
-    public static String getString(String Statement, String label) throws Exception {
+    public static String getString(String Statement, String label){
         try{
             Connection con = DbConnector.getConnection(); //connect
             PreparedStatement statement = con.prepareStatement(Statement);
@@ -24,25 +24,7 @@ public class Query {
         catch(Exception e){System.out.println(e);}
             return null;  
     }
-    
 
-    //SQL Console
-    public static void Console()throws Exception{
-        InputStreamReader Input = new InputStreamReader(System.in);
-        BufferedReader DataIn = new BufferedReader(Input);
-        ArrayList<String> result = new ArrayList();
-        Connection con = DbConnector.getConnection(); //tests Connection
-        
-        while(con != null){
-            System.out.println("Enter SQL Statement");
-            String statement = DataIn.readLine();
-            String[] collums =Query.TableNames(statement);
-            result = Query.anyQuery(statement);
-            Query.output(result,collums);
-        }
-    }    
-           
-   
     //executes any SQL query 
     public static ArrayList<String> anyQuery(String input) throws Exception {
         Connection con = DbConnector.getConnection(); //connect    
@@ -66,15 +48,32 @@ public class Query {
     } 
     
     //Executes anny modificational SQL statement
-    public static void anyUpdate(String input) {
+    public static void anyUpdate(String input) throws Exception {
+    Connection con = DbConnector.getConnection();       //connect    
         try{
-            Connection con = DbConnector.getConnection();       //connect
+            
             PreparedStatement statement = con.prepareStatement(input);//SQL Query
             statement.executeUpdate(input);                         //updates DB gets results 
+            con.close();
         }
-        catch(Exception e){System.out.println(e);}
-            
+        catch(Exception e){System.out.println(e);}           
     } 
+    
+    //SQL Console
+    public static void Console()throws Exception{
+        InputStreamReader Input = new InputStreamReader(System.in);
+        BufferedReader DataIn = new BufferedReader(Input);
+        ArrayList<String> result = new ArrayList();
+        Connection con = DbConnector.getConnection(); //tests Connection
+        
+        while(con != null){
+            System.out.println("Enter SQL Statement");
+            String statement = DataIn.readLine();
+            String[] collums =Query.TableNames(statement);
+            result = Query.anyQuery(statement);
+            Query.output(result,collums);
+        }
+    }    
     
     //Input is SQL statement Return is an Array of collum Names
     public static String[] TableNames (String statement ){

@@ -9,7 +9,7 @@ public class DbConnector{
     /*
     Connects to SQL Database And catches error if appers
     */
-    public static Connection getConnection() throws Exception{
+    public static Connection getConnection(){
     try{
         final String driver = "com.mysql.jdbc.Driver";                //chosing driver
         final String url = "jdbc:mysql://localhost:3306/sbv_aes_2013";//choosing mySQL server server
