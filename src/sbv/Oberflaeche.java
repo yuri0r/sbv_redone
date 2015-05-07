@@ -36,7 +36,8 @@ public class Oberflaeche extends javax.swing.JFrame {
     
     public Oberflaeche() {
         initComponents();
-        //panels();
+        schuelerCount.setText(Home.StudentsCount());
+        freieBuecher.setText(Home.WildCopyCount());
     }
 
     
@@ -49,6 +50,10 @@ public class Oberflaeche extends javax.swing.JFrame {
         basePanel = new javax.swing.JTabbedPane();
         homeTab = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        schuelerCount = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        freieBuecher = new javax.swing.JLabel();
         schuelerTab = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         schuelerTbl = new javax.swing.JTable();
@@ -86,21 +91,54 @@ public class Oberflaeche extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Schulbuch Verwaltung");
 
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Anzahl Schüler:");
+        jLabel3.setVerifyInputWhenFocusTarget(false);
+
+        schuelerCount.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        schuelerCount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        schuelerCount.setText("---");
+
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Anzahl freier Bücher:");
+
+        freieBuecher.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        freieBuecher.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        freieBuecher.setText("---");
+
         javax.swing.GroupLayout homeTabLayout = new javax.swing.GroupLayout(homeTab);
         homeTab.setLayout(homeTabLayout);
         homeTabLayout.setHorizontalGroup(
             homeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homeTabLayout.createSequentialGroup()
-                .addContainerGap(417, Short.MAX_VALUE)
+                .addGap(453, 453, 453)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(400, 400, 400))
+            .addGroup(homeTabLayout.createSequentialGroup()
+                .addGap(300, 300, 300)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(schuelerCount, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(250, 250, 250)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(freieBuecher, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100))
         );
         homeTabLayout.setVerticalGroup(
             homeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homeTabLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(668, Short.MAX_VALUE))
+                .addGap(229, 229, 229)
+                .addGroup(homeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(schuelerCount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(freieBuecher, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(431, Short.MAX_VALUE))
         );
 
         basePanel.addTab("Home", homeTab);
@@ -238,7 +276,7 @@ public class Oberflaeche extends javax.swing.JFrame {
                         .addComponent(tgj23)))
                 .addGap(45, 45, 45)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         basePanel.addTab("Schüler", schuelerTab);
@@ -271,11 +309,11 @@ public class Oberflaeche extends javax.swing.JFrame {
         buecherTab.setLayout(buecherTabLayout);
         buecherTabLayout.setHorizontalGroup(
             buecherTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1212, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1248, Short.MAX_VALUE)
         );
         buecherTabLayout.setVerticalGroup(
             buecherTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 758, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
         );
 
         basePanel.addTab("Bücher", buecherTab);
@@ -284,11 +322,11 @@ public class Oberflaeche extends javax.swing.JFrame {
         klassenTab.setLayout(klassenTabLayout);
         klassenTabLayout.setHorizontalGroup(
             klassenTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1212, Short.MAX_VALUE)
+            .addGap(0, 1248, Short.MAX_VALUE)
         );
         klassenTabLayout.setVerticalGroup(
             klassenTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 758, Short.MAX_VALUE)
+            .addGap(0, 780, Short.MAX_VALUE)
         );
 
         basePanel.addTab("Klassen", klassenTab);
@@ -422,13 +460,17 @@ public class Oberflaeche extends javax.swing.JFrame {
     private javax.swing.JTabbedPane basePanel;
     private javax.swing.JPanel buecherTab;
     private javax.swing.JTable buecherTable;
+    private javax.swing.JLabel freieBuecher;
     private javax.swing.JPanel homeTab;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel klassenTab;
+    private javax.swing.JLabel schuelerCount;
     private javax.swing.JPanel schuelerTab;
     private javax.swing.JTable schuelerTbl;
     private javax.swing.JButton tgei;
