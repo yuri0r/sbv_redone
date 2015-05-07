@@ -9,6 +9,7 @@ public class UpdateDb {
       updateClassTable();               //Updates class table
       updateClassStudentTable();        //Transfers classesfrom Students table to students-classes table and removes classes cullom from students table   
     }
+    
     public static void deleteTables(){ 
         try{
             Query.anyUpdate("DROP TABLE `sbm_booklists`");
