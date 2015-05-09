@@ -28,6 +28,7 @@ public class UpdateDb {
             Query.anyUpdate("CREATE TABLE `sbm_classes` (`ID` int(11) NOT NULL,`name` text NOT NULL,PRIMARY KEY (`ID`) )ENGINE=InnoDB DEFAULT CHARSET=latin1");
             Query.anyUpdate("CREATE TABLE `sbm_classes-books` ( `ID` int(11) NOT NULL AUTO_INCREMENT, `book_id` int(11) NOT NULL COMMENT 'FS zu books', `class_id` int(11) NOT NULL COMMENT 'FS zu classes', PRIMARY KEY (`ID`)) ENGINE=InnoDB DEFAULT CHARSET=latin1");
             Query.anyUpdate("CREATE TABLE `sbm_students-classes` ( `ID` int(11) NOT NULL AUTO_INCREMENT, `student_ID` int(11) NOT NULL, `class_ID` int(11) NOT NULL, PRIMARY KEY (`ID`)) ENGINE=InnoDB AUTO_INCREMENT=247 DEFAULT CHARSET=latin1");
+            Query.anyQuery("ALTER TABLE sbm_copieshistory ADD COLUMN dprice DECIMAL(10,2)");
         }
         catch(Exception e){System.out.println(e);}
     }
