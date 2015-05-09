@@ -18,18 +18,20 @@ import java.io.FileOutputStream;
  * @author Philipp Csernalabics
  */
 public class PDF_Export {
-       public static void jPanelPdfExport(Component panel) {
+      
+    /*TAKEN FROM http://http://pastebin.com/pGpMAX5Y*/
+    public static void jPanelPdfExport(Component panel,String pdfName) {
         try {
            
             Document doc = new Document(PageSize.A4.rotate()); // mach das rotate() weg für Hochkant
-            PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream("Beispiel_PDF.pdf"));
+            PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream( pdfName+".pdf" ));
            
             // Attributes
             doc.addAuthor(System.getProperty("user.name"));
             doc.addCreationDate();
             doc.addCreator("Seminarkurs Programm");
-            doc.addTitle("Beispiel, PDF-Export");
-            doc.addSubject("Dies soll ein Beispiel eines PDF-Exports sein.");
+            doc.addTitle("PDF-Export");
+            doc.addSubject("PDF Export von "+pdfName);
            
             doc.open();
            

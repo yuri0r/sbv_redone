@@ -412,7 +412,7 @@ public class Oberflaeche extends javax.swing.JFrame {
     }//GEN-LAST:event_tgj23ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        PDF_Export.jPanelPdfExport(this.schuelerTab);
+        PDF_Export.jPanelPdfExport(this.schuelerTab,"change me");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**private void panels() {
