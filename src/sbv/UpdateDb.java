@@ -20,7 +20,7 @@ public class UpdateDb {
             Query.anyUpdate("DROP TABLE `sbm_userconfigs`");
             Query.anyUpdate("DROP TABLE `sbm_configurations`");
         }
-        catch(Exception e){System.out.println(e);}
+        catch(Exception e){System.out.println(e + "deleteTables");}
 }  
     
     public static void createTables(){
@@ -30,7 +30,7 @@ public class UpdateDb {
             Query.anyUpdate("CREATE TABLE `sbm_students-classes` ( `ID` int(11) NOT NULL AUTO_INCREMENT, `student_ID` int(11) NOT NULL, `class_ID` int(11) NOT NULL, PRIMARY KEY (`ID`)) ENGINE=InnoDB AUTO_INCREMENT=247 DEFAULT CHARSET=latin1");
             Query.anyQuery("ALTER TABLE sbm_copieshistory ADD COLUMN dprice DECIMAL(10,2)");
         }
-        catch(Exception e){System.out.println(e);}
+        catch(Exception e){System.out.println(e + "createTables");}
     }
     
     public static void updateClassTable(){
@@ -41,7 +41,7 @@ public class UpdateDb {
                 for(int i=0; i<results.size(); i++){
                     Query.anyUpdate("INSERT INTO `sbm_classes` SET name = \"" + results.get(i)+"\"");
                 } 
-        }catch(Exception e){System.out.println(e);}
+        }catch(Exception e){System.out.println(e + "updateClassTable");}
     }  
     
     public static void updateClassStudentTable(){
@@ -55,7 +55,7 @@ public class UpdateDb {
                 }
        
             Query.anyUpdate("ALTER TABLE `sbm_students` DROP class");
-        }catch(Exception e){System.out.println(e);}
+        }catch(Exception e){System.out.println(e + "updateClassStudentTable");}
     }
     
     public static void classes(String Klasse,String ID){
@@ -65,6 +65,6 @@ public class UpdateDb {
                 for(int i = 0; i < studentId.size(); i++){
                     Query.anyUpdate("INSERT INTO `sbm_students-classes` SET `class_ID` = "+ ID +", `student_ID` = " + studentId.get(i));
                 }
-            }catch(Exception e){System.out.println(e);}
+            }catch(Exception e){System.out.println(e + "classes");}
     }
 }

@@ -168,11 +168,14 @@ public class Oberflaeche extends javax.swing.JFrame {
         });
 
         klassenList.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+<<<<<<< HEAD
         klassenList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 klassenListMouseClicked(evt);
             }
         });
+=======
+>>>>>>> origin/master
         jScrollPane3.setViewportView(klassenList);
 
         javax.swing.GroupLayout schuelerTabLayout = new javax.swing.GroupLayout(schuelerTab);
@@ -300,7 +303,7 @@ public class Oberflaeche extends javax.swing.JFrame {
             names.add(Classes.getClassName(s));
         }
         klassenList.setListData(names.toArray());
-        
+
         
           
     }//GEN-LAST:event_schuelerTabComponentAdded

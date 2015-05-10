@@ -20,7 +20,7 @@ public class DbConnector{
         System.out.println("Connected");
         return con;
         } 
-        catch(ClassNotFoundException | SQLException e){System.out.println(e);} // catches error if appears
+        catch(ClassNotFoundException | SQLException e){System.out.println(e+"getConnection");} // catches error if appears
 
     return null;
     }
