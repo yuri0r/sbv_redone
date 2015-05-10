@@ -30,7 +30,7 @@ public class Classes {
     }
     
     //all students in a class
-    public static ArrayList<String> classList(int name){
+    public static ArrayList<String> classList(String name){
         try{
             return Query.anyQuery("SELECT sbm_students.ID, forename, surname, birth FROM  `sbm_students`, `sbm_students-classes` WHERE student_ID lIKE sbm_students.ID AND name LIKE "+ name);   
         }catch(Exception e){System.out.println(e);}
@@ -45,7 +45,7 @@ public class Classes {
     }
     
     //adds new class
-    public static void editClass(int ID, String name){
+    public static void editClass(String ID, String name){
         try{
             Query.anyUpdate("UPDATE `sbm_classes` SET name = " + name +" WHERE ID LIKE "+ ID);
         }catch(Exception e){System.out.println(e);}
