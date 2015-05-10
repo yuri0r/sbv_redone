@@ -20,6 +20,15 @@ public class Classes {
         return null;
     }
     
+    public static ArrayList<String> getClassIDs(){
+         
+        try{
+        return Query.anyQuery("SELECT ID FROM sbm_classes");        
+        }catch(Exception e){System.out.println(e);}
+        return null;
+        
+    }
+    
     //all students in a class
     public static ArrayList<String> classList(int ID){
         try{

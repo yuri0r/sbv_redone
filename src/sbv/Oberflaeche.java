@@ -4,7 +4,10 @@ package sbv;
 
 import net.proteanit.sql.DbUtils;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.DefaultListModel; 
+
 public class Oberflaeche extends javax.swing.JFrame {
     
     static int currentPanel=1; 
@@ -57,16 +60,9 @@ public class Oberflaeche extends javax.swing.JFrame {
         schuelerTab = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         schuelerTbl = new javax.swing.JTable();
-        tgj23 = new javax.swing.JButton();
-        tgem = new javax.swing.JButton();
-        tgei = new javax.swing.JButton();
-        tgetm = new javax.swing.JButton();
-        tgj11 = new javax.swing.JButton();
-        tgj12 = new javax.swing.JButton();
-        tgj13 = new javax.swing.JButton();
-        tgj21 = new javax.swing.JButton();
-        tgj22 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        klassenList = new javax.swing.JList();
         buecherTab = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         buecherTable = new javax.swing.JTable();
@@ -113,19 +109,20 @@ public class Oberflaeche extends javax.swing.JFrame {
         homeTabLayout.setHorizontalGroup(
             homeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homeTabLayout.createSequentialGroup()
-                .addGap(453, 453, 453)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(400, 400, 400))
-            .addGroup(homeTabLayout.createSequentialGroup()
-                .addGap(300, 300, 300)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(schuelerCount, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(250, 250, 250)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(freieBuecher, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100))
+                .addGroup(homeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(homeTabLayout.createSequentialGroup()
+                        .addGap(453, 453, 453)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(homeTabLayout.createSequentialGroup()
+                        .addGap(300, 300, 300)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(schuelerCount, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(250, 250, 250)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(freieBuecher, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(236, 236, 236))
         );
         homeTabLayout.setVerticalGroup(
             homeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,6 +141,11 @@ public class Oberflaeche extends javax.swing.JFrame {
         basePanel.addTab("Home", homeTab);
 
         schuelerTab.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        schuelerTab.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                schuelerTabComponentAdded(evt);
+            }
+        });
 
         schuelerTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -158,69 +160,6 @@ public class Oberflaeche extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(schuelerTbl);
 
-        tgj23.setText("TGJ2/3");
-        tgj23.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tgj23ActionPerformed(evt);
-            }
-        });
-
-        tgem.setText("TGE/M");
-        tgem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tgemActionPerformed(evt);
-            }
-        });
-
-        tgei.setText("TGE/I");
-        tgei.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tgeiActionPerformed(evt);
-            }
-        });
-
-        tgetm.setText("TGE/TM");
-        tgetm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tgetmActionPerformed(evt);
-            }
-        });
-
-        tgj11.setText("TGJ1/1");
-        tgj11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tgj11ActionPerformed(evt);
-            }
-        });
-
-        tgj12.setText("TGJ1/2");
-        tgj12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tgj12ActionPerformed(evt);
-            }
-        });
-
-        tgj13.setText("TGJ1/3");
-        tgj13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tgj13ActionPerformed(evt);
-            }
-        });
-
-        tgj21.setText("TGJ2/1");
-        tgj21.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tgj21ActionPerformed(evt);
-            }
-        });
-
-        tgj22.setText("TGJ2/2");
-        tgj22.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tgj22ActionPerformed(evt);
-            }
-        });
-
         jButton1.setText("Export als PDF");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,22 +167,18 @@ public class Oberflaeche extends javax.swing.JFrame {
             }
         });
 
+        klassenList.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        klassenList.setModel(klassenListModel);
+        jScrollPane3.setViewportView(klassenList);
+
         javax.swing.GroupLayout schuelerTabLayout = new javax.swing.GroupLayout(schuelerTab);
         schuelerTab.setLayout(schuelerTabLayout);
         schuelerTabLayout.setHorizontalGroup(
             schuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(schuelerTabLayout.createSequentialGroup()
-                .addGroup(schuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tgei, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tgem, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tgetm, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tgj11, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tgj13, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tgj12, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tgj22, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tgj21, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tgj23, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 996, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, schuelerTabLayout.createSequentialGroup()
@@ -253,27 +188,11 @@ public class Oberflaeche extends javax.swing.JFrame {
         schuelerTabLayout.setVerticalGroup(
             schuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(schuelerTabLayout.createSequentialGroup()
-                .addGroup(schuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 639, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, schuelerTabLayout.createSequentialGroup()
+                .addGroup(schuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(schuelerTabLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(tgem)
-                        .addGap(50, 50, 50)
-                        .addComponent(tgei)
-                        .addGap(50, 50, 50)
-                        .addComponent(tgetm)
-                        .addGap(50, 50, 50)
-                        .addComponent(tgj11)
-                        .addGap(50, 50, 50)
-                        .addComponent(tgj12)
-                        .addGap(50, 50, 50)
-                        .addComponent(tgj13)
-                        .addGap(69, 69, 69)
-                        .addComponent(tgj21)
-                        .addGap(50, 50, 50)
-                        .addComponent(tgj22)
-                        .addGap(50, 50, 50)
-                        .addComponent(tgj23)))
+                        .addComponent(jScrollPane3))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 639, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(66, Short.MAX_VALUE))
@@ -366,54 +285,19 @@ public class Oberflaeche extends javax.swing.JFrame {
         UpdateTable("SELECT isbn, label, buy FROM sbm_books");
     }//GEN-LAST:event_buecherTableComponentShown
 
-    private void tgeiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tgeiActionPerformed
-        currentPanel = 2;
-        UpdateTable("SELECT surname AS Nachname, forename AS Vorname, birth AS Geburtstag FROM sbm_students WHERE class LIKE 'TGE/I' ORDER BY surname ASC");
-    }//GEN-LAST:event_tgeiActionPerformed
-
-    private void tgj13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tgj13ActionPerformed
-      currentPanel = 2;
-        UpdateTable("SELECT surname AS Nachname, forename AS Vorname, birth AS Geburtstag FROM sbm_students WHERE class LIKE 'TGJ1/3' ORDER BY surname ASC");
-    }//GEN-LAST:event_tgj13ActionPerformed
-
-    private void tgemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tgemActionPerformed
-        currentPanel = 2;
-        UpdateTable("SELECT surname AS Nachname, forename AS Vorname, birth AS Geburtstag FROM sbm_students WHERE class LIKE 'TGE/M' ORDER BY surname ASC");
-    }//GEN-LAST:event_tgemActionPerformed
-
-    private void tgetmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tgetmActionPerformed
-        currentPanel = 2;
-        UpdateTable("SELECT surname AS Nachname, forename AS Vorname, birth AS Geburtstag FROM sbm_students WHERE class LIKE 'TGE/TM' ORDER BY surname ASC");
-    }//GEN-LAST:event_tgetmActionPerformed
-
-    private void tgj11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tgj11ActionPerformed
-        currentPanel = 2;
-        UpdateTable("SELECT surname AS Nachname, forename AS Vorname, birth AS Geburtstag FROM sbm_students WHERE class LIKE 'TGJ1/1' ORDER BY surname ASC");
-    }//GEN-LAST:event_tgj11ActionPerformed
-
-    private void tgj12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tgj12ActionPerformed
-        currentPanel = 2;
-        UpdateTable("SELECT surname AS Nachname, forename AS Vorname, birth AS Geburtstag FROM sbm_students WHERE class LIKE 'TGJ1/2' ORDER BY surname ASC");
-    }//GEN-LAST:event_tgj12ActionPerformed
-
-    private void tgj21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tgj21ActionPerformed
-        currentPanel = 2;
-        UpdateTable("SELECT surname AS Nachname, forename AS Vorname, birth AS Geburtstag FROM sbm_students WHERE class LIKE 'TGJ2/1' ORDER BY surname ASC");
-    }//GEN-LAST:event_tgj21ActionPerformed
-
-    private void tgj22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tgj22ActionPerformed
-        currentPanel = 2;
-        UpdateTable("SELECT surname AS Nachname, forename AS Vorname, birth AS Geburtstag FROM sbm_students WHERE class LIKE 'TGJ2/2' ORDER BY surname ASC");
-    }//GEN-LAST:event_tgj22ActionPerformed
-
-    private void tgj23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tgj23ActionPerformed
-        currentPanel = 2;
-        UpdateTable("SELECT surname AS Nachname, forename AS Vorname, birth AS Geburtstag FROM sbm_students WHERE class LIKE 'TGJ2/3' ORDER BY surname ASC");
-    }//GEN-LAST:event_tgj23ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         PDF_Export.jPanelPdfExport(this.schuelerTab);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void schuelerTabComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_schuelerTabComponentAdded
+         DefaultListModel<String> klassenListModel = new DefaultListModel<>();
+             ArrayList<String> ids = new ArrayList();
+        ids = Classes.getClassIDs();
+        for(int i=0; i<=ids.size(); i++ ) {
+           klassenListModel.addElement(Classes.getClassName(i));       
+        }wwwwww
+        
+    }//GEN-LAST:event_schuelerTabComponentAdded
 
     /**private void panels() {
         schuelerTblPanel.setVisible(false);
@@ -457,7 +341,7 @@ public class Oberflaeche extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane basePanel;
+    public javax.swing.JTabbedPane basePanel;
     private javax.swing.JPanel buecherTab;
     private javax.swing.JTable buecherTable;
     private javax.swing.JLabel freieBuecher;
@@ -469,18 +353,11 @@ public class Oberflaeche extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    public static javax.swing.JList klassenList;
     private javax.swing.JPanel klassenTab;
     private javax.swing.JLabel schuelerCount;
-    private javax.swing.JPanel schuelerTab;
+    public javax.swing.JPanel schuelerTab;
     private javax.swing.JTable schuelerTbl;
-    private javax.swing.JButton tgei;
-    private javax.swing.JButton tgem;
-    private javax.swing.JButton tgetm;
-    private javax.swing.JButton tgj11;
-    private javax.swing.JButton tgj12;
-    private javax.swing.JButton tgj13;
-    private javax.swing.JButton tgj21;
-    private javax.swing.JButton tgj22;
-    private javax.swing.JButton tgj23;
     // End of variables declaration//GEN-END:variables
 }
