@@ -45,7 +45,7 @@ public class Classes {
     }
     
     //adds new class
-    public static void editClass(int ID, String name){
+    public static void editClass(String ID, String name){
         try{
             Query.anyUpdate("UPDATE `sbm_classes` SET name = " + name +" WHERE ID LIKE "+ ID);
         }catch(Exception e){System.out.println(e);}
