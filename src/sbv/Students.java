@@ -16,7 +16,7 @@ public class Students {
    //Schüler informationen abhängig vom der schülerID und einem index 
     public static String SingelStudent( String StudentId, int index){
         try{
-            ArrayList<String> result = Query.anyQuery("SELECT ID, forename, surname, birth, FROM sbm_students WHERE ID LIKE " + StudentId); 
+            ArrayList<String> result = Query.anyQuery("SELECT ID, forename, surname, birth FROM `sbm_students` WHERE ID LIKE '" + StudentId+"'"); 
             return result.get(index);     
         }catch(Exception e){System.out.println(e +"SingelStudent");}
         return null;

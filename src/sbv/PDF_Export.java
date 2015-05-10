@@ -61,23 +61,23 @@ public class PDF_Export {
     
     try{   
     Document document = new Document(PageSize.A4); 
-    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(Students.SingelStudent(studentID,2)+"-"+Students.SingelStudent(studentID,3)+".pdf"));
+    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(Students.SingelStudent(studentID,1)+"-"+Students.SingelStudent(studentID,2)+".pdf"));
      // Attributes
             document.addAuthor(System.getProperty("user.name"));
             document.addCreationDate();
             document.addCreator("Seminarkurs Programm Schulbuchverwaltung");
-            document.addTitle("PDF-Export Schüler "+Students.SingelStudent(studentID,2)+" "+Students.SingelStudent(studentID,3));
-            document.addSubject("PDF-Export des Schülers "+Students.SingelStudent(studentID,2)+" "+Students.SingelStudent(studentID,3));
+            document.addTitle("PDF-Export Schüler "+Students.SingelStudent(studentID,1)+" "+Students.SingelStudent(studentID,2));
+            document.addSubject("PDF-Export des Schülers "+Students.SingelStudent(studentID,1)+" "+Students.SingelStudent(studentID,2));
             
         
             document.open();
          
-            Paragraph titel1 = new Paragraph("Schüler: "+Students.SingelStudent(studentID,2)+" "+Students.SingelStudent(studentID,3),
+            Paragraph titel1 = new Paragraph("Schüler: "+Students.SingelStudent(studentID,1)+" "+Students.SingelStudent(studentID,2),
              FontFactory.getFont(FontFactory.HELVETICA,16, Font.BOLDITALIC)) ;
         Chapter chapter1 = new Chapter(titel1, 1);
         chapter1.setNumberDepth(0);
         
-        Paragraph titel2 = new Paragraph("Geburtsdatum: "+Students.SingelStudent(studentID,4),
+        Paragraph titel2 = new Paragraph("Geburtsdatum: "+Students.SingelStudent(studentID,3),
                 FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD));
    
       Section section1 = chapter1.addSection(titel2);

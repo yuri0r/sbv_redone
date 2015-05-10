@@ -282,7 +282,7 @@ public class Oberflaeche extends javax.swing.JFrame {
     }//GEN-LAST:event_buecherTabComponentShown
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        PDF_Export.jPanelPdfExport(this.schuelerTblPanel,"change me");
+        PDF_Export.studentPDF("66");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void schuelerTabComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_schuelerTabComponentAdded
@@ -309,9 +309,6 @@ public class Oberflaeche extends javax.swing.JFrame {
         UpdateTable(Books.BookList());
     }//GEN-LAST:event_buecherTblComponentAdded
 
-    /**private void panels() {
-        schuelerTblPanel.setVisible(false);
-    }*/
     
     
     /**
