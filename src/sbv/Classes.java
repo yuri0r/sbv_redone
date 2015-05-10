@@ -30,9 +30,9 @@ public class Classes {
     }
     
     //all students in a class
-    public static ArrayList<String> classList(int ID){
+    public static ArrayList<String> classList(String name){
         try{
-            return Query.anyQuery("SELECT sbm_students.ID, forename, surname, birth FROM  `sbm_students`, `sbm_students-classes` WHERE student_ID lIKE sbm_students.ID AND class_id LIKE "+ ID);   
+            return Query.anyQuery("SELECT sbm_students.ID, forename, surname, birth FROM  `sbm_students`, `sbm_students-classes`, `sbm_classes` WHERE student_ID lIKE sbm_students.ID AND sbm_classes.name LIKE '"+ name+ "'");   
         }catch(Exception e){System.out.println(e + "classList");}
         return null;
     }    
