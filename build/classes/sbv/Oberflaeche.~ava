@@ -2,45 +2,39 @@
 
 package sbv;
 
+import net.proteanit.sql.DbUtils;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.DefaultListModel; 
 
 public class Oberflaeche extends javax.swing.JFrame {
     
-    static int currentPanel = 1;
+    static int currentPanel=1; 
     Connection conn = null;
+    ResultSet rs = null;
+    PreparedStatement pst = null;
     
-    private void UpdateTable(ArrayList<String> data) {
+    private void UpdateTable(String sql) {
         try{
             conn = DbConnector.getConnection();
         }
         catch (Exception e){
             JOptionPane.showMessageDialog(null, e);
+        } 
+        try{
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            if(currentPanel == 3) {
+            buecherTable.setModel(DbUtils.resultSetToTableModel(rs));
+            }
+            if(currentPanel == 2) {
+            schuelerTbl.setModel(DbUtils.resultSetToTableModel(rs));
+            }
         }
-        
-        if(currentPanel == 2) {
-        String col[] = {"Nachname", "Vorname", "Geburtsdatum"};
-        DefaultTableModel schuelerModel = new DefaultTableModel(col, 0);
-        
-        for(int i=0; i<= data.size()-3;i=i+3) {
-            Object[] obj = {data.get(i+1),data.get(i),data.get(i+2)};
-            schuelerModel.addRow(obj);
-        }
-        schuelerTbl.setModel(schuelerModel);
-        }
-        
-        if(currentPanel == 3) {
-        String col[] = {"Label", "ISBN", "Preis", "Kaufbuch"};
-        DefaultTableModel buecherModel = new DefaultTableModel(col, 0);
-        
-        for(int i=0; i<= data.size()-4; i=i+4) {
-            Object[] obj = {data.get(i),data.get(i+1),data.get(i+2),data.get(i+4)};
-            buecherModel.addRow(obj);
-        }
-        buecherTbl.setModel(buecherModel);
-        }
+        catch (Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        } 
     }
     
     public Oberflaeche() {
@@ -64,20 +58,30 @@ public class Oberflaeche extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         freieBuecher = new javax.swing.JLabel();
         schuelerTab = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        schuelerTbl = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         klassenList = new javax.swing.JList();
-        schuelerTblPanel = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        schuelerTbl = new javax.swing.JTable();
         buecherTab = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        buecherTbl = new javax.swing.JTable();
+        buecherTable = new javax.swing.JTable();
         klassenTab = new javax.swing.JPanel();
 
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        basePanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                basePanelMouseClicked(evt);
+            }
+        });
+        basePanel.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                basePanelComponentShown(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 30)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -131,7 +135,7 @@ public class Oberflaeche extends javax.swing.JFrame {
                     .addComponent(schuelerCount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(freieBuecher, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(323, Short.MAX_VALUE))
+                .addContainerGap(431, Short.MAX_VALUE))
         );
 
         basePanel.addTab("Home", homeTab);
@@ -142,21 +146,6 @@ public class Oberflaeche extends javax.swing.JFrame {
                 schuelerTabComponentAdded(evt);
             }
         });
-
-        jButton1.setText("Export als PDF");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        klassenList.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        klassenList.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                klassenListMouseClicked(evt);
-            }
-        });
-        jScrollPane3.setViewportView(klassenList);
 
         schuelerTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -171,16 +160,23 @@ public class Oberflaeche extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(schuelerTbl);
 
-        javax.swing.GroupLayout schuelerTblPanelLayout = new javax.swing.GroupLayout(schuelerTblPanel);
-        schuelerTblPanel.setLayout(schuelerTblPanelLayout);
-        schuelerTblPanelLayout.setHorizontalGroup(
-            schuelerTblPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1044, Short.MAX_VALUE)
-        );
-        schuelerTblPanelLayout.setVerticalGroup(
-            schuelerTblPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        jButton1.setText("Export als PDF");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        klassenList.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+<<<<<<< HEAD
+        klassenList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                klassenListMouseClicked(evt);
+            }
+        });
+=======
+>>>>>>> origin/master
+        jScrollPane3.setViewportView(klassenList);
 
         javax.swing.GroupLayout schuelerTabLayout = new javax.swing.GroupLayout(schuelerTab);
         schuelerTab.setLayout(schuelerTabLayout);
@@ -188,25 +184,24 @@ public class Oberflaeche extends javax.swing.JFrame {
             schuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(schuelerTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(schuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(schuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(schuelerTabLayout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(schuelerTblPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 996, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(46, 46, 46))
         );
         schuelerTabLayout.setVerticalGroup(
             schuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(schuelerTabLayout.createSequentialGroup()
-                .addGroup(schuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(schuelerTblPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(schuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 639, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(schuelerTabLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane3)))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(50, 50, 50)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         basePanel.addTab("Schüler", schuelerTab);
@@ -217,7 +212,7 @@ public class Oberflaeche extends javax.swing.JFrame {
             }
         });
 
-        buecherTbl.setModel(new javax.swing.table.DefaultTableModel(
+        buecherTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -228,12 +223,12 @@ public class Oberflaeche extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        buecherTbl.addContainerListener(new java.awt.event.ContainerAdapter() {
-            public void componentAdded(java.awt.event.ContainerEvent evt) {
-                buecherTblComponentAdded(evt);
+        buecherTable.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                buecherTableComponentShown(evt);
             }
         });
-        jScrollPane1.setViewportView(buecherTbl);
+        jScrollPane1.setViewportView(buecherTable);
 
         javax.swing.GroupLayout buecherTabLayout = new javax.swing.GroupLayout(buecherTab);
         buecherTab.setLayout(buecherTabLayout);
@@ -243,7 +238,7 @@ public class Oberflaeche extends javax.swing.JFrame {
         );
         buecherTabLayout.setVerticalGroup(
             buecherTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
         );
 
         basePanel.addTab("Bücher", buecherTab);
@@ -256,7 +251,7 @@ public class Oberflaeche extends javax.swing.JFrame {
         );
         klassenTabLayout.setVerticalGroup(
             klassenTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 672, Short.MAX_VALUE)
+            .addGap(0, 780, Short.MAX_VALUE)
         );
 
         basePanel.addTab("Klassen", klassenTab);
@@ -271,18 +266,33 @@ public class Oberflaeche extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(basePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(basePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void basePanelComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_basePanelComponentShown
+        currentPanel = 3;
+        UpdateTable("SELECT isbn, label, buy FROM sbm_books");
+    }//GEN-LAST:event_basePanelComponentShown
+
+    private void basePanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_basePanelMouseClicked
+        currentPanel = 3;
+        UpdateTable("SELECT isbn, label, buy FROM sbm_books");
+    }//GEN-LAST:event_basePanelMouseClicked
+
     private void buecherTabComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_buecherTabComponentShown
         // TODO add your handling code here:
     }//GEN-LAST:event_buecherTabComponentShown
 
+    private void buecherTableComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_buecherTableComponentShown
+        currentPanel = 3;
+        UpdateTable("SELECT isbn, label, buy FROM sbm_books");
+    }//GEN-LAST:event_buecherTableComponentShown
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        PDF_Export.jPanelPdfExport(this.schuelerTblPanel,"change me");
+        PDF_Export.jPanelPdfExport(this.schuelerTab,"change me");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void schuelerTabComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_schuelerTabComponentAdded
@@ -293,21 +303,18 @@ public class Oberflaeche extends javax.swing.JFrame {
             names.add(Classes.getClassName(s));
         }
         klassenList.setListData(names.toArray());
+
+        
+          
     }//GEN-LAST:event_schuelerTabComponentAdded
 
     private void klassenListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_klassenListMouseClicked
-        currentPanel = 2;
         int index = klassenList.locationToIndex(evt.getPoint());
         ListModel dlm = klassenList.getModel();
         Object item = dlm.getElementAt(index);
         klassenList.ensureIndexIsVisible(index);
-        UpdateTable(Classes.classList(item.toString()));
+        
     }//GEN-LAST:event_klassenListMouseClicked
-
-    private void buecherTblComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_buecherTblComponentAdded
-        currentPanel = 3;
-        UpdateTable(Books.BookList());
-    }//GEN-LAST:event_buecherTblComponentAdded
 
     /**private void panels() {
         schuelerTblPanel.setVisible(false);
@@ -353,7 +360,7 @@ public class Oberflaeche extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTabbedPane basePanel;
     private javax.swing.JPanel buecherTab;
-    private javax.swing.JTable buecherTbl;
+    private javax.swing.JTable buecherTable;
     private javax.swing.JLabel freieBuecher;
     private javax.swing.JPanel homeTab;
     private javax.swing.JButton jButton1;
@@ -364,11 +371,10 @@ public class Oberflaeche extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    public static javax.swing.JList klassenList;
+    private javax.swing.JList klassenList;
     private javax.swing.JPanel klassenTab;
     private javax.swing.JLabel schuelerCount;
     public javax.swing.JPanel schuelerTab;
     private javax.swing.JTable schuelerTbl;
-    private javax.swing.JPanel schuelerTblPanel;
     // End of variables declaration//GEN-END:variables
 }

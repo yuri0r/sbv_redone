@@ -6,9 +6,9 @@ public class Books {
      
      
     //spits out an arralist of all books
-    public static ArrayList<String> BookList(String BookID){
+    public static ArrayList<String> BookList(){
         try{
-            return  Query.anyQuery("SELECT ID, label, isbn, price, buy FROM sbm_books");
+            return  Query.anyQuery("SELECT label, isbn, price, buy FROM sbm_books ORDER BY label");
         }catch(Exception e){System.out.println(e + "BookList");}
         return null;
     }
