@@ -5,7 +5,9 @@
  */
 package sbv;
 
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chapter;
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
@@ -86,40 +88,62 @@ public class PDF_Export {
       a1 = Books.studentBookList(studentID);
     
    
-           PdfPTable table = new PdfPTable(4);
-            table.setSpacingBefore(25);
+           PdfPTable table = new PdfPTable(5);
+           
+      table.setSpacingBefore(25);
       
       table.setSpacingAfter(25);
       
-      PdfPCell c1 = new PdfPCell(new Phrase("Name"));  
       
-      table.addCell(c1);
-      
-      PdfPCell c2 = new PdfPCell(new Phrase("Gekauft"));
+      PdfPCell c2 = new PdfPCell(new Phrase("Name",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD)));
       
       table.addCell(c2);
       
-      PdfPCell c3 = new PdfPCell(new Phrase("Geliehen"));
+      PdfPCell c3 = new PdfPCell(new Phrase("Gekauft",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD)));
       
       table.addCell(c3);
       
-      PdfPCell c4 = new PdfPCell(new Phrase("Bezahlt"));
+      PdfPCell c4 = new PdfPCell(new Phrase("Geliehen",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD)));
       
       table.addCell(c4);
+       PdfPCell c6 = new PdfPCell(new Phrase("Ausgegeben am",FontFactory.getFont(FontFactory.HELVETICA, 13, Font.BOLD)));
       
-      for(int i=0; i<((a1.size())/4);i++){
+      table.addCell(c6);
+      
+      PdfPCell c5 = new PdfPCell(new Phrase("Bezahlt",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD)));
+      
+      table.addCell(c5);
+      
+     
+     Paragraph kreuz = new Paragraph((new Chunk('\u2713', FontFactory.getFont(FontFactory.HELVETICA, 11, Font.BOLD))));
+     String a;
+      
+      for(int i=0; i<((a1.size())/5);i++){
       table.addCell(a1.get(i));
+      i++; 
+      a=a1.get(i);
+      if (a != "1"){
+      table.addCell("JA");   
+      table.addCell("NEIN"); 
+      }
+      else{
+       table.addCell("NEIN");
+       table.addCell("JA");
+      }
       i++;
       table.addCell(a1.get(i));
-      i++;
-      table.addCell(a1.get(i));
-      i++;
-      table.addCell(a1.get(i));
-      i++;
+      i++; 
+      a=a1.get(i);
+      if (a!="1"){
+         table.addCell("JA"); 
+      }
+      else{
+       table.addCell("NEIN");   
+      }
+    
       }
     
         document.add(chapter1); 
-        document.add(section1);
         document.add(table);
        
         

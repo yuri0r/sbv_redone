@@ -15,7 +15,7 @@ public class Books {
     
     public static ArrayList<String> studentBookList(String student_id){
         try{
-            return  Query.anyQuery("SELECT copy_id, label, bought, distributed, paid FROM sbm_copieshistory , sbm_books, sbm_copies WHERE sbm_books.ID LIKE book_id AND sbm_copies.ID LIKE copy_ID AND student_ID LIKE " + student_id);
+            return  Query.anyQuery("SELECT label, bought, distributed, paid FROM sbm_copieshistory , sbm_books, sbm_copies WHERE sbm_books.ID LIKE book_id AND sbm_copies.ID LIKE copy_ID AND student_ID LIKE " + student_id);
         }catch(Exception e){System.out.println(e + "BookList");}
         return null;
     } 
