@@ -76,13 +76,13 @@ public class PDF_Export {
          
             Paragraph titel1 = new Paragraph("Schüler: "+Students.SingelStudent(studentID,1)+" "+Students.SingelStudent(studentID,2),
              FontFactory.getFont(FontFactory.HELVETICA,16, Font.BOLDITALIC)) ;
+         Paragraph titel2 = new Paragraph("Geburtsdatum: "+Students.SingelStudent(studentID,3),
+                FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD));
+         
         Chapter chapter1 = new Chapter(titel1, 1);
         chapter1.setNumberDepth(0);
+        chapter1.add(titel2);
         
-        Paragraph titel2 = new Paragraph("Geburtsdatum: "+Students.SingelStudent(studentID,3),
-                FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD));
-   
-      Section section1 = chapter1.addSection(titel2);
       
       ArrayList<String> a1 = new ArrayList();
       a1 = Books.studentBookList(studentID);
@@ -118,11 +118,12 @@ public class PDF_Export {
      Paragraph kreuz = new Paragraph((new Chunk('\u2713', FontFactory.getFont(FontFactory.HELVETICA, 11, Font.BOLD))));
      String a;
       
-      for(int i=0; i<((a1.size())/5);i++){
-      table.addCell(a1.get(i));
+      for(int i=0; i<(a1.size());i++){
+       Paragraph titel3 = new Paragraph(a1.get(i),FontFactory.getFont(FontFactory.HELVETICA,9, Font.BOLD));   
+      table.addCell(titel3);
       i++; 
       a=a1.get(i);
-      if (a != "1"){
+      if (a == "1"){
       table.addCell("JA");   
       table.addCell("NEIN"); 
       }
