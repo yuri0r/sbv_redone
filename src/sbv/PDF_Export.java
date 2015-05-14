@@ -87,14 +87,14 @@ public class PDF_Export {
       ArrayList<String> a1 = new ArrayList();
       a1 = Books.studentBookList(studentID);
     
-   
-           PdfPTable table = new PdfPTable(5);
+            
+           PdfPTable table = new PdfPTable(5);//Tabelle mit 5 Spalten erstellen
            
       table.setSpacingBefore(25);
       
       table.setSpacingAfter(25);
       
-      
+      //5 Spalten benennen
       PdfPCell c2 = new PdfPCell(new Phrase("Name",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD)));
       
       table.addCell(c2);
@@ -115,27 +115,29 @@ public class PDF_Export {
       table.addCell(c5);
       
      
-     Paragraph kreuz = new Paragraph((new Chunk('\u2713', FontFactory.getFont(FontFactory.HELVETICA, 11, Font.BOLD))));
+    
      String a;
       
+      //Daten in die tabelle laden
       for(int i=0; i<(a1.size());i++){
        Paragraph titel3 = new Paragraph(a1.get(i),FontFactory.getFont(FontFactory.HELVETICA,9, Font.BOLD));   
       table.addCell(titel3);
       i++; 
       a=a1.get(i);
-      if (a == "1"){
-      table.addCell("JA");   
-      table.addCell("NEIN"); 
+      if (!"1".equals(a)){
+          table.addCell("NEIN");
+          table.addCell("JA"); 
       }
       else{
-       table.addCell("NEIN");
-       table.addCell("JA");
+          table.addCell("JA");
+          table.addCell("NEIN");
       }
       i++;
-      table.addCell(a1.get(i));
+      Paragraph titel4 = new Paragraph(a1.get(i),FontFactory.getFont(FontFactory.HELVETICA,11));
+      table.addCell(titel4);
       i++; 
       a=a1.get(i);
-      if (a!="1"){
+      if ("1".equals(a)){
          table.addCell("JA"); 
       }
       else{
@@ -144,7 +146,9 @@ public class PDF_Export {
     
       }
     
-        document.add(chapter1); 
+      
+      
+        document.add(chapter1); //Dokument Füllen
         document.add(table);
        
         
