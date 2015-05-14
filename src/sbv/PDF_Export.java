@@ -82,7 +82,7 @@ public class PDF_Export {
          ArrayList<String> a0 = new ArrayList();
          a0=Students.SingelStudentClasses(studentID);
          
-         Paragraph titel5 = new Paragraph("Klasse: "+a0.get(a0.size()),
+         Paragraph titel5 = new Paragraph("Klasse: "+a0.get(0),
                 FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD));
         Chapter chapter1 = new Chapter(titel1, 1);
         chapter1.setNumberDepth(0);
