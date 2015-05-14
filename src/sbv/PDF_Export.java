@@ -79,10 +79,15 @@ public class PDF_Export {
          Paragraph titel2 = new Paragraph("Geburtsdatum: "+Students.SingelStudent(studentID,3),
                 FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD));
          
+         ArrayList<String> a0 = new ArrayList();
+         a0=Students.SingelStudentClasses(studentID);
+         
+         Paragraph titel5 = new Paragraph("Klasse: "+a0.get(a0.size()),
+                FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD));
         Chapter chapter1 = new Chapter(titel1, 1);
         chapter1.setNumberDepth(0);
         chapter1.add(titel2);
-        
+        chapter1.add(titel5);
       
       ArrayList<String> a1 = new ArrayList();
       a1 = Books.studentBookList(studentID);
