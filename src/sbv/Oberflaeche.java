@@ -23,7 +23,13 @@ public class Oberflaeche extends javax.swing.JFrame {
         
         if(currentPanel == 2) {
         String col[] = {"Nachname", "Vorname", "Geburtsdatum"};
-        DefaultTableModel schuelerModel = new DefaultTableModel(col, 0);
+        DefaultTableModel schuelerModel = new DefaultTableModel(col, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+            //all cells false
+            return false;
+            }
+        };
         
         for(int i=0; i<= data.size()-4;i=i+4) {
             Object[] obj = {data.get(i+1),data.get(i),data.get(i+2)};
@@ -34,10 +40,16 @@ public class Oberflaeche extends javax.swing.JFrame {
         
         if(currentPanel == 3) {
         String col[] = {"Label", "ISBN", "Preis", "Kaufbuch"};
-        DefaultTableModel buecherModel = new DefaultTableModel(col, 0);
+        DefaultTableModel buecherModel = new DefaultTableModel(col, 0){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+            //all cells false
+            return false;
+            }
+        };
         
         for(int i=0; i<= data.size()-4; i=i+4) {
-            Object[] obj = {data.get(i),data.get(i+1),data.get(i+2),data.get(i+4)};
+            Object[] obj = {data.get(i),data.get(i+1),data.get(i+2),data.get(i+3)};
             buecherModel.addRow(obj);
         }
         buecherTbl.setModel(buecherModel);
@@ -65,7 +77,6 @@ public class Oberflaeche extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         freieBuecher = new javax.swing.JLabel();
         schuelerTab = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         klassenList = new javax.swing.JList();
         schuelerTblPanel = new javax.swing.JPanel();
@@ -80,6 +91,7 @@ public class Oberflaeche extends javax.swing.JFrame {
         schuelerBuecherTbl = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
         schuelerKlassenList = new javax.swing.JList();
+        jButton2 = new javax.swing.JButton();
         buecherTab = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         buecherTbl = new javax.swing.JTable();
@@ -153,13 +165,6 @@ public class Oberflaeche extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Export als PDF");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         klassenList.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         klassenList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -168,6 +173,7 @@ public class Oberflaeche extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(klassenList);
 
+        schuelerTbl.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         schuelerTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -179,6 +185,7 @@ public class Oberflaeche extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        schuelerTbl.setDragEnabled(true);
         schuelerTbl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 schuelerTblMouseClicked(evt);
@@ -203,12 +210,9 @@ public class Oberflaeche extends javax.swing.JFrame {
             schuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(schuelerTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(schuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(schuelerTabLayout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(schuelerTblPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(schuelerTblPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         schuelerTabLayout.setVerticalGroup(
@@ -219,9 +223,7 @@ public class Oberflaeche extends javax.swing.JFrame {
                     .addGroup(schuelerTabLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane3)))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(72, 72, 72))
         );
 
         einSchuelerTab.addTab("Schüler", schuelerTab);
@@ -260,6 +262,13 @@ public class Oberflaeche extends javax.swing.JFrame {
         });
         jScrollPane5.setViewportView(schuelerKlassenList);
 
+        jButton2.setText("Export als PDF");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -279,6 +288,10 @@ public class Oberflaeche extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(500, 500, 500)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,7 +309,9 @@ public class Oberflaeche extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(193, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(65, 65, 65))
         );
 
         einSchuelerTab.addTab("Einzelner Schueler", jPanel1);
@@ -371,10 +386,6 @@ public class Oberflaeche extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_buecherTabComponentShown
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        PDF_Export.studentPDF("69");
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void schuelerTabComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_schuelerTabComponentAdded
         ArrayList<String> ids = new ArrayList();
         ids = Classes.getClassIDs();
@@ -408,7 +419,30 @@ public class Oberflaeche extends javax.swing.JFrame {
         schuelerGeburt.setText(Students.SingelStudent(id, 3));
         schuelerKlassenList.setListData(Students.SingelStudentClasses(id).toArray());
         
+        String col[] = {"Label", "Gekauft", "Ausgegeben", "Bezahlt"};
+        DefaultTableModel schuelerBuecherModel = new DefaultTableModel(col, 0){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+            //all cells false
+            return false;
+            }
+        };
+        
+        ArrayList<String> buecher = Books.studentBookList(id);
+        
+        for(int i=0; i<= buecher.size()-4; i=i+4) {
+            Object[] obj = {buecher.get(i),buecher.get(i+1),buecher.get(i+2),buecher.get(i+3)};
+            schuelerBuecherModel.addRow(obj);
+        }
+        schuelerBuecherTbl.setModel(schuelerBuecherModel);       
     }//GEN-LAST:event_schuelerTblMouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        int row = schuelerTbl.getSelectedRow();
+        ArrayList<String> data = Classes.classList(momentaneKlasse);
+        String id = data.get(row*4+3);
+        PDF_Export.studentPDF(id);
+    }//GEN-LAST:event_jButton2MouseClicked
 
     
     
@@ -454,7 +488,7 @@ public class Oberflaeche extends javax.swing.JFrame {
     public javax.swing.JTabbedPane einSchuelerTab;
     private javax.swing.JLabel freieBuecher;
     private javax.swing.JPanel homeTab;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
