@@ -32,7 +32,7 @@ public class Classes {
     //all students in a class
     public static ArrayList<String> classList(String name){
         try{
-            return Query.anyQuery("SELECT forename, surname, birth FROM  `sbm_students`, `sbm_students-classes`, `sbm_classes` WHERE sbm_classes.ID LIKE class_ID AND student_ID lIKE sbm_students.ID AND name LIKE '"+ name+"' ORDER BY surname");   
+            return Query.anyQuery("SELECT forename, surname, birth, student_ID FROM  `sbm_students`, `sbm_students-classes`, `sbm_classes` WHERE sbm_classes.ID LIKE class_ID AND student_ID lIKE sbm_students.ID AND name LIKE '"+ name+"' ORDER BY surname");   
         }catch(Exception e){System.out.println(e);}
         return null;
     }    
