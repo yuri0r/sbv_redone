@@ -21,6 +21,14 @@ public class Students {
         }catch(Exception e){System.out.println(e +"SingelStudent");}
         return null;
     }
+    
+    public static ArrayList<String>  SingelStudentClasses ( String StudentId){
+        try{
+            ArrayList<String> result = Query.anyQuery("SELECT name FROM sbm_classes, `sbm_students-classes` WHERE 'sbm_students-classes.student_ID' LIKE "+ StudentId +" AND class_ID LIKE sbm_classes.ID"); 
+            return result;    
+        }catch(Exception e){System.out.println(e +"SingelStudent");}
+        return null;
+    }
         
     //edits Student 
     public static void editStudent(int ID, String forename, String surename,String birth){ //birth might bug needs testing
