@@ -404,6 +404,9 @@ public class Oberflaeche extends javax.swing.JFrame {
         int row = schuelerTbl.getSelectedRow();
         ArrayList<String> data = Classes.classList(momentaneKlasse);
         String id = data.get(row*4+3);
+        schuelerName.setText(Students.SingelStudent(id, 1) +" " +Students.SingelStudent(id, 2));
+        schuelerGeburt.setText(Students.SingelStudent(id, 3));
+        schuelerKlassenList.setListData(Students.SingelStudentClasses(id).toArray());
         
     }//GEN-LAST:event_schuelerTblMouseClicked
 
