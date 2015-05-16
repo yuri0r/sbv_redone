@@ -428,7 +428,7 @@ public class Oberflaeche extends javax.swing.JFrame {
             }
         };
         
-        ArrayList<String> buecher = Books.studentBookList(id);
+        ArrayList<String> buecher = Students.BookList(id);
         
         for(int i=0; i<= buecher.size()-4; i=i+4) {
             Object[] obj = {buecher.get(i),buecher.get(i+1),buecher.get(i+2),buecher.get(i+3)};

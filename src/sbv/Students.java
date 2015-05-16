@@ -22,6 +22,14 @@ public class Students {
         return null;
     }
     
+    //booklist of a student
+    public static ArrayList<String> BookList(String student_id){
+        try{
+            return  Query.anyQuery("SELECT label, bought, distributed, paid FROM sbm_copieshistory , sbm_books, sbm_copies WHERE sbm_books.ID LIKE book_id AND sbm_copies.ID LIKE copy_ID AND student_ID LIKE " + student_id);
+        }catch(Exception e){System.out.println(e + "BookList");}
+        return null;
+    } 
+    
     //copies to return
     public static String CopiesToReturn ( String StudentId){
         try{
