@@ -13,10 +13,6 @@ public class Books {
         return null;
     }
     
-
-    
-
-    
     //edits book
     public static void editBook(String ID, String label, String isbn, String price, boolean buy){
         try{
