@@ -20,8 +20,7 @@ public class Classes {
         return null;
     }
     
-    public static ArrayList<String> getClassIDs(){
-         
+    public static ArrayList<String> getClassIDs(){         
         try{
         return Query.anyQuery("SELECT ID FROM sbm_classes");        
         }catch(Exception e){System.out.println(e);}
@@ -44,7 +43,7 @@ public class Classes {
         }catch(Exception e){System.out.println(e);}
     }
     
-    //adds new class
+    //edits class
     public static void editClass(String ID, String name){
         try{
             Query.anyUpdate("UPDATE `sbm_classes` SET name = " + name +" WHERE ID LIKE "+ ID);

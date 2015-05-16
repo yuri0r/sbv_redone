@@ -5,10 +5,10 @@ import java.util.ArrayList;
 
 public class Students {
     
-    //TODO edit SQL statements
-    public static ArrayList<String> StudentsList( String StudentId, int index){
+    //All students
+    public static ArrayList<String> StudentsList(){
         try{
-            return Query.anyQuery("SELECT forename, surname, birth, name FROM sbm_students, sbm_classes, `sbm_students-classes` WHERE sbm_students.ID LIKE student_ID AND class_ID LIKE sbm_classes.ID");   
+            return Query.anyQuery("SELECT forename, surname, birth FROM sbm_students");   
         }catch(Exception e){System.out.println(e+ "StudentsList");}
         return null;
     }
@@ -22,11 +22,12 @@ public class Students {
         return null;
     }
     
-    public static String SingelStudentCopiesToReturn ( String StudentId){
+    //copies to return
+    public static String CopiesToReturn ( String StudentId){
         try{
             String result = Query.getString("SELECT COUNT(sbm_copieshistory.ID)FROM `sbm_copieshistory` WHERE bought LIKE '0' AND student_id LIKE '" + StudentId+"' GROUP BY student_id" , "(sbm_copieshistory.ID)");
             return result;     
-        }catch(Exception e){System.out.println(e +"SingelStudent");}
+        }catch(Exception e){System.out.println(e +"CopiesToReturn");}
         return null;
     }
     
@@ -34,7 +35,7 @@ public class Students {
         try{
             ArrayList<String> result = Query.anyQuery("SELECT name FROM sbm_classes, `sbm_students-classes` WHERE student_ID LIKE "+ StudentId +" AND class_ID LIKE sbm_classes.ID"); 
             return result;    
-        }catch(Exception e){System.out.println(e +"SingelStudent");}
+        }catch(Exception e){System.out.println(e +"SingelStudentClasses");}
         return null;
     }
         

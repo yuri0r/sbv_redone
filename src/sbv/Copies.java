@@ -41,13 +41,11 @@ public class Copies {
             }catch(Exception e){System.out.println(e + "collectCopy");}
     }
     
+    //Copy kaufen
     public static void copyBought(String copy_id){        
-        Date now = new Date();  	
-        Long longTime = now.getTime()/1000;
-        longTime.intValue();
             try {
-                Query.anyUpdate("UPDATE sbm_copieshistory SET collected = "+longTime+" WHERE copy_id LIKE " + copy_id);
-            }catch(Exception e){System.out.println(e + "collectCopy");}
+                Query.anyUpdate("UPDATE sbm_copieshistory SET bought = '1' WHERE copy_id LIKE " + copy_id);
+            }catch(Exception e){System.out.println(e + "copyBought");}
     }
     
     //copy erzeugen
