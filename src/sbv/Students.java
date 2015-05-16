@@ -22,6 +22,14 @@ public class Students {
         return null;
     }
     
+    public static String SingelStudentCopiesToReturn ( String StudentId){
+        try{
+            String result = Query.getString("SELECT COUNT(sbm_copieshistory.ID)FROM `sbm_copieshistory` WHERE bought LIKE '0' AND student_id LIKE '" + StudentId+"' GROUP BY student_id" , "(sbm_copieshistory.ID)");
+            return result;     
+        }catch(Exception e){System.out.println(e +"SingelStudent");}
+        return null;
+    }
+    
     public static ArrayList<String>  SingelStudentClasses ( String StudentId){
         try{
             ArrayList<String> result = Query.anyQuery("SELECT name FROM sbm_classes, `sbm_students-classes` WHERE student_ID LIKE "+ StudentId +" AND class_ID LIKE sbm_classes.ID"); 
