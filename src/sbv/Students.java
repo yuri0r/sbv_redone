@@ -33,7 +33,7 @@ public class Students {
     //copies to return
     public static String CopiesToReturn ( String StudentId){
         try{
-            String result = Query.getString("SELECT COUNT(sbm_copieshistory.ID)FROM `sbm_copieshistory` WHERE bought LIKE '0' AND student_id LIKE '" + StudentId+"' GROUP BY student_id" , "(sbm_copieshistory.ID)");
+            String result = Query.getString("SELECT COUNT(sbm_copieshistory.ID)FROM `sbm_copieshistory` WHERE bought LIKE '0' AND student_id LIKE '" + StudentId+"' GROUP BY student_id", "(sbm_copieshistory.ID)");
             return result;     
         }catch(Exception e){System.out.println(e +"CopiesToReturn");}
         return null;
