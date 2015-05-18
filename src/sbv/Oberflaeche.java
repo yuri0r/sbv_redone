@@ -363,9 +363,9 @@ public class Oberflaeche extends javax.swing.JFrame {
 
         tabPanel.addTab("Einzelner Schueler", einSchuelerTab);
 
-        buecherTab.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                buecherTabComponentShown(evt);
+        buecherTab.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                buecherTabComponentAdded(evt);
             }
         });
 
@@ -380,11 +380,6 @@ public class Oberflaeche extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        buecherTbl.addContainerListener(new java.awt.event.ContainerAdapter() {
-            public void componentAdded(java.awt.event.ContainerEvent evt) {
-                buecherTblComponentAdded(evt);
-            }
-        });
         jScrollPane1.setViewportView(buecherTbl);
 
         javax.swing.GroupLayout buecherTabLayout = new javax.swing.GroupLayout(buecherTab);
@@ -429,10 +424,6 @@ public class Oberflaeche extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buecherTabComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_buecherTabComponentShown
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buecherTabComponentShown
-
     private void schuelerTabComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_schuelerTabComponentAdded
         ArrayList<String> ids = new ArrayList();
         ids = Classes.getClassIDs();
@@ -454,11 +445,6 @@ public class Oberflaeche extends javax.swing.JFrame {
         UpdateTable(klasse);
         schuelerInKlasse = klasse.size()/4;
     }//GEN-LAST:event_klassenListMouseClicked
-
-    private void buecherTblComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_buecherTblComponentAdded
-        currentPanel = 3;
-        UpdateTable(Books.BookList());
-    }//GEN-LAST:event_buecherTblComponentAdded
 
     private void schuelerTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_schuelerTblMouseClicked
         schuelerRow = schuelerTbl.getSelectedRow();
@@ -516,6 +502,7 @@ public class Oberflaeche extends javax.swing.JFrame {
         if(schuelerRow == 0){
             schuelerZurueck.setVisible(true);
         }
+        
         schuelerRow = schuelerRow +1;
         ArrayList<String> data = Classes.classList(momentaneKlasse);
         String id = data.get(schuelerRow*4+3);
@@ -540,6 +527,7 @@ public class Oberflaeche extends javax.swing.JFrame {
             schuelerBuecherModel.addRow(obj);
         }
         schuelerBuecherTbl.setModel(schuelerBuecherModel);  
+       
         if(schuelerRow == schuelerInKlasse -1){
         schuelerWeiter.setVisible(false);
         }
@@ -549,6 +537,7 @@ public class Oberflaeche extends javax.swing.JFrame {
         if(schuelerRow == schuelerInKlasse -1){
             schuelerWeiter.setVisible(true);
         }
+        
         schuelerRow = schuelerRow -1;
         ArrayList<String> data = Classes.classList(momentaneKlasse);
         String id = data.get(schuelerRow*4+3);
@@ -573,10 +562,16 @@ public class Oberflaeche extends javax.swing.JFrame {
             schuelerBuecherModel.addRow(obj);
         }
         schuelerBuecherTbl.setModel(schuelerBuecherModel);  
+        
         if(schuelerRow == 0){
         schuelerZurueck.setVisible(false);
         }
     }//GEN-LAST:event_schuelerZurueckActionPerformed
+
+    private void buecherTabComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_buecherTabComponentAdded
+        currentPanel = 3;
+        UpdateTable(Books.BookList());
+    }//GEN-LAST:event_buecherTabComponentAdded
 
     
     
