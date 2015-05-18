@@ -13,3 +13,7 @@ hs_err_pid*
 /nbproject/private/
 /dist/
 nbproject/private/private.properties
+/build/
+build/built-jar.properties
+*.properties
+src/sbv/DbConnector.java
