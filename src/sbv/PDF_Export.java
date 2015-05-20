@@ -138,7 +138,7 @@ public class PDF_Export {
           table.addCell("NEIN");
       }
       i++;
-      Paragraph titel4 = new Paragraph(a1.get(i),FontFactory.getFont(FontFactory.HELVETICA,11));
+      Paragraph titel4 = new Paragraph(Date.ToNormal(a1.get(i)),FontFactory.getFont(FontFactory.HELVETICA,11));//just testing date formats
       table.addCell(titel4);
       i++; 
       a=a1.get(i);
