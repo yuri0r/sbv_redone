@@ -1,5 +1,7 @@
 package sbv;
 
+import java.util.ArrayList;
+
 public class BookGroups {
     
     //adds record
@@ -17,10 +19,11 @@ public class BookGroups {
     }
     
     //shows books inside a group
-    public static void BooksList(String class_id){
+    public static ArrayList<String> BooksList(String class_id){
         try{
-            Query.anyQuery("SELECT label FROM `sbm_classes-books`, `sbm_books` WHERE sbm_books.ID LIKE book_id AND class_id LIKE " +class_id);
+            return Query.anyQuery("SELECT label, isbn FROM `sbm_classes-books`, `sbm_books` WHERE sbm_books.ID LIKE book_id AND class_id LIKE '" +class_id +"'");
         }catch(Exception e){System.out.println(e +"AddRecord");}
+        return null;
     }
 }
 

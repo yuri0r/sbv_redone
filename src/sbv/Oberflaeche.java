@@ -40,6 +40,8 @@ public class Oberflaeche extends javax.swing.JFrame {
         schuelerTbl.setModel(schuelerModel);
         }
         
+        
+        
         if(currentPanel == 3) {
         String col[] = {"Label", "ISBN", "Preis", "Kaufbuch"};
         DefaultTableModel buecherModel = new DefaultTableModel(col, 0){
@@ -55,6 +57,25 @@ public class Oberflaeche extends javax.swing.JFrame {
             buecherModel.addRow(obj);
         }
         buecherTbl.setModel(buecherModel);
+        }
+        
+        
+        
+        if(currentPanel == 4) {
+        String col[] = {"Label", "ISBN"};
+        DefaultTableModel buecherKlasseModel = new DefaultTableModel(col, 0){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+            //all cells false
+            return false;
+            }
+        };
+        
+        for(int i=0; i<= data.size()-2; i=i+2) {
+            Object[] obj = {data.get(i), data.get(i+1)};
+            buecherKlasseModel.addRow(obj);
+        }
+        buecherKlassenTbl.setModel(buecherKlasseModel);
         }
     }
     
@@ -102,6 +123,10 @@ public class Oberflaeche extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         buecherTbl = new javax.swing.JTable();
         klassenTab = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        buchKlassenList = new javax.swing.JList();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        buecherKlassenTbl = new javax.swing.JTable();
 
         jLabel1.setText("jLabel1");
 
@@ -207,7 +232,10 @@ public class Oberflaeche extends javax.swing.JFrame {
         );
         schuelerTblPanelLayout.setVerticalGroup(
             schuelerTblPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(schuelerTblPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout schuelerTabLayout = new javax.swing.GroupLayout(schuelerTab);
@@ -225,7 +253,7 @@ public class Oberflaeche extends javax.swing.JFrame {
             schuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(schuelerTabLayout.createSequentialGroup()
                 .addGroup(schuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(schuelerTblPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(schuelerTblPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(schuelerTabLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane3)))
@@ -395,15 +423,61 @@ public class Oberflaeche extends javax.swing.JFrame {
 
         tabPanel.addTab("Bücher", buecherTab);
 
+        klassenTab.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                klassenTabComponentAdded(evt);
+            }
+        });
+
+        buchKlassenList.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        buchKlassenList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buchKlassenListMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(buchKlassenList);
+
+        buecherKlassenTbl.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        buecherKlassenTbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        buecherKlassenTbl.setDragEnabled(true);
+        buecherKlassenTbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buecherKlassenTblMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(buecherKlassenTbl);
+
         javax.swing.GroupLayout klassenTabLayout = new javax.swing.GroupLayout(klassenTab);
         klassenTab.setLayout(klassenTabLayout);
         klassenTabLayout.setHorizontalGroup(
             klassenTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1260, Short.MAX_VALUE)
+            .addGroup(klassenTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1044, Short.MAX_VALUE)
+                .addContainerGap())
         );
         klassenTabLayout.setVerticalGroup(
             klassenTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 672, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, klassenTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(klassenTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, klassenTabLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane6))
+                .addGap(72, 72, 72))
         );
 
         tabPanel.addTab("Klassen", klassenTab);
@@ -467,7 +541,7 @@ public class Oberflaeche extends javax.swing.JFrame {
         ArrayList<String> buecher = Students.BookList(id);
         
         for(int i=0; i<= buecher.size()-4; i=i+4) {
-            Object[] obj = {buecher.get(i),buecher.get(i+1),buecher.get(i+2),buecher.get(i+3)};
+            Object[] obj = {buecher.get(i),buecher.get(i+1),Date.ToNormal(buecher.get(i+2)),buecher.get(i+3)};
             schuelerBuecherModel.addRow(obj);
         }
         schuelerBuecherTbl.setModel(schuelerBuecherModel);  
@@ -523,7 +597,7 @@ public class Oberflaeche extends javax.swing.JFrame {
         ArrayList<String> buecher = Students.BookList(id);
         
         for(int i=0; i<= buecher.size()-4; i=i+4) {
-            Object[] obj = {buecher.get(i),buecher.get(i+1),buecher.get(i+2),buecher.get(i+3)};
+            Object[] obj = {buecher.get(i),buecher.get(i+1),Date.ToNormal(buecher.get(i+2)),buecher.get(i+3)};
             schuelerBuecherModel.addRow(obj);
         }
         schuelerBuecherTbl.setModel(schuelerBuecherModel);  
@@ -558,7 +632,7 @@ public class Oberflaeche extends javax.swing.JFrame {
         ArrayList<String> buecher = Students.BookList(id);
         
         for(int i=0; i<= buecher.size()-4; i=i+4) {
-            Object[] obj = {buecher.get(i),buecher.get(i+1),buecher.get(i+2),buecher.get(i+3)};
+            Object[] obj = {buecher.get(i),buecher.get(i+1),Date.ToNormal(buecher.get(i+2)),buecher.get(i+3)};
             schuelerBuecherModel.addRow(obj);
         }
         schuelerBuecherTbl.setModel(schuelerBuecherModel);  
@@ -572,6 +646,31 @@ public class Oberflaeche extends javax.swing.JFrame {
         currentPanel = 3;
         UpdateTable(Books.BookList());
     }//GEN-LAST:event_buecherTabComponentAdded
+
+    private void buchKlassenListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buchKlassenListMouseClicked
+        currentPanel = 4;
+        int index = buchKlassenList.locationToIndex(evt.getPoint());
+        ListModel dlm = buchKlassenList.getModel();
+        Object item = dlm.getElementAt(index);
+        String buecherKlasse = item.toString();
+        klassenList.ensureIndexIsVisible(index);
+        ArrayList<String> buchKlasse = BookGroups.BooksList(buecherKlasse);
+        UpdateTable(buchKlasse);
+    }//GEN-LAST:event_buchKlassenListMouseClicked
+
+    private void buecherKlassenTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buecherKlassenTblMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buecherKlassenTblMouseClicked
+
+    private void klassenTabComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_klassenTabComponentAdded
+        ArrayList<String> ids = new ArrayList();
+        ids = Classes.getClassIDs();
+        ArrayList<String> names = new ArrayList<>();
+        for(String s: ids) {
+            names.add(Classes.getClassName(s));
+        }
+        buchKlassenList.setListData(names.toArray());
+    }//GEN-LAST:event_klassenTabComponentAdded
 
     
     
@@ -612,6 +711,8 @@ public class Oberflaeche extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JList buchKlassenList;
+    private javax.swing.JTable buecherKlassenTbl;
     private javax.swing.JPanel buecherTab;
     private javax.swing.JTable buecherTbl;
     private javax.swing.JPanel einSchuelerTab;
@@ -630,6 +731,8 @@ public class Oberflaeche extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     public static javax.swing.JList klassenList;
     private javax.swing.JPanel klassenTab;
     private javax.swing.JTable schuelerBuecherTbl;
