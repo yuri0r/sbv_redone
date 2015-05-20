@@ -9,6 +9,7 @@ import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
@@ -21,6 +22,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Component;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
@@ -163,8 +165,7 @@ public class PDF_Export {
            
         
         
-    } catch (Exception e) {
-        e.printStackTrace();
+    } catch (FileNotFoundException | DocumentException e) {
     }
     
     }
