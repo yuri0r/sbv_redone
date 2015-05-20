@@ -17,3 +17,4 @@ nbproject/private/private.properties
 build/built-jar.properties
 *.properties
 src/sbv/DbConnector.java
+*.properties

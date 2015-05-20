@@ -36,6 +36,22 @@ public class Classes {
         return null;
     }    
     
+    //checks if student has a copy of a book
+    public static boolean[] BookGrupList(String class_id){
+        boolean results[] ;
+        ArrayList<String>  books = BookGroups.getBookIds(class_id);
+        ArrayList<String>  students = BookGroups.getStudentIds(class_id);
+        try{
+            for(int i;i<students.size();i++){
+                
+            }
+            
+            Query.anyUpdate("INSERT INTO `sbm_classes` SET name =" + name);  
+            return results;
+        }catch(Exception e){System.out.println(e);}
+        return null;
+    }
+    
     //adds new class
     public static void newClass(String name){
         try{
