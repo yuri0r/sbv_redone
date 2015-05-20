@@ -46,6 +46,34 @@ public class Students {
         }catch(Exception e){System.out.println(e +"SingelStudentClasses");}
         return null;
     }
+    
+        //checks if student has a copy of a book
+    public static boolean[] BookGroupListCheck(String class_id,String student_id){
+        boolean results[] = null ;
+        ArrayList<String>  books = BookGroups.getBookIds(class_id);
+        ArrayList<String>  students = BookGroups.getStudentIds(class_id);
+
+        try{
+            for(int i=0;i<students.size();i++){
+                ArrayList<String>  studentsBooks = Students.BookList(students.get(i));
+                for(int o=0;o<books.size();o++){
+                    for(int k=0;k < studentsBooks.size();k++){
+                        do{
+                            if(books.get(o)== studentsBooks.get(k)){
+                                results[o] = true;
+                            }
+                            else{
+                                results[o] = false;
+                            }
+                        }
+                        while(results[o] = false);                        
+                    }
+                }
+            } 
+        return results;
+        }catch(Exception e){System.out.println(e);}
+        return null;
+    }
         
     //edits Student 
     public static void editStudent(int ID, String forename, String surename,String birth){ //birth might bug needs testing
