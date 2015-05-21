@@ -21,9 +21,12 @@ import com.itextpdf.text.Section;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -169,6 +172,17 @@ public class PDF_Export {
     }
     
     }
+   
+   public static void openPDF() throws IOException{
+            Desktop.getDesktop().open(new File("Samuel-Csernalabics.pdf"));
+    
+       //try {
+		//		Desktop.getDesktop().open(new File("C:\\Users\\Philipp Csernalabics\\Desktop\\SBV Redone\\sbv_redone\\Samuel-Csernalabics.pdf"));
+			//} catch (IOException e1) {
+ 
+				//e1.printStackTrace();
+			//}
+   }
    
     /* TAKEN FROM: http://stackoverflow.com/questions/25579480/how-to-export-jpanel-with-scrollable-into-pdf-file */
     public static java.awt.Image getImageFromPanel(Component component) {

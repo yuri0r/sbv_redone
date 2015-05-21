@@ -2,8 +2,11 @@
 
 package sbv;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -570,6 +573,11 @@ public class Oberflaeche extends javax.swing.JFrame {
         ArrayList<String> data = Classes.classList(momentaneKlasse);
         String id = data.get(row*4+3);
         PDF_Export.studentPDF(id);
+        try {
+            PDF_Export.openPDF();
+        } catch (IOException ex) {
+            Logger.getLogger(Oberflaeche.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void schuelerWeiterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_schuelerWeiterActionPerformed
