@@ -33,7 +33,9 @@ import java.util.ArrayList;
  *
  * @author Philipp Csernalabics
  */
+
 public class PDF_Export {
+    static String pdfName;
        public static void jPanelPdfExport(Component panel) {
         try {
            
@@ -58,6 +60,7 @@ public class PDF_Export {
            
             doc.close();
             writer.close();
+            
            
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,10 +68,10 @@ public class PDF_Export {
     }
        
    public static void studentPDF(String studentID){
-    
+    pdfName=Students.SingelStudent(studentID,1)+"-"+Students.SingelStudent(studentID,2)+".pdf";
     try{   
     Document document = new Document(PageSize.A4); 
-    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(Students.SingelStudent(studentID,1)+"-"+Students.SingelStudent(studentID,2)+".pdf"));
+    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pdfName));
      // Attributes
             document.addAuthor(System.getProperty("user.name"));
             document.addCreationDate();
@@ -130,7 +133,7 @@ public class PDF_Export {
       
       //Daten in die tabelle laden
       for(int i=0; i<(a1.size());i++){
-       Paragraph titel3 = new Paragraph(a1.get(i),FontFactory.getFont(FontFactory.HELVETICA,9, Font.BOLD));   
+       Paragraph titel3 = new Paragraph(a1.get(i),FontFactory.getFont(FontFactory.HELVETICA,8, Font.BOLD));   
       table.addCell(titel3);
       i++; 
       a=a1.get(i);
@@ -173,8 +176,10 @@ public class PDF_Export {
     
     }
    
+   
+   
    public static void openPDF() throws IOException{
-            Desktop.getDesktop().open(new File("Samuel-Csernalabics.pdf"));
+            Desktop.getDesktop().open(new File(pdfName));
     
        //try {
 		//		Desktop.getDesktop().open(new File("C:\\Users\\Philipp Csernalabics\\Desktop\\SBV Redone\\sbv_redone\\Samuel-Csernalabics.pdf"));

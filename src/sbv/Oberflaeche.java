@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Oberflaeche extends javax.swing.JFrame {
     
+    static String schuelerId;
     static int schuelerInKlasse;
     static int schuelerRow;
     static String momentaneKlasse = null;
@@ -526,11 +527,11 @@ public class Oberflaeche extends javax.swing.JFrame {
     private void schuelerTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_schuelerTblMouseClicked
         schuelerRow = schuelerTbl.getSelectedRow();
         ArrayList<String> data = Classes.classList(momentaneKlasse);
-        String id = data.get(schuelerRow*4+3);
-        schuelerName.setText(Students.SingelStudent(id, 1) +" " +Students.SingelStudent(id, 2));
-        schuelerGeburt.setText(Students.SingelStudent(id, 3));
-        schuelerZurueckAnzahl.setText(Students.CopiesToReturn(id));
-        schuelerKlassenList.setListData(Students.SingelStudentClasses(id).toArray());
+        schuelerId = data.get(schuelerRow*4+3);
+        schuelerName.setText(Students.SingelStudent(schuelerId, 1) +" " +Students.SingelStudent(schuelerId, 2));
+        schuelerGeburt.setText(Students.SingelStudent(schuelerId, 3));
+        schuelerZurueckAnzahl.setText(Students.CopiesToReturn(schuelerId));
+        schuelerKlassenList.setListData(Students.SingelStudentClasses(schuelerId).toArray());
         
         String col[] = {"Label", "Gekauft", "Ausgegeben", "Bezahlt"};
         DefaultTableModel schuelerBuecherModel = new DefaultTableModel(col, 0){
@@ -541,7 +542,7 @@ public class Oberflaeche extends javax.swing.JFrame {
             }
         };
         
-        ArrayList<String> buecher = Students.BookList(id);
+        ArrayList<String> buecher = Students.BookList(schuelerId);
         
         for(int i=0; i<= buecher.size()-4; i=i+4) {
             Object[] obj = {buecher.get(i),buecher.get(i+1),Date.ToNormal(buecher.get(i+2)),buecher.get(i+3)};
@@ -569,10 +570,7 @@ public class Oberflaeche extends javax.swing.JFrame {
     }//GEN-LAST:event_schuelerTblMouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        int row = schuelerTbl.getSelectedRow();
-        ArrayList<String> data = Classes.classList(momentaneKlasse);
-        String id = data.get(row*4+3);
-        PDF_Export.studentPDF(id);
+        PDF_Export.studentPDF(schuelerId);
         try {
             PDF_Export.openPDF();
         } catch (IOException ex) {
@@ -587,11 +585,11 @@ public class Oberflaeche extends javax.swing.JFrame {
         
         schuelerRow = schuelerRow +1;
         ArrayList<String> data = Classes.classList(momentaneKlasse);
-        String id = data.get(schuelerRow*4+3);
-        schuelerName.setText(Students.SingelStudent(id, 1) +" " +Students.SingelStudent(id, 2));
-        schuelerGeburt.setText(Students.SingelStudent(id, 3));
-        schuelerZurueckAnzahl.setText(Students.CopiesToReturn(id));
-        schuelerKlassenList.setListData(Students.SingelStudentClasses(id).toArray());
+        schuelerId = data.get(schuelerRow*4+3);
+        schuelerName.setText(Students.SingelStudent(schuelerId, 1) +" " +Students.SingelStudent(schuelerId, 2));
+        schuelerGeburt.setText(Students.SingelStudent(schuelerId, 3));
+        schuelerZurueckAnzahl.setText(Students.CopiesToReturn(schuelerId));
+        schuelerKlassenList.setListData(Students.SingelStudentClasses(schuelerId).toArray());
         
         String col[] = {"Label", "Gekauft", "Ausgegeben", "Bezahlt"};
         DefaultTableModel schuelerBuecherModel = new DefaultTableModel(col, 0){
@@ -602,7 +600,7 @@ public class Oberflaeche extends javax.swing.JFrame {
             }
         };
         
-        ArrayList<String> buecher = Students.BookList(id);
+        ArrayList<String> buecher = Students.BookList(schuelerId);
         
         for(int i=0; i<= buecher.size()-4; i=i+4) {
             Object[] obj = {buecher.get(i),buecher.get(i+1),Date.ToNormal(buecher.get(i+2)),buecher.get(i+3)};
@@ -622,11 +620,11 @@ public class Oberflaeche extends javax.swing.JFrame {
         
         schuelerRow = schuelerRow -1;
         ArrayList<String> data = Classes.classList(momentaneKlasse);
-        String id = data.get(schuelerRow*4+3);
-        schuelerName.setText(Students.SingelStudent(id, 1) +" " +Students.SingelStudent(id, 2));
-        schuelerGeburt.setText(Students.SingelStudent(id, 3));
-        schuelerZurueckAnzahl.setText(Students.CopiesToReturn(id));
-        schuelerKlassenList.setListData(Students.SingelStudentClasses(id).toArray());
+        schuelerId = data.get(schuelerRow*4+3);
+        schuelerName.setText(Students.SingelStudent(schuelerId, 1) +" " +Students.SingelStudent(schuelerId, 2));
+        schuelerGeburt.setText(Students.SingelStudent(schuelerId, 3));
+        schuelerZurueckAnzahl.setText(Students.CopiesToReturn(schuelerId));
+        schuelerKlassenList.setListData(Students.SingelStudentClasses(schuelerId).toArray());
         
         String col[] = {"Label", "Gekauft", "Ausgegeben", "Bezahlt"};
         DefaultTableModel schuelerBuecherModel = new DefaultTableModel(col, 0){
@@ -637,7 +635,7 @@ public class Oberflaeche extends javax.swing.JFrame {
             }
         };
         
-        ArrayList<String> buecher = Students.BookList(id);
+        ArrayList<String> buecher = Students.BookList(schuelerId);
         
         for(int i=0; i<= buecher.size()-4; i=i+4) {
             Object[] obj = {buecher.get(i),buecher.get(i+1),Date.ToNormal(buecher.get(i+2)),buecher.get(i+3)};
