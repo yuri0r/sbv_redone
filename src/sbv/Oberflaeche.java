@@ -570,7 +570,7 @@ public class Oberflaeche extends javax.swing.JFrame {
     }//GEN-LAST:event_schuelerTblMouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        PDF_Export.studentPDF(schuelerId);
+        PDF_Export.studentPDF(schuelerId,this);
         try {
             PDF_Export.openPDF();
         } catch (IOException ex) {

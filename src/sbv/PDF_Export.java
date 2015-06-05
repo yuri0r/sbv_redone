@@ -28,6 +28,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -36,42 +37,22 @@ import java.util.ArrayList;
 
 public class PDF_Export {
     static String pdfName;
-       public static void jPanelPdfExport(Component panel) {
-        try {
-           
-            Document doc = new Document(PageSize.A4); // mach das rotate() weg für Hochkant
-            PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream("Beispiel_PDF.pdf"));
-           
-            // Attributes
-            doc.addAuthor(System.getProperty("user.name"));
-            doc.addCreationDate();
-            doc.addCreator("Seminarkurs Programm");
-            doc.addTitle("Beispiel, PDF-Export");
-            doc.addSubject("Dies soll ein Beispiel eines PDF-Exports sein.");
-           
-            doc.open();
-           
-            java.awt.Image image = getImageFromPanel(panel);
-            Image iTextImage = Image.getInstance(writer, image, 1);
-            iTextImage.setAlignment(Image.MIDDLE); // funktioniert nicht...
-            iTextImage.scaleToFit(PageSize.A4.rotate().getWidth()-100, PageSize.A4.rotate().getHeight()-100);
-           
-            doc.add(iTextImage);
-           
-            doc.close();
-            writer.close();
-            
-           
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    static String pathName; 
+    
+   public static void studentPDF(String studentID, Oberflaeche ob){
+    
        
-   public static void studentPDF(String studentID){
+    JFileChooser chooser = new JFileChooser();
+    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    int returnVal = chooser.showOpenDialog(ob);
+      
+    File savefile = chooser.getSelectedFile();
+    pathName = savefile.getPath();
+   
     pdfName=Students.SingelStudent(studentID,1)+"-"+Students.SingelStudent(studentID,2)+".pdf";
     try{   
     Document document = new Document(PageSize.A4); 
-    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pdfName));
+    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pathName +"\\"+ pdfName));
      // Attributes
             document.addAuthor(System.getProperty("user.name"));
             document.addCreationDate();
@@ -180,23 +161,6 @@ public class PDF_Export {
    
    public static void openPDF() throws IOException{
             Desktop.getDesktop().open(new File(pdfName));
-    
-       //try {
-		//		Desktop.getDesktop().open(new File("C:\\Users\\Philipp Csernalabics\\Desktop\\SBV Redone\\sbv_redone\\Samuel-Csernalabics.pdf"));
-			//} catch (IOException e1) {
- 
-				//e1.printStackTrace();
-			//}
    }
-   
-    /* TAKEN FROM: http://stackoverflow.com/questions/25579480/how-to-export-jpanel-with-scrollable-into-pdf-file */
-    public static java.awt.Image getImageFromPanel(Component component) {
-       
-        BufferedImage image = new BufferedImage(component.getWidth(),
-            component.getHeight(), BufferedImage.TYPE_INT_RGB);
-        component.paint(image.getGraphics());
-        return image;
-    }
-    
-  
+ 
 }
