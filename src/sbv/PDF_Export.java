@@ -46,7 +46,7 @@ public static void studentClassPDF(String class_ID, Oberflaeche ob){
     File savefile = chooser.getSelectedFile();
     pathName = savefile.getPath();
     
-    boolean ord = (new File(pathName+"\\"+class_ID)).mkdirs();
+    boolean ord = (new File(pathName+"\\"+Classes.getClassName(class_ID))).mkdirs();
     if (!ord) {
     // Directory creation failed
 }
