@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Oberflaeche extends javax.swing.JFrame {
     
+    static String momentaneKopie;
     static String schuelerId;
     static int schuelerInKlasse;
     static int schuelerRow;
@@ -96,7 +97,7 @@ public class Oberflaeche extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        tabPanel = new javax.swing.JTabbedPane();
+        basePanel = new javax.swing.JTabbedPane();
         homeTab = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -109,6 +110,7 @@ public class Oberflaeche extends javax.swing.JFrame {
         schuelerTblPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         schuelerTbl = new javax.swing.JTable();
+        klasseExportBtn = new javax.swing.JButton();
         einSchuelerTab = new javax.swing.JPanel();
         schuelerName = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -126,6 +128,21 @@ public class Oberflaeche extends javax.swing.JFrame {
         buecherTab = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         buecherTbl = new javax.swing.JTable();
+        einBuchTab = new javax.swing.JPanel();
+        einKopieTab = new javax.swing.JPanel();
+        eineKopieSuchen = new javax.swing.JTextField();
+        kopieLabel = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        kopieFore = new javax.swing.JLabel();
+        kopieSur = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        kopieDistributed = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        kopieBought = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        kopiePaid = new javax.swing.JLabel();
+        kopieEinsammeln = new javax.swing.JButton();
         klassenTab = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         buchKlassenList = new javax.swing.JList();
@@ -188,10 +205,10 @@ public class Oberflaeche extends javax.swing.JFrame {
                     .addComponent(schuelerCount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(freieBuecher, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(323, Short.MAX_VALUE))
+                .addContainerGap(334, Short.MAX_VALUE))
         );
 
-        tabPanel.addTab("Home", homeTab);
+        basePanel.addTab("Home", homeTab);
 
         schuelerTab.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         schuelerTab.addContainerListener(new java.awt.event.ContainerAdapter() {
@@ -242,15 +259,27 @@ public class Oberflaeche extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        klasseExportBtn.setText("Klasse als PDF Exportieren");
+        klasseExportBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                klasseExportBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout schuelerTabLayout = new javax.swing.GroupLayout(schuelerTab);
         schuelerTab.setLayout(schuelerTabLayout);
         schuelerTabLayout.setHorizontalGroup(
             schuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(schuelerTabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(schuelerTblPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(schuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(schuelerTabLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(schuelerTblPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(schuelerTabLayout.createSequentialGroup()
+                        .addGap(550, 550, 550)
+                        .addComponent(klasseExportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         schuelerTabLayout.setVerticalGroup(
@@ -261,10 +290,12 @@ public class Oberflaeche extends javax.swing.JFrame {
                     .addGroup(schuelerTabLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane3)))
-                .addGap(72, 72, 72))
+                .addGap(18, 18, 18)
+                .addComponent(klasseExportBtn)
+                .addContainerGap())
         );
 
-        tabPanel.addTab("Schüler", schuelerTab);
+        basePanel.addTab("Schüler", schuelerTab);
 
         schuelerName.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         schuelerName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -358,7 +389,7 @@ public class Oberflaeche extends javax.swing.JFrame {
                                         .addComponent(schuelerWeiter, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(einSchuelerTabLayout.createSequentialGroup()
                 .addGap(500, 500, 500)
@@ -388,12 +419,12 @@ public class Oberflaeche extends javax.swing.JFrame {
                         .addGroup(einSchuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(schuelerZurueck)
                             .addComponent(schuelerWeiter))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addGap(65, 65, 65))
         );
 
-        tabPanel.addTab("Einzelner Schueler", einSchuelerTab);
+        basePanel.addTab("Einzelner Schueler", einSchuelerTab);
 
         buecherTab.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
@@ -418,14 +449,126 @@ public class Oberflaeche extends javax.swing.JFrame {
         buecherTab.setLayout(buecherTabLayout);
         buecherTabLayout.setHorizontalGroup(
             buecherTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1260, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1299, Short.MAX_VALUE)
         );
         buecherTabLayout.setVerticalGroup(
             buecherTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
         );
 
-        tabPanel.addTab("Bücher", buecherTab);
+        basePanel.addTab("Bücher", buecherTab);
+
+        javax.swing.GroupLayout einBuchTabLayout = new javax.swing.GroupLayout(einBuchTab);
+        einBuchTab.setLayout(einBuchTabLayout);
+        einBuchTabLayout.setHorizontalGroup(
+            einBuchTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1299, Short.MAX_VALUE)
+        );
+        einBuchTabLayout.setVerticalGroup(
+            einBuchTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 683, Short.MAX_VALUE)
+        );
+
+        basePanel.addTab("Einzelnes Buch", einBuchTab);
+
+        eineKopieSuchen.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        eineKopieSuchen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eineKopieSuchenActionPerformed(evt);
+            }
+        });
+
+        kopieLabel.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        kopieLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        kopieLabel.setText("---");
+
+        jLabel5.setText("Ausgegeben an:");
+
+        jLabel9.setText("Ausgegeben am:");
+
+        jLabel10.setText("Gekauft:");
+
+        jLabel12.setText("Bezahlt:");
+
+        kopieEinsammeln.setText("Einsammeln");
+        kopieEinsammeln.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                kopieEinsammelnMouseClicked(evt);
+            }
+        });
+        kopieEinsammeln.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kopieEinsammelnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout einKopieTabLayout = new javax.swing.GroupLayout(einKopieTab);
+        einKopieTab.setLayout(einKopieTabLayout);
+        einKopieTabLayout.setHorizontalGroup(
+            einKopieTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(einKopieTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(einKopieTabLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(eineKopieSuchen, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(einKopieTabLayout.createSequentialGroup()
+                    .addGroup(einKopieTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, einKopieTabLayout.createSequentialGroup()
+                            .addGap(475, 475, 475)
+                            .addComponent(kopieLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, einKopieTabLayout.createSequentialGroup()
+                            .addGap(400, 400, 400)
+                            .addGroup(einKopieTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(360, 360, 360)
+                            .addGroup(einKopieTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(kopieDistributed, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(kopieFore, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(kopieBought, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(einKopieTabLayout.createSequentialGroup()
+                                    .addComponent(kopiePaid, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(kopieSur, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(einKopieTabLayout.createSequentialGroup()
+                .addGap(475, 475, 475)
+                .addComponent(kopieEinsammeln, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        einKopieTabLayout.setVerticalGroup(
+            einKopieTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(einKopieTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(eineKopieSuchen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(kopieLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(einKopieTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(kopieFore, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kopieSur, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(einKopieTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(kopieDistributed, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(einKopieTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(kopieBought, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(einKopieTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13)
+                    .addComponent(kopiePaid, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 225, Short.MAX_VALUE)
+                .addComponent(kopieEinsammeln, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(179, 179, 179))
+        );
+
+        basePanel.addTab("Einzelne Kopie", einKopieTab);
 
         klassenTab.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
@@ -469,7 +612,7 @@ public class Oberflaeche extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1044, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1083, Short.MAX_VALUE)
                 .addContainerGap())
         );
         klassenTabLayout.setVerticalGroup(
@@ -484,19 +627,19 @@ public class Oberflaeche extends javax.swing.JFrame {
                 .addGap(72, 72, 72))
         );
 
-        tabPanel.addTab("Klassen", klassenTab);
+        basePanel.addTab("Klassen", klassenTab);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(basePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(basePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -551,7 +694,7 @@ public class Oberflaeche extends javax.swing.JFrame {
         schuelerBuecherTbl.setModel(schuelerBuecherModel);  
         
         if(evt.getClickCount()==2) {
-            tabPanel.setSelectedIndex(2);
+            basePanel.setSelectedIndex(2);
         }
         
        
@@ -678,6 +821,35 @@ public class Oberflaeche extends javax.swing.JFrame {
         buchKlassenList.setListData(names.toArray());
     }//GEN-LAST:event_klassenTabComponentAdded
 
+    private void klasseExportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_klasseExportBtnActionPerformed
+        PDF_Export.studentClassPDF(momentaneKlasse, this);
+    }//GEN-LAST:event_klasseExportBtnActionPerformed
+
+    private void eineKopieSuchenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eineKopieSuchenActionPerformed
+        momentaneKopie = eineKopieSuchen.getText();
+        ArrayList<String> kopie = Copies.Singlecopy(momentaneKopie);
+        if(kopie.isEmpty() == true)
+            kopieLabel.setText("Nicht ausgeliehen");
+        else {
+            kopieLabel.setText(kopie.get(0));
+            kopieFore.setText(kopie.get(7));
+            kopieSur.setText(kopie.get(8));
+            kopieDistributed.setText(Date.ToNormal(kopie.get(2)));
+            kopieBought.setText(kopie.get(4));
+            kopiePaid.setText(kopie.get(6));
+        }
+        
+        
+    }//GEN-LAST:event_eineKopieSuchenActionPerformed
+
+    private void kopieEinsammelnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kopieEinsammelnActionPerformed
+        
+    }//GEN-LAST:event_kopieEinsammelnActionPerformed
+
+    private void kopieEinsammelnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kopieEinsammelnMouseClicked
+        Copies.collectCopy(momentaneKopie);
+    }//GEN-LAST:event_kopieEinsammelnMouseClicked
+
     
     
     /**
@@ -717,21 +889,30 @@ public class Oberflaeche extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JTabbedPane basePanel;
     public static javax.swing.JList buchKlassenList;
     private javax.swing.JTable buecherKlassenTbl;
     private javax.swing.JPanel buecherTab;
     private javax.swing.JTable buecherTbl;
+    private javax.swing.JPanel einBuchTab;
+    private javax.swing.JPanel einKopieTab;
     private javax.swing.JPanel einSchuelerTab;
+    private javax.swing.JTextField eineKopieSuchen;
     private javax.swing.JLabel freieBuecher;
     private javax.swing.JPanel homeTab;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -739,8 +920,16 @@ public class Oberflaeche extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JButton klasseExportBtn;
     public static javax.swing.JList klassenList;
     private javax.swing.JPanel klassenTab;
+    private javax.swing.JLabel kopieBought;
+    private javax.swing.JLabel kopieDistributed;
+    private javax.swing.JButton kopieEinsammeln;
+    private javax.swing.JLabel kopieFore;
+    private javax.swing.JLabel kopieLabel;
+    private javax.swing.JLabel kopiePaid;
+    private javax.swing.JLabel kopieSur;
     private javax.swing.JTable schuelerBuecherTbl;
     private javax.swing.JLabel schuelerCount;
     private javax.swing.JLabel schuelerGeburt;
@@ -752,6 +941,5 @@ public class Oberflaeche extends javax.swing.JFrame {
     private javax.swing.JButton schuelerWeiter;
     private javax.swing.JButton schuelerZurueck;
     private javax.swing.JLabel schuelerZurueckAnzahl;
-    public javax.swing.JTabbedPane tabPanel;
     // End of variables declaration//GEN-END:variables
 }

@@ -15,8 +15,15 @@ public class Copies {
     //Buch informationen abhängig vom der copyID und einem index zum durchschalten der einzelnen infos 
     public static String Singlecopy ( String copyId,int index){ 
         try{
-            ArrayList<String> result = Query.anyQuery("SELECT label, sbm_copieshistory.ID, distributed, collected, bought, notice, paid FROM sbm_copieshistory, sbm_copies, sbm_books, sbm_students WHERE sbm_books.ID = sbm_copies.book_id AND sbm_copieshistory.copy_id = sbm_copies.ID  AND sbm_copieshistory.student_id = sbm_students.ID AND sbm_copieshistory.ID LIKE "+copyId);
+            ArrayList<String> result = Query.anyQuery("SELECT label, sbm_copieshistory.ID, distributed, collected, bought, notice, paid FROM sbm_copieshistory, sbm_copies, sbm_books, sbm_students WHERE sbm_books.ID = sbm_copies.book_id AND sbm_copieshistory.copy_id = sbm_copies.ID  AND sbm_copieshistory.student_id = sbm_students.ID AND sbm_copieshistory.copy_id LIKE "+copyId);
             return result.get(index);
+            }catch(Exception e){System.out.println(e + "Singlecopy");}
+        return null;
+    }
+    
+    public static ArrayList<String> Singlecopy ( String copyId){ 
+        try{
+            return Query.anyQuery("SELECT label, sbm_copieshistory.ID, distributed, collected, bought, notice, paid, forename, surname FROM sbm_copieshistory, sbm_copies, sbm_books, sbm_students WHERE sbm_books.ID = sbm_copies.book_id AND sbm_copieshistory.copy_id = sbm_copies.ID  AND sbm_copieshistory.student_id = sbm_students.ID AND sbm_copieshistory.copy_id LIKE "+copyId);
             }catch(Exception e){System.out.println(e + "Singlecopy");}
         return null;
     }

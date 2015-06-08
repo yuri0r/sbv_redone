@@ -53,7 +53,7 @@ public static void studentClassPDF(String class_ID, Oberflaeche ob){
     ArrayList<String> a2 = new ArrayList();
       a2 = Classes.studentIDList(class_ID);
     for(int i=0; i<(a2.size());i++){
-    student1PDF(a2.get(i),pathName+"\\"+Classes.getClassName(class_ID)) ;   
+    student1PDF(a2.get(i),pathName+"\\"+class_ID) ;   
     }
 }    
    public static void studentPDF(String studentID, Oberflaeche ob){
