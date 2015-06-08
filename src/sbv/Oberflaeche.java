@@ -96,7 +96,7 @@ public class Oberflaeche extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        tabPanel = new javax.swing.JTabbedPane();
+        einBuchTab = new javax.swing.JTabbedPane();
         homeTab = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -126,6 +126,7 @@ public class Oberflaeche extends javax.swing.JFrame {
         buecherTab = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         buecherTbl = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
         klassenTab = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         buchKlassenList = new javax.swing.JList();
@@ -188,10 +189,10 @@ public class Oberflaeche extends javax.swing.JFrame {
                     .addComponent(schuelerCount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(freieBuecher, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(323, Short.MAX_VALUE))
+                .addContainerGap(334, Short.MAX_VALUE))
         );
 
-        tabPanel.addTab("Home", homeTab);
+        einBuchTab.addTab("Home", homeTab);
 
         schuelerTab.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         schuelerTab.addContainerListener(new java.awt.event.ContainerAdapter() {
@@ -264,7 +265,7 @@ public class Oberflaeche extends javax.swing.JFrame {
                 .addGap(72, 72, 72))
         );
 
-        tabPanel.addTab("Schüler", schuelerTab);
+        einBuchTab.addTab("Schüler", schuelerTab);
 
         schuelerName.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         schuelerName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -388,12 +389,12 @@ public class Oberflaeche extends javax.swing.JFrame {
                         .addGroup(einSchuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(schuelerZurueck)
                             .addComponent(schuelerWeiter))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addGap(65, 65, 65))
         );
 
-        tabPanel.addTab("Einzelner Schueler", einSchuelerTab);
+        einBuchTab.addTab("Einzelner Schueler", einSchuelerTab);
 
         buecherTab.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
@@ -422,10 +423,25 @@ public class Oberflaeche extends javax.swing.JFrame {
         );
         buecherTabLayout.setVerticalGroup(
             buecherTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
+            .addGroup(buecherTabLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 72, Short.MAX_VALUE))
         );
 
-        tabPanel.addTab("Bücher", buecherTab);
+        einBuchTab.addTab("Bücher", buecherTab);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1260, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 683, Short.MAX_VALUE)
+        );
+
+        einBuchTab.addTab("Einzelnes Buch", jPanel1);
 
         klassenTab.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
@@ -484,19 +500,19 @@ public class Oberflaeche extends javax.swing.JFrame {
                 .addGap(72, 72, 72))
         );
 
-        tabPanel.addTab("Klassen", klassenTab);
+        einBuchTab.addTab("Klassen", klassenTab);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(einBuchTab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(einBuchTab, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -551,7 +567,7 @@ public class Oberflaeche extends javax.swing.JFrame {
         schuelerBuecherTbl.setModel(schuelerBuecherModel);  
         
         if(evt.getClickCount()==2) {
-            tabPanel.setSelectedIndex(2);
+            einBuchTab.setSelectedIndex(2);
         }
         
        
@@ -721,6 +737,7 @@ public class Oberflaeche extends javax.swing.JFrame {
     private javax.swing.JTable buecherKlassenTbl;
     private javax.swing.JPanel buecherTab;
     private javax.swing.JTable buecherTbl;
+    public javax.swing.JTabbedPane einBuchTab;
     private javax.swing.JPanel einSchuelerTab;
     private javax.swing.JLabel freieBuecher;
     private javax.swing.JPanel homeTab;
@@ -732,6 +749,7 @@ public class Oberflaeche extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -752,6 +770,5 @@ public class Oberflaeche extends javax.swing.JFrame {
     private javax.swing.JButton schuelerWeiter;
     private javax.swing.JButton schuelerZurueck;
     private javax.swing.JLabel schuelerZurueckAnzahl;
-    public javax.swing.JTabbedPane tabPanel;
     // End of variables declaration//GEN-END:variables
 }
