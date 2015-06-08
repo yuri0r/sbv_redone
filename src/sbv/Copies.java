@@ -38,7 +38,7 @@ public class Copies {
         Long longTime = now.getTime()/1000;
         longTime.intValue();
             try {
-                Query.anyUpdate("UPDATE sbm_copieshistory SET collected = "+longTime+" WHERE copy_id LIKE " + copy_id);
+                Query.anyUpdate("DELETE FROM sbm_copieshistory WHERE copy_id LIKE"+ copy_id);
             }catch(Exception e){System.out.println(e + "collectCopy");}
     }
     
