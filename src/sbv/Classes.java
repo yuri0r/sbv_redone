@@ -13,7 +13,7 @@ public class Classes {
     }
     public static ArrayList<String> studentIDList(String ID){
         try{
-            return Query.anyQuery("SELECT student_ID FROM  `sbm_students`, `sbm_students-classes`, `sbm_classes` WHERE sbm_classes.ID LIKE class_ID AND student_ID lIKE sbm_students.ID AND class_ID lIKE " +ID);   
+            return Query.anyQuery("SELECT student_ID FROM  `sbm_students`, `sbm_students-classes`, `sbm_classes` WHERE sbm_classes.ID LIKE class_ID AND student_ID lIKE sbm_students.ID AND name lIKE " +ID);   
         }catch(Exception e){System.out.println(e);}
         return null;
     }
