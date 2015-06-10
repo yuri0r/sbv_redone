@@ -39,23 +39,47 @@ public class PDF_Export {
 
     
 public static void studentClassPDF(String class_ID, Oberflaeche ob){
+    String pathName2;
  JFileChooser chooser = new JFileChooser();
     chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
     int returnVal = chooser.showOpenDialog(ob);
       
     File savefile = chooser.getSelectedFile();
-    pathName = savefile.getPath();
+    pathName2 = savefile.getPath();
+    try{
+    Document document = new Document(PageSize.A4); 
     
-    boolean ord = (new File(pathName+"\\"+class_ID)).mkdirs();
-    if (!ord) {
-    // Directory creation failed
-}
+    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pathName2+"\\"+class_ID+".pdf"));
+  
     ArrayList<String> a2 = new ArrayList();
       a2 = Classes.studentIDList(class_ID);
+      document.addAuthor(System.getProperty("user.name"));
+            document.addCreationDate();
+            document.addCreator("Seminarkurs Programm Schulbuchverwaltung");
+            document.addTitle("PDF-Export von Klasse "+class_ID);
+            document.addSubject("PDF-Export des Schülers "+class_ID);
+            
+        
+    document.open();
+            
     for(int i=0; i<(a2.size());i++){
-    student1PDF(a2.get(i),pathName+"\\"+class_ID) ;   
+    PdfPTable table =student1PDF(a2.get(i)) ;
+    Chapter chapter = PdfChapter(a2.get(i));
+    document.add(chapter);
+    document.add(table);   
+    
     }
-}    
+    document.close();
+    writer.close();
+    
+    
+    }catch (FileNotFoundException | DocumentException e) {
+    }
+} 
+
+
+
+
    public static void studentPDF(String studentID, Oberflaeche ob){
     
        
@@ -174,37 +198,11 @@ public static void studentClassPDF(String class_ID, Oberflaeche ob){
     
     }
    
-public static void student1PDF(String studentID,String pathName){
+public static PdfPTable student1PDF(String studentID){
     
    
-    pdfName=Students.SingelStudent(studentID,1)+"-"+Students.SingelStudent(studentID,2)+".pdf";
-    try{   
-    Document document = new Document(PageSize.A4); 
-    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pathName +"\\"+ pdfName));
-     // Attributes
-            document.addAuthor(System.getProperty("user.name"));
-            document.addCreationDate();
-            document.addCreator("Seminarkurs Programm Schulbuchverwaltung");
-            document.addTitle("PDF-Export Schüler "+Students.SingelStudent(studentID,1)+" "+Students.SingelStudent(studentID,2));
-            document.addSubject("PDF-Export des Schülers "+Students.SingelStudent(studentID,1)+" "+Students.SingelStudent(studentID,2));
-            
-        
-            document.open();
-         
-            Paragraph titel1 = new Paragraph("Schüler: "+Students.SingelStudent(studentID,1)+" "+Students.SingelStudent(studentID,2),
-             FontFactory.getFont(FontFactory.HELVETICA,16, Font.BOLDITALIC)) ;
-         Paragraph titel2 = new Paragraph("Geburtsdatum: "+Students.SingelStudent(studentID,3),
-                FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD));
-         
-         ArrayList<String> a0 = new ArrayList();
-         a0=Students.SingelStudentClasses(studentID);
-         
-         Paragraph titel5 = new Paragraph("Klasse: "+a0.get(0),
-                FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD));
-        Chapter chapter1 = new Chapter(titel1, 1);
-        chapter1.setNumberDepth(0);
-        chapter1.add(titel2);
-        chapter1.add(titel5);
+    
+                
       
       ArrayList<String> a1 = new ArrayList();
       a1 = Students.BookList(studentID);
@@ -268,22 +266,28 @@ public static void student1PDF(String studentID,String pathName){
     
       }
       
-       document.add(chapter1); //Dokument Füllen
-        document.add(table);
-       
-      
-       
-        
-        
-     document.close();
-     writer.close();
-           
-        
-        
-    } catch (FileNotFoundException | DocumentException e) {
+      return table;
+     
     }
+
+   public static Chapter PdfChapter(String studentID){
     
-    }
+       Paragraph titel1 = new Paragraph("Schüler: "+Students.SingelStudent(studentID,1)+" "+Students.SingelStudent(studentID,2),
+             FontFactory.getFont(FontFactory.HELVETICA,16, Font.BOLDITALIC)) ;
+         Paragraph titel2 = new Paragraph("Geburtsdatum: "+Students.SingelStudent(studentID,3),
+                FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD));
+         
+         ArrayList<String> a0 = new ArrayList();
+         a0=Students.SingelStudentClasses(studentID);
+         
+         Paragraph titel5 = new Paragraph("Klasse: "+a0.get(0),
+                FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD));
+        Chapter chapter1 = new Chapter(titel1, 1);
+        chapter1.setNumberDepth(0);
+        chapter1.add(titel2);
+        chapter1.add(titel5);  
+        return chapter1;
+   }
       
    
    public static void openPDF() throws IOException{
