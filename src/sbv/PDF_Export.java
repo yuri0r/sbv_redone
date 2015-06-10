@@ -63,7 +63,7 @@ public static void studentClassPDF(String class_ID, Oberflaeche ob){
     document.open();
             
     for(int i=0; i<(a2.size());i++){
-    PdfPTable table =student1PDF(a2.get(i)) ;
+    PdfPTable table =studentPDFTable(a2.get(i),(Students.BookList(a2.get(i)).size())) ;
     Chapter chapter = PdfChapter(a2.get(i));
     document.add(chapter);
     document.add(table);   
@@ -104,27 +104,25 @@ public static void studentClassPDF(String class_ID, Oberflaeche ob){
         
             document.open();
          
-            Paragraph titel1 = new Paragraph("Schüler: "+Students.SingelStudent(studentID,1)+" "+Students.SingelStudent(studentID,2),
-             FontFactory.getFont(FontFactory.HELVETICA,16, Font.BOLDITALIC)) ;
-         Paragraph titel2 = new Paragraph("Geburtsdatum: "+Students.SingelStudent(studentID,3),
-                FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD));
-         
-         ArrayList<String> a0 = new ArrayList();
-         a0=Students.SingelStudentClasses(studentID);
-         
-         Paragraph titel5 = new Paragraph("Klasse: "+a0.get(0),
-                FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD));
-        Chapter chapter1 = new Chapter(titel1, 1);
-        chapter1.setNumberDepth(0);
-        chapter1.add(titel2);
-        chapter1.add(titel5);
+          Chapter chapter1 = PdfChapter(studentID);
       
-      ArrayList<String> a1 = new ArrayList();
+        ArrayList<String> a1 = new ArrayList();
       a1 = Students.BookList(studentID);
+     PdfPTable table = new PdfPTable(5); 
     
-      
-           PdfPTable table = new PdfPTable(5);//Tabelle mit 5 Spalten erstellen
+    if (((a1.size())/4)<29){
            
+     table = studentPDFTable(studentID, a1.size())  ;   
+      
+      }else{
+         PdfPTable table1 = studentPDFTable(studentID,29*4);//Tabelle mit 5 Spalten erstellen
+           
+      
+      document.add(table1);
+      document.newPage();
+      
+         
+      
       table.setSpacingBefore(25);
       
       table.setSpacingAfter(25);
@@ -154,7 +152,7 @@ public static void studentClassPDF(String class_ID, Oberflaeche ob){
      String a;
       
      //Daten in die tabelle laden
-      for(int i=0; i<(a1.size());i++){
+      for(int i=29*4; i<(a1.size());i++){
        Paragraph titel3 = new Paragraph(a1.get(i),FontFactory.getFont(FontFactory.HELVETICA,8, Font.BOLD));   
       table.addCell(titel3);
       i++; 
@@ -180,14 +178,11 @@ public static void studentClassPDF(String class_ID, Oberflaeche ob){
       }
     
       }
-      
-       document.add(chapter1); //Dokument Füllen
+       
+              }      
+        document.add(chapter1); //Dokument Füllen
         document.add(table);
-       
-      
-       
-        
-        
+             
      document.close();
      writer.close();
            
@@ -198,12 +193,8 @@ public static void studentClassPDF(String class_ID, Oberflaeche ob){
     
     }
    
-public static PdfPTable student1PDF(String studentID){
-    
-   
-    
-                
-      
+public static PdfPTable studentPDFTable(String studentID, int maxInd){
+          
       ArrayList<String> a1 = new ArrayList();
       a1 = Students.BookList(studentID);
     
@@ -239,7 +230,7 @@ public static PdfPTable student1PDF(String studentID){
      String a;
       
      //Daten in die tabelle laden
-      for(int i=0; i<(a1.size());i++){
+      for(int i=0; i<(maxInd);i++){
        Paragraph titel3 = new Paragraph(a1.get(i),FontFactory.getFont(FontFactory.HELVETICA,8, Font.BOLD));   
       table.addCell(titel3);
       i++; 
