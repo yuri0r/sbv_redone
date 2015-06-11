@@ -5,12 +5,26 @@ import java.util.ArrayList;
 public class Books {
      
      
-    //spits out an arralist of all books
+    //spits out an arraylist of all books
     public static ArrayList<String> BookList(){
         try{
             return  Query.anyQuery("SELECT label, isbn, price, buy FROM sbm_books ORDER BY label");
         }catch(Exception e){System.out.println(e + "BookList");}
         return null;
+    }
+    
+    //gives information on one book
+    public static ArrayList<String> singleBook(String sterm, int i){
+        if(i==0){
+            try{
+                return Query.anyQuery("SELECT label, isbn, price, buy FROM sbm_books WHERE isbn Like '" +sterm +"'");
+            }catch(Exception e){System.out.println(e +"singleBook");}
+        } else{
+            try{
+                return Query.anyQuery("SELECT label, isbn, price, buy FROM sbm_books WHERE label Like '" +sterm +"'");
+            }catch(Exception e){System.out.println(e +"singleBook");}    
+        }
+        return null;       
     }
     
     //edits book
