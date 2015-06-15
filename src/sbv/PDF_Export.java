@@ -27,8 +27,10 @@ import com.itextpdf.text.pdf.BarcodePostnet;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Desktop;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -216,9 +218,11 @@ public static void studentClassPDF(String class_ID, Oberflaeche ob){
         // CODE 128
         document.add(new Paragraph("Barcode 128"));
         Barcode128 code128 = new Barcode128();
+        code128.setCodeSet(Barcode128.Barcode128CodeSet.C);
         code128.setCode(bookID);
-        document.add(code128.createImageWithBarcode(cb, null, null));
-       
+         java.awt.Image image;
+         image = code128.createAwtImage(Color.black, Color.white);
+        new Thread(new PrintActionListener(image).start();  
             document.close();
             writer.close();
             
