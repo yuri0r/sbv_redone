@@ -12,11 +12,19 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.Section;
+import com.itextpdf.text.pdf.Barcode;
+import com.itextpdf.text.pdf.Barcode128;
+import com.itextpdf.text.pdf.Barcode39;
+import com.itextpdf.text.pdf.BarcodeEAN;
+import com.itextpdf.text.pdf.BarcodePostnet;
+import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Component;
@@ -193,6 +201,31 @@ public static void studentClassPDF(String class_ID, Oberflaeche ob){
     
     }
    
+   
+   public static void barcodeForNewBooks(String bookID)throws IOException, DocumentException{
+     try{
+       Document document = new Document(new Rectangle(340, 842));
+      PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("Buch"+bookID+".pdf"));
+     // Attributes
+        
+            
+            
+            document.open(); 
+             PdfContentByte cb = writer.getDirectContent();
+ 
+        // CODE 128
+        document.add(new Paragraph("Barcode 128"));
+        Barcode128 code128 = new Barcode128();
+        code128.setCode(bookID);
+        document.add(code128.createImageWithBarcode(cb, null, null));
+       
+            document.close();
+            writer.close();
+            
+           } catch (FileNotFoundException | DocumentException e) {
+    }   
+   }
+   
 public static PdfPTable studentPDFTable(String studentID, int maxInd){
           
       ArrayList<String> a1 = new ArrayList();
@@ -283,6 +316,17 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
    
    public static void openPDF() throws IOException{
             Desktop.getDesktop().open(new File(pdfName));
+   }
+   
+   public static Image BarcodeAusID(String bookID,PdfContentByte cb){
+    Barcode128 code128 = new Barcode128();
+        code128.setCode(bookID);
+        Image bCode = code128.createImageWithBarcode(cb, null, null);
+     
+    
+     
+     return bCode; 
+     
    }
  
 }
