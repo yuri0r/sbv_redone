@@ -30,13 +30,21 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Desktop;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.awt.print.Printable;
+import static java.awt.print.Printable.NO_SUCH_PAGE;
+import static java.awt.print.Printable.PAGE_EXISTS;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
+import sun.awt.image.ToolkitImage;
 
 /**
  *
@@ -205,29 +213,42 @@ public static void studentClassPDF(String class_ID, Oberflaeche ob){
    
    
    public static void barcodeForNewBooks(String bookID)throws IOException, DocumentException{
-     try{
-       Document document = new Document(new Rectangle(340, 842));
-      PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("Buch"+bookID+".pdf"));
-     // Attributes
-        
-            
-            
-            document.open(); 
-             PdfContentByte cb = writer.getDirectContent();
+   
  
-        // CODE 128
-        document.add(new Paragraph("Barcode 128"));
         Barcode128 code128 = new Barcode128();
+        code128.setCodeSet(Barcode128.Barcode128CodeSet.AUTO);
+        code128.setCodeType(Barcode128.CODE128_RAW);
+        code128.setGenerateChecksum(true);
+        code128.setCode(Barcode128.getRawText(bookID, true, Barcode128.Barcode128CodeSet.C));
+        code128.setBarHeight(23.04f);
+        code128.setBaseline(PAGE_EXISTS);
+        java.awt.Image image = code128.createAwtImage(Color.black, Color.white);
+         BufferedImage newImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
+
+   
+        Graphics2D bGr = newImage.createGraphics();
+        bGr.drawImage(image, 0, 0, null);
+        bGr.dispose();
+        new PrintActionListener(newImage).run();     
+            
+   }
+   
+   public static void barcodeTestPDF(String bookID)throws IOException, DocumentException{
+    Document document = new Document(PageSize.A4); 
+    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("book.pdf"));
+    document.open();
+    PdfContentByte cb = writer.getDirectContent();
+ 
+        Barcode128 code128 = new Barcode128();
+        code128.setGenerateChecksum(true);
         code128.setCodeSet(Barcode128.Barcode128CodeSet.C);
         code128.setCode(bookID);
-         java.awt.Image image;
-         image = code128.createAwtImage(Color.black, Color.white);
-        new Thread(new PrintActionListener(image).start();  
-            document.close();
-            writer.close();
-            
-           } catch (FileNotFoundException | DocumentException e) {
-    }   
+        code128.setN(1f);
+        document.add(code128.createImageWithBarcode(cb, BaseColor.BLACK, BaseColor.BLACK));
+        code128.setBarHeight(16f);
+        document.add(code128.createImageWithBarcode(cb, BaseColor.BLACK, BaseColor.BLACK));
+        document.close();
+        writer.close();
    }
    
 public static PdfPTable studentPDFTable(String studentID, int maxInd){
@@ -322,15 +343,17 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
             Desktop.getDesktop().open(new File(pdfName));
    }
    
-   public static Image BarcodeAusID(String bookID,PdfContentByte cb){
+   public static java.awt.Image ImageOfBarcode(String bookID){
     Barcode128 code128 = new Barcode128();
-        code128.setCode(bookID);
-        Image bCode = code128.createImageWithBarcode(cb, null, null);
-     
+        code128.setCodeSet(Barcode128.Barcode128CodeSet.AUTO);
+        code128.setCodeType(Barcode128.CODE128_RAW);
+        code128.setGenerateChecksum(true);
+        code128.setCode(Barcode128.getRawText(bookID, true, Barcode128.Barcode128CodeSet.C));
+        java.awt.Image image = code128.createAwtImage(Color.black, Color.white);
     
      
-     return bCode; 
+     return image; 
      
    }
- 
+   
 }
