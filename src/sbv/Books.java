@@ -17,7 +17,7 @@ public class Books {
     public static ArrayList<String> singleBook(String sterm, int i){
         if(i==0){
             try{
-                return Query.anyQuery("SELECT label, isbn, price, buy FROM sbm_books WHERE isbn Like '" +sterm +"'");
+                return Query.anyQuery("SELECT label, isbn, price, buy, ID FROM sbm_books WHERE isbn Like '" +sterm +"'");
             }catch(Exception e){System.out.println(e +"singleBook");}
         } else{
             try{
