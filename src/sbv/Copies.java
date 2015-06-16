@@ -69,4 +69,12 @@ public class Copies {
             Query.anyQuery("DELETE FROM sbm_copies WHERE ID = "+ ID);
         }catch(Exception e){System.out.println(e + "addCopy");} 
     }
+    
+    //nächste freie ID abrufen
+    public static int newID(){
+        try{
+            return Integer.parseInt(Query.anyQuery("SELECT ID FROM sbm_copies SORT BY ID DESC").get(0))+1;
+        }catch(Exception e){System.out.println(e + "newID");} 
+        return 0;
+    }
 }

@@ -128,18 +128,6 @@ public class Oberflaeche extends javax.swing.JFrame {
         buecherTab = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         buecherTbl = new javax.swing.JTable();
-        einBuchTab = new javax.swing.JPanel();
-        einBuchLabel = new javax.swing.JLabel();
-        einBuchISBNL = new javax.swing.JLabel();
-        einBuchISBN = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        einBuchKauf = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        einBuchPreis = new javax.swing.JLabel();
-        isbnSuche = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
-        labelSuche = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
         einKopieTab = new javax.swing.JPanel();
         eineKopieSuchen = new javax.swing.JTextField();
         kopieLabel = new javax.swing.JLabel();
@@ -160,6 +148,21 @@ public class Oberflaeche extends javax.swing.JFrame {
         buchKlassenList = new javax.swing.JList();
         jScrollPane7 = new javax.swing.JScrollPane();
         buecherKlassenTbl = new javax.swing.JTable();
+        einBuchTab = new javax.swing.JPanel();
+        einBuchLabel = new javax.swing.JLabel();
+        einBuchISBNL = new javax.swing.JLabel();
+        einBuchISBN = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        einBuchKauf = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        einBuchPreis = new javax.swing.JLabel();
+        isbnSuche = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        labelSuche = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        neuKopieBtn = new javax.swing.JButton();
+        neuKopieAnzahl = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -475,105 +478,6 @@ public class Oberflaeche extends javax.swing.JFrame {
 
         basePanel.addTab("Bücher", buecherTab);
 
-        einBuchLabel.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
-        einBuchLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        einBuchLabel.setText("- - - - -");
-
-        einBuchISBNL.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        einBuchISBNL.setText("ISBN:");
-
-        einBuchISBN.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        einBuchISBN.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-
-        jLabel11.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jLabel11.setText("Kaufbuch:");
-
-        einBuchKauf.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        einBuchKauf.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-
-        jLabel14.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jLabel14.setText("Preis:");
-
-        einBuchPreis.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        einBuchPreis.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-
-        isbnSuche.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        isbnSuche.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                isbnSucheActionPerformed(evt);
-            }
-        });
-
-        jLabel16.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jLabel16.setText("Nach ISBN suchen");
-
-        labelSuche.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        labelSuche.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                labelSucheActionPerformed(evt);
-            }
-        });
-
-        jLabel17.setText("Nach Buchlabel suchen");
-
-        javax.swing.GroupLayout einBuchTabLayout = new javax.swing.GroupLayout(einBuchTab);
-        einBuchTab.setLayout(einBuchTabLayout);
-        einBuchTabLayout.setHorizontalGroup(
-            einBuchTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(einBuchTabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(einBuchTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(einBuchTabLayout.createSequentialGroup()
-                        .addComponent(labelSuche, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(260, 260, 260)
-                        .addGroup(einBuchTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(einBuchTabLayout.createSequentialGroup()
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(einBuchPreis, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(einBuchTabLayout.createSequentialGroup()
-                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(einBuchKauf, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(einBuchTabLayout.createSequentialGroup()
-                                .addComponent(einBuchISBNL, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(einBuchISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(einBuchLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel16)
-                    .addComponent(isbnSuche, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17)))
-        );
-        einBuchTabLayout.setVerticalGroup(
-            einBuchTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(einBuchTabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(isbnSuche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel16)
-                .addGap(12, 12, 12)
-                .addGroup(einBuchTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(einBuchLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelSuche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel17)
-                .addGap(45, 45, 45)
-                .addGroup(einBuchTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(einBuchISBNL)
-                    .addComponent(einBuchISBN))
-                .addGap(50, 50, 50)
-                .addGroup(einBuchTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(einBuchKauf))
-                .addGap(50, 50, 50)
-                .addGroup(einBuchTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(einBuchPreis))
-                .addContainerGap())
-        );
-
-        basePanel.addTab("Einzelnes Buch", einBuchTab);
-
         eineKopieSuchen.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         eineKopieSuchen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -756,6 +660,138 @@ public class Oberflaeche extends javax.swing.JFrame {
         );
 
         basePanel.addTab("Klassen", klassenTab);
+
+        einBuchLabel.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
+        einBuchLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        einBuchLabel.setText("- - - - -");
+
+        einBuchISBNL.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        einBuchISBNL.setText("ISBN:");
+
+        einBuchISBN.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        einBuchISBN.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+
+        jLabel11.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jLabel11.setText("Kaufbuch:");
+
+        einBuchKauf.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        einBuchKauf.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+
+        jLabel14.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jLabel14.setText("Preis:");
+
+        einBuchPreis.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        einBuchPreis.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+
+        isbnSuche.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        isbnSuche.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                isbnSucheActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jLabel16.setText("Nach ISBN suchen");
+
+        labelSuche.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        labelSuche.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                labelSucheActionPerformed(evt);
+            }
+        });
+
+        jLabel17.setText("Nach Buchlabel suchen");
+
+        neuKopieBtn.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
+        neuKopieBtn.setText("Neue Kopie erstellen");
+        neuKopieBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                neuKopieBtnMouseClicked(evt);
+            }
+        });
+
+        neuKopieAnzahl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                neuKopieAnzahlActionPerformed(evt);
+            }
+        });
+
+        jLabel18.setText("Anzahl an neuen Kopien");
+
+        javax.swing.GroupLayout einBuchTabLayout = new javax.swing.GroupLayout(einBuchTab);
+        einBuchTab.setLayout(einBuchTabLayout);
+        einBuchTabLayout.setHorizontalGroup(
+            einBuchTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(einBuchTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(einBuchTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(einBuchTabLayout.createSequentialGroup()
+                        .addGroup(einBuchTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(einBuchTabLayout.createSequentialGroup()
+                                .addComponent(labelSuche, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(260, 260, 260)
+                                .addGroup(einBuchTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(einBuchTabLayout.createSequentialGroup()
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(einBuchKauf, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(einBuchTabLayout.createSequentialGroup()
+                                        .addComponent(einBuchISBNL, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(einBuchISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(einBuchLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(einBuchTabLayout.createSequentialGroup()
+                                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(einBuchPreis, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel16)
+                            .addComponent(isbnSuche, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17))
+                        .addGap(429, 429, 429))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, einBuchTabLayout.createSequentialGroup()
+                        .addGroup(einBuchTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(einBuchTabLayout.createSequentialGroup()
+                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(neuKopieAnzahl, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(neuKopieBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(486, 486, 486))))
+        );
+        einBuchTabLayout.setVerticalGroup(
+            einBuchTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(einBuchTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(isbnSuche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel16)
+                .addGap(12, 12, 12)
+                .addGroup(einBuchTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelSuche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(einBuchLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel17)
+                .addGap(45, 45, 45)
+                .addGroup(einBuchTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(einBuchISBNL)
+                    .addComponent(einBuchISBN))
+                .addGap(50, 50, 50)
+                .addGroup(einBuchTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(einBuchKauf))
+                .addGap(50, 50, 50)
+                .addGroup(einBuchTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(einBuchPreis))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 235, Short.MAX_VALUE)
+                .addComponent(neuKopieBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(einBuchTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(neuKopieAnzahl, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(91, 91, 91))
+        );
+
+        basePanel.addTab("Einzelnes Buch", einBuchTab);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1016,6 +1052,14 @@ public class Oberflaeche extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_labelSucheActionPerformed
 
+    private void neuKopieBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_neuKopieBtnMouseClicked
+        
+    }//GEN-LAST:event_neuKopieBtnMouseClicked
+
+    private void neuKopieAnzahlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neuKopieAnzahlActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_neuKopieAnzahlActionPerformed
+
     
     
     /**
@@ -1082,6 +1126,7 @@ public class Oberflaeche extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1108,6 +1153,8 @@ public class Oberflaeche extends javax.swing.JFrame {
     private javax.swing.JLabel kopiePaid;
     private javax.swing.JLabel kopieSur;
     private javax.swing.JTextField labelSuche;
+    private javax.swing.JTextField neuKopieAnzahl;
+    private javax.swing.JButton neuKopieBtn;
     private javax.swing.JTable schuelerBuecherTbl;
     private javax.swing.JLabel schuelerCount;
     private javax.swing.JLabel schuelerGeburt;
