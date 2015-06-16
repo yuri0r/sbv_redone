@@ -33,16 +33,30 @@ import java.awt.Desktop;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.awt.print.PageFormat;
+import java.awt.print.Paper;
 import java.awt.print.Printable;
 import static java.awt.print.Printable.NO_SUCH_PAGE;
 import static java.awt.print.Printable.PAGE_EXISTS;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import javax.print.Doc;
+import javax.print.DocFlavor;
+import javax.print.DocPrintJob;
+import javax.print.PrintException;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.SimpleDoc;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.Sides;
 import javax.swing.JFileChooser;
 import sun.awt.image.ToolkitImage;
 
@@ -215,27 +229,13 @@ public static void studentClassPDF(String class_ID, Oberflaeche ob){
    public static void barcodeForNewBooks(String bookID)throws IOException, DocumentException{
    
  
-        Barcode128 code128 = new Barcode128();
-        code128.setCodeSet(Barcode128.Barcode128CodeSet.AUTO);
-        code128.setCodeType(Barcode128.CODE128_RAW);
-        code128.setGenerateChecksum(true);
-        code128.setCode(Barcode128.getRawText(bookID, true, Barcode128.Barcode128CodeSet.C));
-        code128.setBarHeight(23.04f);
-        code128.setBaseline(PAGE_EXISTS);
-        java.awt.Image image = code128.createAwtImage(Color.black, Color.white);
-         BufferedImage newImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
-
-   
-        Graphics2D bGr = newImage.createGraphics();
-        bGr.drawImage(image, 0, 0, null);
-        bGr.dispose();
-        new PrintActionListener(newImage).run();     
+         
             
    }
    
-   public static void barcodeTestPDF(String bookID)throws IOException, DocumentException{
-    Document document = new Document(PageSize.A4); 
-    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("book.pdf"));
+   public static void barcodeTestPDF(String bookID)throws IOException, DocumentException, PrintException{
+    Document document = new Document( new Rectangle(160,100)); 
+    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(bookID+".pdf"));
     document.open();
     PdfContentByte cb = writer.getDirectContent();
  
@@ -243,12 +243,38 @@ public static void studentClassPDF(String class_ID, Oberflaeche ob){
         code128.setGenerateChecksum(true);
         code128.setCodeSet(Barcode128.Barcode128CodeSet.C);
         code128.setCode(bookID);
-        code128.setN(1f);
-        document.add(code128.createImageWithBarcode(cb, BaseColor.BLACK, BaseColor.BLACK));
+        code128.setN(3f);
         code128.setBarHeight(16f);
-        document.add(code128.createImageWithBarcode(cb, BaseColor.BLACK, BaseColor.BLACK));
+        Image image =code128.createImageWithBarcode(cb, BaseColor.BLACK, BaseColor.BLACK);
+        image.scaleToFit(100,62);
+        image.setAbsolutePosition(25, 30);
+        document.add(image);
         document.close();
         writer.close();
+   
+    PrintService[] ps = PrintServiceLookup.lookupPrintServices(null,null);
+    if (ps.length == 0) {
+        throw new IllegalStateException("No Printer found");
+    }
+    System.out.println("Available printers: " + Arrays.asList(ps));
+
+    PrintService myService = null;
+    for (PrintService printService : ps) {
+        if (printService.getName().equals("Brother QL-570")) {
+            myService = printService;
+            break;
+        }
+    }
+
+    if (myService == null) {
+        throw new IllegalStateException("Printer not found");
+    }
+
+    FileInputStream fis = new FileInputStream(bookID+".pdf");
+    Doc pdfDoc = new SimpleDoc(fis, null, null);
+    DocPrintJob printJob = myService.createPrintJob();
+    printJob.print(pdfDoc, new HashPrintRequestAttributeSet());
+    fis.close();  
    }
    
 public static PdfPTable studentPDFTable(String studentID, int maxInd){
