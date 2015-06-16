@@ -233,48 +233,27 @@ public static void studentClassPDF(String class_ID, Oberflaeche ob){
             
    }
    
-   public static void barcodeTestPDF(String bookID)throws IOException, DocumentException, PrintException{
+   public static void barcodePDF(int bookID, int anz)throws IOException, DocumentException, PrintException{
     Document document = new Document( new Rectangle(160,100)); 
-    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(bookID+".pdf"));
+    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("Barcodes\\"+bookID+".pdf"));
     document.open();
     PdfContentByte cb = writer.getDirectContent();
- 
+     for(int i=0 ;i<anz ;i++){
         Barcode128 code128 = new Barcode128();
         code128.setGenerateChecksum(true);
         code128.setCodeSet(Barcode128.Barcode128CodeSet.C);
-        code128.setCode(bookID);
+        code128.setCode(String.valueOf((bookID+i)));
         code128.setN(3f);
         code128.setBarHeight(16f);
         Image image =code128.createImageWithBarcode(cb, BaseColor.BLACK, BaseColor.BLACK);
         image.scaleToFit(100,62);
         image.setAbsolutePosition(25, 30);
         document.add(image);
+        document.newPage();
+     }
         document.close();
         writer.close();
    
-    PrintService[] ps = PrintServiceLookup.lookupPrintServices(null,null);
-    if (ps.length == 0) {
-        throw new IllegalStateException("No Printer found");
-    }
-    System.out.println("Available printers: " + Arrays.asList(ps));
-
-    PrintService myService = null;
-    for (PrintService printService : ps) {
-        if (printService.getName().equals("Brother QL-570")) {
-            myService = printService;
-            break;
-        }
-    }
-
-    if (myService == null) {
-        throw new IllegalStateException("Printer not found");
-    }
-
-    FileInputStream fis = new FileInputStream(bookID+".pdf");
-    Doc pdfDoc = new SimpleDoc(fis, null, null);
-    DocPrintJob printJob = myService.createPrintJob();
-    printJob.print(pdfDoc, new HashPrintRequestAttributeSet());
-    fis.close();  
    }
    
 public static PdfPTable studentPDFTable(String studentID, int maxInd){
