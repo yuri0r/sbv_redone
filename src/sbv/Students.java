@@ -52,6 +52,7 @@ public class Students {
         boolean results[] = null ;
         ArrayList<String>  books = BookGroups.getBookIds(class_id);
         ArrayList<String>  students = BookGroups.getStudentIds(class_id);
+        boolean stahp =true;
 
         try{
             for(int i=0;i<students.size();i++){
@@ -65,8 +66,11 @@ public class Students {
                             else{
                                 results[o] = false;
                             }
+                            if (k == studentsBooks.size()){   
+                                stahp=false;
+                            }
                         }
-                        while(results[o] = false);                        
+                        while( results[o] || stahp == false);                        
                     }
                 }
             } 
