@@ -12,6 +12,12 @@ public class Books {
         }catch(Exception e){System.out.println(e + "BookList");}
         return null;
     }
+      public static ArrayList<String> BookIDList(){
+        try{
+            return  Query.anyQuery("SELECT ID FROM sbm_books ORDER BY ID");
+        }catch(Exception e){System.out.println(e + "BookIDList");}
+        return null;
+    }
     
     //gives information on one book
     public static ArrayList<String> singleBook(String sterm, int i){
@@ -26,6 +32,16 @@ public class Books {
         }
         return null;       
     }
+    
+     public static ArrayList<String> singleBookName(String sterm){
+        
+            try{
+                return Query.anyQuery("SELECT label FROM sbm_books WHERE ID Like '" +sterm +"'");
+            }catch(Exception e){System.out.println(e +"singleBook");}
+          return null;       
+     
+        }
+       
     
     //edits book
     public static void editBook(String ID, String label, String isbn, String price, boolean buy){

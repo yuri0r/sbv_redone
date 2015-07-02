@@ -361,4 +361,120 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
      
    }
    
+   
+   public static void bestandPDF(Oberflaeche ob){
+       
+   
+    JFileChooser chooser = new JFileChooser();
+    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    int returnVal = chooser.showOpenDialog(ob);
+      
+    File savefile = chooser.getSelectedFile();
+    pathName = savefile.getPath();
+   
+    pdfName="Bücher Bestand.pdf";
+    try{   
+    Document document = new Document(PageSize.A4); 
+    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pathName +"\\"+ pdfName));
+     // Attributes
+            document.addAuthor(System.getProperty("user.name"));
+            document.addCreationDate();
+            document.addCreator("Seminarkurs Programm Schulbuchverwaltung");
+            document.addTitle("PDF-Export Buch Bestand ");
+            document.addSubject("PDF-Export Buch Bestand ");
+            
+        
+            document.open();
+         
+          Chapter chapter1 = PdfChapter("Bestand vom "+System.getProperty("date"));
+      
+        ArrayList<String> a1 = new ArrayList();
+      a1 = Books.BookIDList();
+       PdfPTable table1 = new PdfPTable(5); 
+    //Tabelle mit 5 Spalten erstellen
+         
+      
+      table1.setSpacingBefore(25);
+      
+      table1.setSpacingAfter(25);
+      
+      //5 Spalten benennen
+      PdfPCell c22 = new PdfPCell(new Phrase("Buch Name",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD)));
+      
+      table1.addCell(c22);
+      
+      PdfPCell c33 = new PdfPCell(new Phrase("Momentan Asgehiehen",FontFactory.getFont(FontFactory.HELVETICA, 13, Font.BOLD)));
+      
+      table1.addCell(c33);
+      
+      PdfPCell c44 = new PdfPCell(new Phrase("Verkauft",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD)));
+      
+      table1.addCell(c44);
+       PdfPCell c11 = new PdfPCell(new Phrase("Im Lager",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD)));
+      
+      table1.addCell(c11);
+      
+      PdfPCell c55 = new PdfPCell(new Phrase("Gesammt",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD)));
+      
+      table1.addCell(c55);
+     
+      
+     //Daten in die tabelle laden
+     for(int i=0; i<(29*4);i++){
+      table1.addCell(Books.singleBookName(a1.get(i)).get(0));
+     table1.addCell(Copies.borrowedCopyCount(a1.get(i)));
+     table1.addCell(Copies.boughtCopyCount(a1.get(i)));
+     table1.addCell(Copies.CopiesInStock(a1.get(i)));
+     table1.addCell(Copies.SingleCopyCountTotal(a1.get(i)).get(0));
+     
+     }           
+        document.add(chapter1); //Dokument Füllen
+        
+        document.newPage();
+      PdfPTable table = new PdfPTable(5); 
+    //Tabelle mit 5 Spalten erstellen
+         
+      
+      table.setSpacingBefore(25);
+      
+      table.setSpacingAfter(25);
+      
+      //5 Spalten benennen
+      PdfPCell c2 = new PdfPCell(new Phrase("Buch Name",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD)));
+      
+      table.addCell(c2);
+      
+      PdfPCell c3 = new PdfPCell(new Phrase("Momentan Asgehiehen",FontFactory.getFont(FontFactory.HELVETICA, 13, Font.BOLD)));
+      
+      table.addCell(c3);
+      
+      PdfPCell c4 = new PdfPCell(new Phrase("Verkauft",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD)));
+      
+      table.addCell(c4);
+       PdfPCell c1 = new PdfPCell(new Phrase("Im Lager",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD)));
+      
+      table.addCell(c1);
+      
+      PdfPCell c5 = new PdfPCell(new Phrase("Gesammt",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD)));
+      
+      table.addCell(c5);
+     
+     for(int i=29*4; i<(a1.size());i++){
+     table.addCell(Books.singleBookName(a1.get(i)).get(0));
+     table.addCell(Copies.borrowedCopyCount(a1.get(i)));
+     table.addCell(Copies.boughtCopyCount(a1.get(i)));
+     table.addCell(Copies.CopiesInStock(a1.get(i)));
+     table.addCell(Copies.SingleCopyCountTotal(a1.get(i)).get(0));
+    
+      }   
+     
+     document.add(table);       
+     document.close();
+     writer.close();
+           
+    }catch (FileNotFoundException | DocumentException e) {
+    }
+           
+       
+   }
 }
