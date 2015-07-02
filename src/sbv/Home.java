@@ -1,7 +1,8 @@
 package sbv;
 
+   import java.util.ArrayList; 
 public class Home {
-    
+
     //Cureent Students count
     public static String StudentsCount(){
         try{
@@ -21,10 +22,15 @@ public class Home {
     //returns number of copies in Stock
     public static String CauchtCopyCount(){//statement is still wrong and broken
         try{
-            int allI = Integer.parseInt(Query.getString("SELECT COUNT(sbm_copies.ID) FROM sbm_copies", "SELECT COUNT(sbm_copies.ID"));
-            int historyI = Integer.parseInt(Home.AllCopyCount());            
-            int result = Integer.parseInt(Query.getString("SELECT COUNT(sbm_copies.ID) FROM sbm_copieshistory , sbm_copies WHERE bought = 0 AND collected LIKE '%' AND copy_id LIKE sbm_copies.ID","COUNT(ID)")) + (allI - historyI);
-        return Integer.toString(result);
+            //brokenint all = Integer.parseInt(Query.getString("SELECT COUNT(ID) FROM sbm_copies","COUNT(ID)"));
+            
+            //ArrayList<String>  list =(Query.anyQuery("SELECT COUNT(ID) FROM sbm_copies"));
+            //String allS = list.get(0);
+            int all = Integer.parseInt(Query.getString("SELECT COUNT(ID) FROM sbm_copies","COUNT(ID)"));
+            int history = Integer.parseInt(Home.AllCopyCount());            
+            int catchedhistory = Integer.parseInt(Query.getString("SELECT COUNT(sbm_copies.ID) FROM sbm_copieshistory , sbm_copies WHERE bought = 0 AND collected LIKE '%' AND copy_id LIKE sbm_copies.ID","COUNT(sbm_copies.ID)"));
+            int result = catchedhistory + (all - history);
+            return Integer.toString(result);
         }catch(Exception e){System.out.println(e + "CauchtCopyCount");}
         return null;
     } 
