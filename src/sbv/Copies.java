@@ -89,23 +89,23 @@ public class Copies {
     }
     
     //copy erzeugen
-    public static void addCopy(String book_id){
+    public static void addCopy(String book_id, int ID){
         try{
-            Query.anyQuery("INSERT INTO sbm_copies SET book_id = "+ book_id);
+            Query.anyUpdate("INSERT INTO sbm_copies SET book_id = "+ book_id + " , ID = " + ID);
         }catch(Exception e){System.out.println(e + "addCopy");} 
     }
     
     //copy löschen
     public static void deleteCopy(String ID){
         try{
-            Query.anyQuery("DELETE FROM sbm_copies WHERE ID = "+ ID);
+            Query.anyUpdate("DELETE FROM sbm_copies WHERE ID = "+ ID);
         }catch(Exception e){System.out.println(e + "addCopy");} 
     }
     
     //nächste freie ID abrufen
     public static int newID(){
         try{
-            return Integer.parseInt(Query.anyQuery("SELECT ID FROM sbm_copies SORT BY ID DESC").get(0))+1;
+            return Integer.parseInt(Query.anyQuery("SELECT ID FROM sbm_copies Order BY ID DESC").get(0))+1;
         }catch(Exception e){System.out.println(e + "newID");} 
         return 0;
     }

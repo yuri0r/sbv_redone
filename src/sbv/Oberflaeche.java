@@ -1012,6 +1012,7 @@ public class Oberflaeche extends javax.swing.JFrame {
 
     private void kopieEinsammelnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kopieEinsammelnMouseClicked
         Copies.collectCopy(momentaneKopie);
+        eineKopieSuchen.setText("");
     }//GEN-LAST:event_kopieEinsammelnMouseClicked
 
     private void isbnSucheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isbnSucheActionPerformed
@@ -1062,7 +1063,7 @@ public class Oberflaeche extends javax.swing.JFrame {
                 PDF_Export.barcodePDF(id, anz);
             }catch(Exception e){System.out.println(e + "barcodePDF");} 
             for(int i=0; i<anz; i++){
-                Copies.addCopy(Books.singleBook(einBuchISBN.getText(), 0).get(4));
+                Copies.addCopy(Books.singleBook(einBuchISBN.getText(), 0).get(4), id+i);
             }
         }
     }//GEN-LAST:event_neuKopieBtnMouseClicked
