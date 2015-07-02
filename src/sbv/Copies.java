@@ -5,12 +5,12 @@ import java.util.Date;
 
 public class Copies {
     // how many copies peer label 
-    public static ArrayList<String> CopyCount(String BookID){ //Takes super long
+    /*public static ArrayList<String> CopyCount(String BookID){ //Takes super long
         try{
             return  Query.anyQuery("SELECT sbm_books.ID, sbm_books.label, COUNT(sbm_copieshistory.ID) FROM sbm_copieshistory, sbm_books, sbm_copies WHERE sbm_copies.book_id LIKE sbm_books.ID AND sbm_copieshistory.copy_id LIKE sbm_copies.ID GROUP BY sbm_books.label");
         }catch(Exception e){System.out.println(e+ "CopyCount");}
         return null;
-    }
+    }*/
     
     public static ArrayList<String> SingleCopyCountTotal (String BookID){ //Takes super long
         try{
@@ -21,7 +21,7 @@ public class Copies {
     
     public static String boughtCopyCount(String book_id){
         try{
-            return  Query.getString("SELECT COUNT(sbm_copies.ID) FROM sbm_copieshistory , sbm_copies  WHERE bought = 1 AND collected LIKE '' AND copy_id LIKE sbm_copies.ID and book_id LIKE 1" + book_id,"COUNT(ID)");
+            return  Query.getString("SELECT COUNT(sbm_copies.ID) FROM sbm_copieshistory , sbm_copies  WHERE bought = 1 AND collected LIKE '' AND copy_id LIKE sbm_copies.ID and book_id LIKE " + book_id,"COUNT(ID)");
         }catch(Exception e){System.out.println(e + "CauchtCopyCount");}
         return null;
     }
@@ -37,7 +37,12 @@ public class Copies {
         return null;
     }
     
-    
+    public static String borrowedCopyCount(String book_id){
+        try{
+            return  Query.getString("SELECT COUNT(sbm_copies.ID) FROM sbm_copieshistory , sbm_copies WHERE bought = 0 AND collected LIKE '' AND copy_id LIKE sbm_copies.ID AND book_id LIKE " + book_id,"COUNT(ID)");
+        }catch(Exception e){System.out.println(e + "CauchtCopyCount");}
+        return null;
+    }    
     
     //Buch informationen abhängig vom der copyID und einem index zum durchschalten der einzelnen infos 
     public static String Singlecopy ( String copyId,int index){ 
