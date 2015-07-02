@@ -12,6 +12,15 @@ public class Copies {
         return null;
     }
     
+    public static ArrayList<String> SingleCopyCountTptal (String BookID){ //Takes super long
+        try{
+            return  Query.anyQuery("SELECT COUNT(ID) FROM sbm_copies WHERE book_id LIKE '" + BookID + "'" );
+        }catch(Exception e){System.out.println(e+ "CopyCount");}
+        return null;
+    }
+    
+    
+    
     //Buch informationen abhängig vom der copyID und einem index zum durchschalten der einzelnen infos 
     public static String Singlecopy ( String copyId,int index){ 
         try{

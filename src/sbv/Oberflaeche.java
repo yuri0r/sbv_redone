@@ -87,7 +87,7 @@ public class Oberflaeche extends javax.swing.JFrame {
     public Oberflaeche() {
         initComponents();
         schuelerCount.setText(Home.StudentsCount());
-        freieBuecher.setText(Home.WildCopyCount());
+        freieBuecher.setText(Home.CauchtCopyCount());
     }
 
     
