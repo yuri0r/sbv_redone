@@ -21,7 +21,7 @@ public class Copies {
     
     public static String boughtCopyCount(String book_id){
         try{
-            return  Query.getString("SELECT COUNT(sbm_copies.ID) FROM sbm_copieshistory , sbm_copies  WHERE bought = 1 AND collected LIKE '' AND copy_id LIKE sbm_copies.ID and book_id LIKE " + book_id,"COUNT(sbm_copies.ID)");
+            return  Query.getString("SELECT COUNT(sbm_copies.ID) FROM sbm_copieshistory , sbm_copies  WHERE bought = 1 AND copy_id LIKE sbm_copies.ID and book_id LIKE " + book_id,"COUNT(sbm_copies.ID)");
         }catch(Exception e){System.out.println(e + "CauchtCopyCount");}
         return null;
     }
@@ -29,8 +29,8 @@ public class Copies {
         public static String CopiesInStock(String book_id){
         try{
             int history = Integer.parseInt(Query.getString("SELECT COUNT(sbm_copieshistory.ID) FROM sbm_copieshistory , sbm_copies WHERE copy_id LIKE sbm_copies.ID AND book_id LIKE " + book_id,"COUNT(sbm_copieshistory.ID)"));
-            int all = Integer.parseInt(Home.AllCopyCount());            
-            int catchedhistory = Integer.parseInt(Query.getString("SELECT COUNT(sbm_copies.ID) FROM sbm_copieshistory , sbm_copies WHERE bought = 0 AND collected LIKE '%' AND copy_id LIKE sbm_copies.ID AND book_id LIKE " + book_id,"COUNT(sbm_copies.ID)"));
+            int all = Integer.parseInt(SingleCopyCountTotal(book_id));            
+            int catchedhistory = Integer.parseInt(Query.getString("SELECT COUNT(sbm_copieshistory.ID) FROM sbm_copieshistory , sbm_copies WHERE bought = 0 AND collected LIKE '%' AND copy_id LIKE sbm_copies.ID AND book_id LIKE " + book_id,"COUNT(sbm_copieshistory.ID)"));
             int result = catchedhistory + (all - history);
             return Integer.toString(result);
         }catch(Exception e){System.out.println(e + "CauchtCopyCount");}
