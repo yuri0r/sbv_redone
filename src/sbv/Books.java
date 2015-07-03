@@ -33,10 +33,10 @@ public class Books {
         return null;       
     }
     
-     public static ArrayList<String> singleBookName(String sterm){
+     public static String singleBookName(String bookID){
         
             try{
-                return Query.anyQuery("SELECT label FROM sbm_books WHERE ID Like '" +sterm +"'");
+                return Query.getString("SELECT label  FROM sbm_books WHERE ID Like '" +bookID +"'","label");
             }catch(Exception e){System.out.println(e +"singleBook");}
           return null;       
      
