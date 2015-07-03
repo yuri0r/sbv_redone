@@ -12,9 +12,9 @@ public class Copies {
         return null;
     }*/
     
-    public static ArrayList<String> SingleCopyCountTotal (String BookID){ //Takes super long
+    public static String SingleCopyCountTotal (String BookID){ //Takes super long
         try{
-            return  Query.anyQuery("SELECT COUNT(ID) FROM sbm_copies WHERE book_id LIKE '" + BookID + "'" );
+            return  Query.getString("SELECT COUNT(ID) FROM sbm_copies WHERE book_id LIKE '" + BookID + "'", "COUNT(ID)" );
         }catch(Exception e){System.out.println(e+ "CopyCount");}
         return null;
     }
