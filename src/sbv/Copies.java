@@ -14,21 +14,21 @@ public class Copies {
     
     public static String SingleCopyCountTotal (String BookID){ //Takes super long
         try{
-            return  Query.getString("SELECT COUNT(ID) FROM sbm_copies WHERE book_id LIKE '" + BookID + "'", "COUNT(ID)" );
+            return  Query.getString("SELECT COUNT(ID) FROM sbm_copies WHERE book_id LIKE " + BookID , "COUNT(ID)" );
         }catch(Exception e){System.out.println(e+ "CopyCount");}
         return null;
     }
     
     public static String boughtCopyCount(String book_id){
         try{
-            return  Query.getString("SELECT COUNT(sbm_copies.ID) FROM sbm_copieshistory , sbm_copies  WHERE bought = 1 AND collected LIKE '' AND copy_id LIKE sbm_copies.ID and book_id LIKE " + book_id,"COUNT(ID)");
+            return  Query.getString("SELECT COUNT(sbm_copies.ID) FROM sbm_copieshistory , sbm_copies  WHERE bought = 1 AND collected LIKE '' AND copy_id LIKE sbm_copies.ID and book_id LIKE " + book_id,"COUNT(sbm_copies.ID)");
         }catch(Exception e){System.out.println(e + "CauchtCopyCount");}
         return null;
     }
     
         public static String CopiesInStock(String book_id){
         try{
-            int history = Integer.parseInt(Query.getString("SELECT COUNT(sbm_copies.ID) FROM sbm_copieshistory , sbm_copies WHERE copy_id LIKE sbm_copies.ID AND book_id LIKE " + book_id,"COUNT(ID)"));
+            int history = Integer.parseInt(Query.getString("SELECT COUNT(sbm_copies.ID) FROM sbm_copieshistory , sbm_copies WHERE copy_id LIKE sbm_copies.ID AND book_id LIKE " + book_id,"COUNT(sbm_copies.ID)"));
             int all = Integer.parseInt(Home.AllCopyCount());            
             int catchedhistory = Integer.parseInt(Query.getString("SELECT COUNT(sbm_copies.ID) FROM sbm_copieshistory , sbm_copies WHERE bought = 0 AND collected LIKE '%' AND copy_id LIKE sbm_copies.ID AND book_id LIKE " + book_id,"COUNT(sbm_copies.ID)"));
             int result = catchedhistory + (all - history);
@@ -39,7 +39,7 @@ public class Copies {
     
     public static String borrowedCopyCount(String book_id){
         try{
-            return  Query.getString("SELECT COUNT(sbm_copies.ID) FROM sbm_copieshistory , sbm_copies WHERE bought = 0 AND collected LIKE '' AND copy_id LIKE sbm_copies.ID AND book_id LIKE " + book_id,"COUNT(ID)");
+            return  Query.getString("SELECT COUNT(sbm_copies.ID) FROM sbm_copieshistory , sbm_copies WHERE bought = 0 AND collected LIKE '' AND copy_id LIKE sbm_copies.ID AND book_id LIKE " + book_id,"COUNT(sbm_copies.ID)");
         }catch(Exception e){System.out.println(e + "CauchtCopyCount");}
         return null;
     }    
