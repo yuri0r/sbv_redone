@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 package sbv;
-
+import java.util.*;
+import java.text.*;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chapter;
-import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
@@ -18,47 +18,17 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.Section;
-import com.itextpdf.text.pdf.Barcode;
 import com.itextpdf.text.pdf.Barcode128;
-import com.itextpdf.text.pdf.Barcode39;
-import com.itextpdf.text.pdf.BarcodeEAN;
-import com.itextpdf.text.pdf.BarcodePostnet;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfWriter;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Desktop;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.awt.print.PageFormat;
-import java.awt.print.Paper;
-import java.awt.print.Printable;
-import static java.awt.print.Printable.NO_SUCH_PAGE;
-import static java.awt.print.Printable.PAGE_EXISTS;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
+import java.awt.*;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import javax.print.Doc;
-import javax.print.DocFlavor;
-import javax.print.DocPrintJob;
-import javax.print.PrintException;
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-import javax.print.SimpleDoc;
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
-import javax.print.attribute.standard.Sides;
+import java.sql.Timestamp;
 import javax.swing.JFileChooser;
-import sun.awt.image.ToolkitImage;
 
 /**
  *
@@ -233,7 +203,7 @@ public static void studentClassPDF(String class_ID, Oberflaeche ob){
             
    }
    
-   public static void barcodePDF(int bookID, int anz)throws IOException, DocumentException, PrintException{
+   public static void barcodePDF(int bookID, int anz)throws IOException, DocumentException{
     Document document = new Document( new Rectangle(160,100)); 
     PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("Barcodes\\"+bookID+".pdf"));
     document.open();
@@ -372,7 +342,7 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
     File savefile = chooser.getSelectedFile();
     pathName = savefile.getPath();
    
-    pdfName="Bücher Bestand.pdf";
+    pdfName="BücherBestand.pdf";
     try{   
     Document document = new Document(PageSize.A4); 
     PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pathName +"\\"+ pdfName));
@@ -386,52 +356,13 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
         
             document.open();
          
-          Chapter chapter1 = PdfChapter("Bestand vom "+System.getProperty("date"));
+           Paragraph titel1 = new Paragraph("Bücherbestand vom "+ getDateAsString()+" Uhr",FontFactory.getFont(FontFactory.HELVETICA,16, Font.BOLDITALIC));
+           Chapter chapter1 = new Chapter(titel1, 1);
+        chapter1.setNumberDepth(0);
       
         ArrayList<String> a1 = new ArrayList();
       a1 = Books.BookIDList();
-       PdfPTable table1 = new PdfPTable(5); 
-    //Tabelle mit 5 Spalten erstellen
-         
-      
-      table1.setSpacingBefore(25);
-      
-      table1.setSpacingAfter(25);
-      
-      //5 Spalten benennen
-      PdfPCell c22 = new PdfPCell(new Phrase("Buch Name",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD)));
-      
-      table1.addCell(c22);
-      
-      PdfPCell c33 = new PdfPCell(new Phrase("Momentan Asgehiehen",FontFactory.getFont(FontFactory.HELVETICA, 13, Font.BOLD)));
-      
-      table1.addCell(c33);
-      
-      PdfPCell c44 = new PdfPCell(new Phrase("Verkauft",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD)));
-      
-      table1.addCell(c44);
-       PdfPCell c11 = new PdfPCell(new Phrase("Im Lager",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD)));
-      
-      table1.addCell(c11);
-      
-      PdfPCell c55 = new PdfPCell(new Phrase("Gesammt",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD)));
-      
-      table1.addCell(c55);
-     
-      
-     //Daten in die tabelle laden
-     for(int i=0; i<(29*4);i++){
-      table1.addCell(Books.singleBookName(a1.get(i)).get(0));
-     table1.addCell(Copies.borrowedCopyCount(a1.get(i)));
-     table1.addCell(Copies.boughtCopyCount(a1.get(i)));
-     table1.addCell(Copies.CopiesInStock(a1.get(i)));
-     table1.addCell(Copies.SingleCopyCountTotal(a1.get(i)));
-     
-     }           
-        document.add(chapter1); //Dokument Füllen
-        
-        document.newPage();
-      PdfPTable table = new PdfPTable(5); 
+       PdfPTable table = new PdfPTable(5); 
     //Tabelle mit 5 Spalten erstellen
          
       
@@ -459,16 +390,89 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
       
       table.addCell(c5);
      
-     for(int i=29*4; i<(a1.size());i++){
-     table.addCell(Books.singleBookName(a1.get(i)).get(0));
+      
+     //Daten in die tabelle laden
+     for(int i=0; i<(29);i++){
+     Paragraph titel = new Paragraph(Books.singleBookName(a1.get(i)),FontFactory.getFont(FontFactory.HELVETICA,8, Font.BOLD));    
+     table.addCell(titel);
      table.addCell(Copies.borrowedCopyCount(a1.get(i)));
      table.addCell(Copies.boughtCopyCount(a1.get(i)));
      table.addCell(Copies.CopiesInStock(a1.get(i)));
      table.addCell(Copies.SingleCopyCountTotal(a1.get(i)));
+     
+     }           
+        document.add(chapter1); //Dokument Füllen
+        document.add(table);
+        document.newPage();
+      PdfPTable table1 = new PdfPTable(5); 
+    //Tabelle mit 5 Spalten erstellen
+         
+      
+      table1.setSpacingBefore(25);
+      
+      table1.setSpacingAfter(25);
+      
+      //5 Spalten benennen
+      
+      table1.addCell(c2);
+      
+      
+      table1.addCell(c3);
+      
+      
+      table1.addCell(c4);
+      
+      table1.addCell(c1);
+      
+      
+      table1.addCell(c5);
+     
+     for(int i=29; i<(29+30);i++){
+     Paragraph titel = new Paragraph(Books.singleBookName(a1.get(i)),FontFactory.getFont(FontFactory.HELVETICA,8, Font.BOLD));    
+     table1.addCell(titel);
+     table1.addCell(Copies.borrowedCopyCount(a1.get(i)));
+     table1.addCell(Copies.boughtCopyCount(a1.get(i)));
+     table1.addCell(Copies.CopiesInStock(a1.get(i)));
+     table1.addCell(Copies.SingleCopyCountTotal(a1.get(i)));
     
       }   
      
-     document.add(table);       
+     document.add(table1); 
+     document.newPage();
+     PdfPTable table2 = new PdfPTable(5); 
+    //Tabelle mit 5 Spalten erstellen
+         
+      
+      table2.setSpacingBefore(25);
+      
+      table2.setSpacingAfter(25);
+      
+      //5 Spalten benennen
+      
+      table2.addCell(c2);
+      
+      
+      table2.addCell(c3);
+      
+      
+      table2.addCell(c4);
+      
+      table2.addCell(c1);
+      
+      
+      table2.addCell(c5);
+     
+     for(int i=59; i<(a1.size());i++){
+     Paragraph titel = new Paragraph(Books.singleBookName(a1.get(i)),FontFactory.getFont(FontFactory.HELVETICA,8, Font.BOLD));    
+     table2.addCell(titel);
+     table2.addCell(Copies.borrowedCopyCount(a1.get(i)));
+     table2.addCell(Copies.boughtCopyCount(a1.get(i)));
+     table2.addCell(Copies.CopiesInStock(a1.get(i)));
+     table2.addCell(Copies.SingleCopyCountTotal(a1.get(i)));
+    
+      }   
+     
+     document.add(table2);
      document.close();
      writer.close();
            
@@ -476,5 +480,13 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
     }
            
        
+   }
+   
+   
+   public static String getDateAsString() {
+   SimpleDateFormat datum = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+   Timestamp zeit = new Timestamp(System.currentTimeMillis());
+   String time = datum.format(zeit);
+   return time;
    }
 }
