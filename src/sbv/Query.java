@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import java.io.*;
 
 public class Query {
+    
 final static Connection con = DbConnector.getConnection(); //connect        
     //example get method just copy paste and modifie it :3
     public static String getString(String Statement, String label){
