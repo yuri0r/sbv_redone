@@ -9,11 +9,11 @@ import java.util.regex.Pattern;
 import java.io.*;
 
 public class Query {
-         
+final static Connection con = DbConnector.getConnection(); //connect        
     //example get method just copy paste and modifie it :3
     public static String getString(String Statement, String label){
         try{
-            Connection con = DbConnector.getConnection(); //connect
+
             PreparedStatement statement = con.prepareStatement(Statement);
             ResultSet result = statement.executeQuery();
             result.next();
@@ -40,7 +40,7 @@ public class Query {
                     array.add(result.getString(collum[i]));
                 }     
             }
-            con.close();
+            //con.close();
             return array;
         }
         catch(Exception e){System.out.println(e + "anyQuery");}
@@ -54,7 +54,7 @@ public class Query {
             
             PreparedStatement statement = con.prepareStatement(input);//SQL Query
             statement.executeUpdate(input);                         //updates DB gets results 
-            con.close();
+            //con.close();
         }
         catch(Exception e){System.out.println(e + "anyUpdate");}           
     } 
@@ -64,7 +64,7 @@ public class Query {
         InputStreamReader Input = new InputStreamReader(System.in);
         BufferedReader DataIn = new BufferedReader(Input);
         ArrayList<String> result = new ArrayList();
-        Connection con = DbConnector.getConnection(); //tests Connection
+        //Connection con = DbConnector.getConnection(); //tests Connection
         
         while(con != null){
             System.out.println("Enter SQL Statement");

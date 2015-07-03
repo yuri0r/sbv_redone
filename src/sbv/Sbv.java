@@ -7,7 +7,11 @@ public class Sbv {
     
     //Leave these methods where they are for testing purposes//////////////
     //UpdateDb.UpdateAll();
-    Query.Console();
-   
+    //Query.Console();
+        Oberflaeche ob = new Oberflaeche();
+    PDF_Export.bestandPDF(ob);
+   System.out.println(Copies.SingleCopyCountTotal("1"));
+      System.out.println(Copies.boughtCopyCount("1"));
+         System.out.println(Copies.borrowedCopyCount("1"));
     }
 }
