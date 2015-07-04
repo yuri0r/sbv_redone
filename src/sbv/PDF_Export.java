@@ -375,7 +375,7 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
       
       table.addCell(c2);
       
-      PdfPCell c3 = new PdfPCell(new Phrase("Momentan Asgehiehen",FontFactory.getFont(FontFactory.HELVETICA, 13, Font.BOLD)));
+      PdfPCell c3 = new PdfPCell(new Phrase("Ausgehiehen",FontFactory.getFont(FontFactory.HELVETICA, 15, Font.BOLD)));
       
       table.addCell(c3);
       
@@ -386,7 +386,7 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
       
       table.addCell(c1);
       
-      PdfPCell c5 = new PdfPCell(new Phrase("Gesammt",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD)));
+      PdfPCell c5 = new PdfPCell(new Phrase("Gesamt",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD)));
       
       table.addCell(c5);
      
