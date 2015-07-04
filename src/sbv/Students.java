@@ -47,8 +47,10 @@ public class Students {
         return null;
     }
     
+    
+    
         //checks if student has a copy of a book
-    public static boolean[] BookGroupListCheck(String class_id,String student_id){
+    public static boolean[] BookGroupListCheck(String class_id , String student_id){
         boolean results[] = null ;
         ArrayList<String>  books = BookGroups.getBookIds(class_id);
         ArrayList<String>  students = BookGroups.getStudentIds(class_id);
@@ -78,7 +80,19 @@ public class Students {
         }catch(Exception e){System.out.println(e);}
         return null;
     }
-        
+     
+    public static void moveToClass(String student_id, String class_id, String new_class_id){
+        try{
+            Query.anyUpdate("UPDATE `sbm_students-clases` SET class_id =" + new_class_id + ", student_id = "+ student_id + "WHERE student_id LIKE "+student_id + "AND class_id LIKE "+class_id);
+        }catch(Exception e){System.out.println(e + "newStudent");}       
+    }
+    
+       public static void adToClass(String class_id,String student_id){
+        try{
+            Query.anyUpdate("INSERT INTO `sbm_students-clases` SET class_id =" + class_id + ", student_id = "+ student_id);
+        }catch(Exception e){System.out.println(e + "newStudent");}       
+    } 
+    
     //edits Student 
     public static void editStudent(int ID, String forename, String surename,String birth){ //birth might bug needs testing
         try{
