@@ -12,7 +12,7 @@ public class DbConnector{
     public static Connection getConnection(){
     try{
         final String driver = "com.mysql.jdbc.Driver";                //chosing driver
-        final String url = "jdbc:mysql://localhost:3306/sbv_aes_2013";//choosing mySQL server server
+        final String url = "jdbc:mysql://localhost:3306/sbv_aes_2013";//choosing mySQL server
         final String username = "root";                               //DB ussername and password
         final String password = "usbw";
         Class.forName(driver); 

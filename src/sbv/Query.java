@@ -10,7 +10,8 @@ import java.io.*;
 
 public class Query {
     
-final static Connection con = DbConnector.getConnection(); //connect        
+final static Connection con = DbConnector.getConnection(); //connect   
+
     //example get method just copy paste and modifie it :3
     public static String getString(String Statement, String label){
         try{
@@ -28,7 +29,6 @@ final static Connection con = DbConnector.getConnection(); //connect
 
     //executes any SQL query 
     public static ArrayList<String> anyQuery(String input) throws Exception {
-        Connection con = DbConnector.getConnection(); //connect    
         try{
             PreparedStatement statement = con.prepareStatement(input);//SQL Query
             ResultSet result = statement.executeQuery();        // gets results
@@ -49,8 +49,7 @@ final static Connection con = DbConnector.getConnection(); //connect
     } 
     
     //Executes anny modificational SQL statement
-    public static void anyUpdate(String input) throws Exception {
-    Connection con = DbConnector.getConnection();       //connect    
+    public static void anyUpdate(String input) throws Exception {   
         try{
             
             PreparedStatement statement = con.prepareStatement(input);//SQL Query
