@@ -62,13 +62,17 @@ public class Copies {
     
     
     // eine buch ausleihen (mit copy id)
-    public static void distributeCopy(String copy_id){
+    public static void distributeCopy(String copy_id, String student_id){
         Date now = new Date();  	
         Long longTime = now.getTime()/1000;
         longTime.intValue();
             try {
-                Query.anyUpdate("UPDATE sbm_copieshistory SET distributed = "+longTime+" ,collected = NULL  WHERE copy_id LIKE " + copy_id);                
-            }catch(Exception e){System.out.println(e + "distributeCopy");}
+                if (Singlecopy(copy_id,2) != null ){
+                Query.anyUpdate("INSERT INTO sbm_copieshistory SET distributed = "+longTime+" ,collected = '' , student_id = "+ student_id +"  , copy_id = " + copy_id);                
+                }else{
+                Query.anyUpdate("UPDATE sbm_copieshistory SET distributed = "+longTime+" ,collected = '' , student_id = "+ student_id +"  WHERE copy_id LIKE" + copy_id);                    
+                }
+                }catch(Exception e){System.out.println(e + "distributeCopy");}
     }
     
     //buch einsammeln (mit copy id)
