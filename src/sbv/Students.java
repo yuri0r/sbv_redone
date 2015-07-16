@@ -87,7 +87,7 @@ public class Students {
         }catch(Exception e){System.out.println(e + "newStudent");}       
     }
     
-       public static void adToClass(String class_id,String student_id){
+       public static void addToClass(String student_id, String class_id){
         try{
             Query.anyUpdate("INSERT INTO `sbm_students-clases` SET class_id =" + class_id + ", student_id = "+ student_id);
         }catch(Exception e){System.out.println(e + "newStudent");}       
