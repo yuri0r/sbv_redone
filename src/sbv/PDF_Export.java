@@ -38,7 +38,7 @@ import javax.swing.JFileChooser;
 public class PDF_Export {
     static String pdfName;
     static String pathName; 
-
+    static Paragraph haken = new Paragraph("\u2214",FontFactory.getFont(FontFactory.HELVETICA,11));
     
 public static void studentClassPDF(String class_ID, Oberflaeche ob){
     String pathName2;
@@ -196,12 +196,7 @@ public static void studentClassPDF(String class_ID, Oberflaeche ob){
     }
    
    
-   public static void barcodeForNewBooks(String bookID)throws IOException, DocumentException{
    
- 
-         
-            
-   }
    
    public static void barcodePDF(int bookID, int anz)throws IOException, DocumentException{
     Document document = new Document( new Rectangle(160,100)); 
@@ -303,8 +298,13 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
          
          ArrayList<String> a0 = new ArrayList();
          a0=Students.SingelStudentClasses(studentID);
-         
-         Paragraph titel5 = new Paragraph("Klasse: "+a0.get(0),
+         String classes = "";
+
+        for (String s : Students.SingelStudentClasses(studentID))
+        {
+        classes += s + ", ";
+        }
+         Paragraph titel5 = new Paragraph("Klassen: "+classes,
                 FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD));
         Chapter chapter1 = new Chapter(titel1, 1);
         chapter1.setNumberDepth(0);
@@ -315,7 +315,7 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
       
    
    public static void openPDF() throws IOException{
-            Desktop.getDesktop().open(new File(pdfName));
+            Desktop.getDesktop().open(new File(pathName + "/"+ pdfName));
    }
    
    public static java.awt.Image ImageOfBarcode(String bookID){
@@ -342,7 +342,7 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
     File savefile = chooser.getSelectedFile();
     pathName = savefile.getPath();
    
-    pdfName="BücherBestand.pdf";
+    pdfName="Bestand-"+getDateAsString()+".pdf";
     try{   
     Document document = new Document(PageSize.A4); 
     PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pathName +"\\"+ pdfName));
@@ -356,7 +356,7 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
         
             document.open();
          
-           Paragraph titel1 = new Paragraph("Bücherbestand vom "+ getDateAsString()+" Uhr",FontFactory.getFont(FontFactory.HELVETICA,16, Font.BOLDITALIC));
+           Paragraph titel1 = new Paragraph("Bücherbestand vom "+ getDateAndTimeAsString()+" Uhr",FontFactory.getFont(FontFactory.HELVETICA,16, Font.BOLDITALIC));
            Chapter chapter1 = new Chapter(titel1, 1);
         chapter1.setNumberDepth(0);
       
@@ -374,8 +374,8 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
       PdfPCell c2 = new PdfPCell(new Phrase("Buch Name",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD)));
       
       table.addCell(c2);
-      
-      PdfPCell c3 = new PdfPCell(new Phrase("Ausgehiehen",FontFactory.getFont(FontFactory.HELVETICA, 15, Font.BOLD)));
+     
+      PdfPCell c3 = new PdfPCell(new Phrase("Verliehen",FontFactory.getFont(FontFactory.HELVETICA, 15, Font.BOLD)));
       
       table.addCell(c3);
       
@@ -484,7 +484,14 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
    
    
    public static String getDateAsString() {
-   SimpleDateFormat datum = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+   SimpleDateFormat datum = new SimpleDateFormat("dd-MM-yyyy");
+   Timestamp zeit = new Timestamp(System.currentTimeMillis());
+   String time = datum.format(zeit);
+   return time;
+   }
+   
+   public static String getDateAndTimeAsString() {
+   SimpleDateFormat datum = new SimpleDateFormat("dd.MM.yyyy hh:mm");
    Timestamp zeit = new Timestamp(System.currentTimeMillis());
    String time = datum.format(zeit);
    return time;
