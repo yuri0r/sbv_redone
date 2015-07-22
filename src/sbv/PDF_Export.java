@@ -397,7 +397,7 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
      table.addCell(titel);
      table.addCell(Copies.borrowedCopyCount(a1.get(i)));
      table.addCell(Copies.boughtCopyCount(a1.get(i)));
-     table.addCell(Copies.CopiesInStock(a1.get(i)));
+     table.addCell(Copies.copiesInStockBySammy(a1.get(i)));
      table.addCell(Copies.SingleCopyCountTotal(a1.get(i)));
      
      }           
@@ -432,7 +432,7 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
      table1.addCell(titel);
      table1.addCell(Copies.borrowedCopyCount(a1.get(i)));
      table1.addCell(Copies.boughtCopyCount(a1.get(i)));
-     table1.addCell(Copies.CopiesInStock(a1.get(i)));
+     table1.addCell(Copies.copiesInStockBySammy(a1.get(i)));
      table1.addCell(Copies.SingleCopyCountTotal(a1.get(i)));
     
       }   
@@ -467,7 +467,7 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
      table2.addCell(titel);
      table2.addCell(Copies.borrowedCopyCount(a1.get(i)));
      table2.addCell(Copies.boughtCopyCount(a1.get(i)));
-     table2.addCell(Copies.CopiesInStock(a1.get(i)));
+     table2.addCell(Copies.copiesInStockBySammy(a1.get(i)));
      table2.addCell(Copies.SingleCopyCountTotal(a1.get(i)));
     
       }   

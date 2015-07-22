@@ -26,6 +26,20 @@ public class Copies {
         return null;
     }
     
+    
+    
+        public static String copiesInStockBySammy(String book_id){
+         try{
+            int history = Integer.parseInt(Query.getString("SELECT COUNT(sbm_copieshistory.ID) FROM sbm_copieshistory , sbm_copies WHERE copy_id LIKE sbm_copies.ID AND book_id LIKE " + book_id,"COUNT(sbm_copieshistory.ID)"));
+            int all = Integer.parseInt(SingleCopyCountTotal(book_id));            
+            int caughthistory = Integer.parseInt(Query.getString("SELECT COUNT(sbm_copieshistory.ID) FROM sbm_copieshistory , sbm_copies WHERE collected LIKE '1%' AND copy_id LIKE sbm_copies.ID AND book_id LIKE " + book_id,"COUNT(sbm_copieshistory.ID)"));
+            int result = caughthistory + (all - history);
+            return Integer.toString(result);
+        }catch(Exception e){System.out.println(e + "CauchtCopyCount");}
+        return null;   
+        }
+        
+        
         public static String CopiesInStock(String book_id){
         try{
             int history = Integer.parseInt(Query.getString("SELECT COUNT(sbm_copieshistory.ID) FROM sbm_copieshistory , sbm_copies WHERE copy_id LIKE sbm_copies.ID AND book_id LIKE " + book_id,"COUNT(sbm_copieshistory.ID)"));
