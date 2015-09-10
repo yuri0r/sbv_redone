@@ -28,7 +28,7 @@ public class Copies {
     
     
     
-        public static String copiesInStockBySammy(String book_id){
+    public static String copiesInStockBySammy(String book_id){
          try{
             int history = Integer.parseInt(Query.getString("SELECT COUNT(sbm_copieshistory.ID) FROM sbm_copieshistory , sbm_copies WHERE copy_id LIKE sbm_copies.ID AND book_id LIKE " + book_id,"COUNT(sbm_copieshistory.ID)"));
             int all = Integer.parseInt(SingleCopyCountTotal(book_id));            
@@ -40,7 +40,7 @@ public class Copies {
         }
         
         
-        public static String CopiesInStock(String book_id){
+    public static String CopiesInStock(String book_id){
         try{
             int history = Integer.parseInt(Query.getString("SELECT COUNT(sbm_copieshistory.ID) FROM sbm_copieshistory , sbm_copies WHERE copy_id LIKE sbm_copies.ID AND book_id LIKE " + book_id,"COUNT(sbm_copieshistory.ID)"));
             int all = Integer.parseInt(SingleCopyCountTotal(book_id));            
@@ -63,14 +63,28 @@ public class Copies {
         try{
             ArrayList<String> result = Query.anyQuery("SELECT label, sbm_copieshistory.ID, distributed, collected, bought, notice, paid FROM sbm_copieshistory, sbm_copies, sbm_books, sbm_students WHERE sbm_books.ID = sbm_copies.book_id AND sbm_copieshistory.copy_id = sbm_copies.ID  AND sbm_copieshistory.student_id = sbm_students.ID AND sbm_copieshistory.copy_id LIKE "+copyId);
             return result.get(index);
-            }catch(Exception e){System.out.println(e + "Singlecopy");}
+        }catch(Exception e){System.out.println(e + "Singlecopy");}
         return null;
     }
     
     public static ArrayList<String> Singlecopy ( String copyId){ 
         try{
-            return Query.anyQuery("SELECT label, sbm_copieshistory.ID, distributed, collected, bought, notice, paid, forename, surname FROM sbm_copieshistory, sbm_copies, sbm_books, sbm_students WHERE sbm_books.ID = sbm_copies.book_id AND sbm_copieshistory.copy_id = sbm_copies.ID  AND sbm_copieshistory.student_id = sbm_students.ID AND sbm_copieshistory.copy_id LIKE "+copyId);
-            }catch(Exception e){System.out.println(e + "Singlecopy");}
+            ArrayList<String> result = Query.anyQuery("SELECT label, sbm_copieshistory.ID, distributed, collected, bought, notice, paid FROM sbm_copieshistory, sbm_copies, sbm_books, sbm_students WHERE sbm_books.ID = sbm_copies.book_id AND sbm_copieshistory.copy_id = sbm_copies.ID  AND sbm_copieshistory.student_id = sbm_students.ID AND sbm_copieshistory.copy_id LIKE "+copyId);
+            if(result.isEmpty() == true){
+                result.add(0,Query.getString("SELECT label FROM sbm_copies, sbm_books WHERE sbm_books.ID = sbm_copies.book_id AND sbm_copies.ID LIKE "+copyId, "label")); 
+                result.add(1,"");
+                result.add(2,"nicht ausgegeben");
+                result.add(3,"");
+                result.add(4,"im lager");
+                result.add(5,"");
+                result.add(6,"im lager");
+                result.add(7,"nicht ausgeliehen");
+                result.add(8,"");
+            return result;
+            }else{
+                return result;
+            }    
+        }catch(Exception e){System.out.println(e + "Singlecopy");}
         return null;
     }
     

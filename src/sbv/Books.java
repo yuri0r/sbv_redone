@@ -41,19 +41,18 @@ public class Books {
           return null;       
      
         }
-       
-    
+        
     //edits book
     public static void editBook(String ID, String label, String isbn, String price, String buy){
         try{
-            Query.anyUpdate("INSERT INTO `sbm_books` SET label =" + label+", isbn = " + isbn+", price = " + price+", buy = " + buy +" WHERE ID LIKE " + ID);
+            Query.anyUpdate("INSERT INTO `sbm_books` SET label ='" + label+"', isbn = " + isbn+", price = " + price+", buy = " + buy +" WHERE ID LIKE " + ID);
         }catch(Exception e){System.out.println(e+ "editBook");}
     }
     
     //creates new book
     public static void newBook(String label, String isbn, String price, String buy){
         try{
-            Query.anyUpdate("INSERT INTO `sbm_books` SET label =" + label+", isbn = " + isbn+", price = " + price+", buy = " + buy);
+            Query.anyUpdate("INSERT INTO `sbm_books` SET label ='" + label+"', isbn = " + isbn+", price = " + price+", buy = " + buy);
         }catch(Exception e){System.out.println(e+"newBook");}
     }
 }

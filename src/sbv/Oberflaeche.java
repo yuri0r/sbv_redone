@@ -1206,23 +1206,13 @@ public class Oberflaeche extends javax.swing.JFrame {
     private void eineKopieSuchenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eineKopieSuchenActionPerformed
         momentaneKopie = eineKopieSuchen.getText();
         ArrayList<String> kopie = Copies.Singlecopy(momentaneKopie);
-        if(kopie.isEmpty() == true){
-            kopieLabel.setText("Nicht ausgeliehen");
-            kopieFore.setText("");
-            kopieSur.setText("");
-            kopieDistributed.setText("");
-            kopieBought.setText("");
-            kopiePaid.setText("");
-        }else {
-            kopieLabel.setText(kopie.get(0));
+
+        kopieLabel.setText(kopie.get(0));
             kopieFore.setText(kopie.get(7));
             kopieSur.setText(kopie.get(8));
-            kopieDistributed.setText(Date.ToNormal(kopie.get(2)));
+            kopieDistributed.setText(kopie.get(2));
             kopieBought.setText(kopie.get(4));
-            kopiePaid.setText(kopie.get(6));
-        }
-        
-        
+            kopiePaid.setText(kopie.get(6));   
     }//GEN-LAST:event_eineKopieSuchenActionPerformed
 
     private void kopieEinsammelnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kopieEinsammelnActionPerformed
