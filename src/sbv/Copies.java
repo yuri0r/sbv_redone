@@ -26,8 +26,6 @@ public class Copies {
         return null;
     }
     
-    
-    
     public static String copiesInStockBySammy(String book_id){
          try{
             int history = Integer.parseInt(Query.getString("SELECT COUNT(sbm_copieshistory.ID) FROM sbm_copieshistory , sbm_copies WHERE copy_id LIKE sbm_copies.ID AND book_id LIKE " + book_id,"COUNT(sbm_copieshistory.ID)"));
@@ -38,8 +36,7 @@ public class Copies {
         }catch(Exception e){System.out.println(e + "CauchtCopyCount");}
         return null;   
         }
-        
-        
+            
     public static String CopiesInStock(String book_id){
         try{
             int history = Integer.parseInt(Query.getString("SELECT COUNT(sbm_copieshistory.ID) FROM sbm_copieshistory , sbm_copies WHERE copy_id LIKE sbm_copies.ID AND book_id LIKE " + book_id,"COUNT(sbm_copieshistory.ID)"));
@@ -69,7 +66,7 @@ public class Copies {
     
     public static ArrayList<String> Singlecopy ( String copyId){ 
         try{
-            ArrayList<String> result = Query.anyQuery("SELECT label, sbm_copieshistory.ID, distributed, collected, bought, notice, paid FROM sbm_copieshistory, sbm_copies, sbm_books, sbm_students WHERE sbm_books.ID = sbm_copies.book_id AND sbm_copieshistory.copy_id = sbm_copies.ID  AND sbm_copieshistory.student_id = sbm_students.ID AND sbm_copieshistory.copy_id LIKE "+copyId);
+            ArrayList<String> result = Query.anyQuery("SELECT label, sbm_copieshistory.ID, distributed, collected, bought, notice, paid, forename, surname FROM sbm_copieshistory, sbm_copies, sbm_books, sbm_students WHERE sbm_books.ID = sbm_copies.book_id AND sbm_copieshistory.copy_id = sbm_copies.ID  AND sbm_copieshistory.student_id = sbm_students.ID AND sbm_copieshistory.copy_id LIKE "+copyId);
             if(result.isEmpty() == true){
                 result.add(0,Query.getString("SELECT label FROM sbm_copies, sbm_books WHERE sbm_books.ID = sbm_copies.book_id AND sbm_copies.ID LIKE "+copyId, "label")); 
                 result.add(1,"");
@@ -80,25 +77,26 @@ public class Copies {
                 result.add(6,"im lager");
                 result.add(7,"nicht ausgeliehen");
                 result.add(8,"");
-            return result;
+                return result;
             }else{
+                //result = Query.anyQuery("SELECT label, sbm_copieshistory.ID, distributed, collected, bought, notice, paid, forename, surname FROM sbm_copieshistory, sbm_copies, sbm_books, sbm_students WHERE sbm_books.ID = sbm_copies.book_id AND sbm_copieshistory.copy_id = sbm_copies.ID  AND sbm_copieshistory.student_id = sbm_students.ID AND sbm_copieshistory.copy_id LIKE "+copyId);
                 return result;
             }    
         }catch(Exception e){System.out.println(e + "Singlecopy");}
         return null;
     }
     
-    
     // eine buch ausleihen (mit copy id)
     public static void distributeCopy(String copy_id, String student_id){
         Date now = new Date();  	
         Long longTime = now.getTime()/1000;
         longTime.intValue();
+        ArrayList<String> check = Singlecopy(copy_id);
             try {
-                if (Singlecopy(copy_id,2) != null ){
-                Query.anyUpdate("INSERT INTO sbm_copieshistory SET distributed = "+longTime+" ,collected = '' , student_id = "+ student_id +"  , copy_id = " + copy_id);                
+                if (check.get(2) != "nicht ausgegeben" ){
+                Query.anyUpdate("INSERT INTO sbm_copieshistory SET bought = '0', paid = '0', notice = '', distributed = "+longTime+" ,collected = '' , student_id = "+ student_id +"  , copy_id = " + copy_id);                
                 }else{
-                Query.anyUpdate("UPDATE sbm_copieshistory SET distributed = "+longTime+" ,collected = '' , student_id = "+ student_id +"  WHERE copy_id LIKE" + copy_id);                    
+                Query.anyUpdate("UPDATE sbm_copieshistory SET bought = '0', paid = '0', notice = 0, distributed = "+longTime+" ,collected = '' , student_id = "+ student_id +"  WHERE copy_id LIKE " + copy_id);                    
                 }
                 }catch(Exception e){System.out.println(e + "distributeCopy");}
     }

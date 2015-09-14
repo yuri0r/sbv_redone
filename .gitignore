@@ -18,3 +18,5 @@ build/built-jar.properties
 *.properties
 src/sbv/DbConnector.java
 *.properties
+*.properties
+build/built-jar.properties

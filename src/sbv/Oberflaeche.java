@@ -1210,7 +1210,7 @@ public class Oberflaeche extends javax.swing.JFrame {
         kopieLabel.setText(kopie.get(0));
             kopieFore.setText(kopie.get(7));
             kopieSur.setText(kopie.get(8));
-            kopieDistributed.setText(kopie.get(2));
+            kopieDistributed.setText(Date.ToNormal(kopie.get(2)));
             kopieBought.setText(kopie.get(4));
             kopiePaid.setText(kopie.get(6));   
     }//GEN-LAST:event_eineKopieSuchenActionPerformed
