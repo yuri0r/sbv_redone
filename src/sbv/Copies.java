@@ -93,7 +93,7 @@ public class Copies {
         longTime.intValue();
         ArrayList<String> check = Singlecopy(copy_id);
             try {
-                if (check.get(2) != "nicht ausgegeben" ){
+                if ("nicht ausgegeben".equals(check.get(2)) ){
                 Query.anyUpdate("INSERT INTO sbm_copieshistory SET bought = '0', paid = '0', notice = '', distributed = "+longTime+" ,collected = '' , student_id = "+ student_id +"  , copy_id = " + copy_id);                
                 }else{
                 Query.anyUpdate("UPDATE sbm_copieshistory SET bought = '0', paid = '0', notice = 0, distributed = "+longTime+" ,collected = '' , student_id = "+ student_id +"  WHERE copy_id LIKE " + copy_id);                    
