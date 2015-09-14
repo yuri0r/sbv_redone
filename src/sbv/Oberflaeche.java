@@ -450,6 +450,11 @@ public class Oberflaeche extends javax.swing.JFrame {
         });
 
         ausgeben.setText("Ausgeben");
+        ausgeben.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ausgebenActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout einSchuelerTabLayout = new javax.swing.GroupLayout(einSchuelerTab);
         einSchuelerTab.setLayout(einSchuelerTabLayout);
@@ -1368,6 +1373,29 @@ public class Oberflaeche extends javax.swing.JFrame {
     private void kopieLöschenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kopieLöschenActionPerformed
         Copies.deleteCopy(momentaneKopie);
     }//GEN-LAST:event_kopieLöschenActionPerformed
+
+    private void ausgebenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ausgebenActionPerformed
+        //Kopie in DB ausgeben
+        Copies.distributeCopy(ausgebenIDFeld.getText(), schuelerId);
+        
+        //Tabelle auf Oberfläche aktualisieren
+        String col[] = {"Label", "Gekauft", "Ausgegeben", "Bezahlt"};
+        DefaultTableModel schuelerBuecherModel = new DefaultTableModel(col, 0){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+            //all cells false
+            return false;
+            }
+        };
+        
+        ArrayList<String> buecher = Students.BookList(schuelerId);
+        
+        for(int i=0; i<= buecher.size()-4; i=i+4) {
+            Object[] obj = {buecher.get(i),buecher.get(i+1),Date.ToNormal(buecher.get(i+2)),buecher.get(i+3)};
+            schuelerBuecherModel.addRow(obj);
+        }
+        schuelerBuecherTbl.setModel(schuelerBuecherModel); 
+    }//GEN-LAST:event_ausgebenActionPerformed
 
     
     
