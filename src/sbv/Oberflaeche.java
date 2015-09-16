@@ -171,9 +171,11 @@ public class Oberflaeche extends javax.swing.JFrame {
         ausgebenIDFeld = new javax.swing.JTextField();
         ausgeben = new javax.swing.JButton();
         ausgebenKaufenFeld = new javax.swing.JTextField();
+        buecherSchuelerTblAkt = new javax.swing.JButton();
         buecherTab = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         buecherTbl = new javax.swing.JTable();
+        buecherTblAkt = new javax.swing.JButton();
         einBuchTab = new javax.swing.JPanel();
         einBuchISBNL = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -459,6 +461,13 @@ public class Oberflaeche extends javax.swing.JFrame {
 
         ausgebenKaufenFeld.setText("0");
 
+        buecherSchuelerTblAkt.setText("Aktualisieren");
+        buecherSchuelerTblAkt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buecherSchuelerTblAktActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout einSchuelerTabLayout = new javax.swing.GroupLayout(einSchuelerTab);
         einSchuelerTab.setLayout(einSchuelerTabLayout);
         einSchuelerTabLayout.setHorizontalGroup(
@@ -506,8 +515,13 @@ public class Oberflaeche extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, einSchuelerTabLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ausgebenKaufenFeld, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
+                .addGroup(einSchuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, einSchuelerTabLayout.createSequentialGroup()
+                        .addComponent(ausgebenKaufenFeld, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, einSchuelerTabLayout.createSequentialGroup()
+                        .addComponent(buecherSchuelerTblAkt)
+                        .addGap(344, 344, 344))))
         );
         einSchuelerTabLayout.setVerticalGroup(
             einSchuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -536,7 +550,9 @@ public class Oberflaeche extends javax.swing.JFrame {
                         .addGroup(einSchuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(schuelerZurueck)
                             .addComponent(schuelerWeiter))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buecherSchuelerTblAkt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addGroup(einSchuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(ausgebenIDFeld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -572,15 +588,30 @@ public class Oberflaeche extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(buecherTbl);
 
+        buecherTblAkt.setText("Aktualisieren");
+        buecherTblAkt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buecherTblAktActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout buecherTabLayout = new javax.swing.GroupLayout(buecherTab);
         buecherTab.setLayout(buecherTabLayout);
         buecherTabLayout.setHorizontalGroup(
             buecherTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1299, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buecherTabLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buecherTblAkt)
+                .addGap(601, 601, 601))
         );
         buecherTabLayout.setVerticalGroup(
             buecherTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
+            .addGroup(buecherTabLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buecherTblAkt)
+                .addGap(0, 13, Short.MAX_VALUE))
         );
 
         basePanel.addTab("Bücher", buecherTab);
@@ -1386,7 +1417,9 @@ public class Oberflaeche extends javax.swing.JFrame {
     private void ausgebenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ausgebenActionPerformed
         //Kopie in DB ausgeben
         Copies.distributeCopy(ausgebenIDFeld.getText(), schuelerId, ausgebenKaufenFeld.getText());
-        
+    }//GEN-LAST:event_ausgebenActionPerformed
+
+    private void buecherSchuelerTblAktActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buecherSchuelerTblAktActionPerformed
         //Tabelle auf Oberfläche aktualisieren
         String col[] = {"Label", "Gekauft", "Ausgegeben", "Bezahlt"};
         DefaultTableModel schuelerBuecherModel = new DefaultTableModel(col, 0){
@@ -1404,7 +1437,12 @@ public class Oberflaeche extends javax.swing.JFrame {
             schuelerBuecherModel.addRow(obj);
         }
         schuelerBuecherTbl.setModel(schuelerBuecherModel); 
-    }//GEN-LAST:event_ausgebenActionPerformed
+    }//GEN-LAST:event_buecherSchuelerTblAktActionPerformed
+
+    private void buecherTblAktActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buecherTblAktActionPerformed
+        currentPanel = 3;
+        UpdateTable(Books.BookList());
+    }//GEN-LAST:event_buecherTblAktActionPerformed
 
     
     
@@ -1457,8 +1495,10 @@ public class Oberflaeche extends javax.swing.JFrame {
     private javax.swing.JTable buecherFKlassenTbl;
     private javax.swing.JTable buecherInKlasseTbl;
     private javax.swing.JTable buecherKlassenTbl;
+    private javax.swing.JButton buecherSchuelerTblAkt;
     private javax.swing.JPanel buecherTab;
     private javax.swing.JTable buecherTbl;
+    private javax.swing.JButton buecherTblAkt;
     private javax.swing.JTextField einBuchISBNFeld;
     private javax.swing.JLabel einBuchISBNL;
     private javax.swing.JTextField einBuchKaufFeld;
