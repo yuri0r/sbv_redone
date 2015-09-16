@@ -1,6 +1,8 @@
 package sbv;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 //will convert old database structure to the new one :)
 public class UpdateDb {
     public static void UpdateAll() throws Exception {
@@ -66,5 +68,15 @@ public class UpdateDb {
                     Query.anyUpdate("INSERT INTO `sbm_students-classes` SET `class_ID` = "+ ID +", `student_ID` = " + studentId.get(i));
                 }
             }catch(Exception e){System.out.println(e + "classes");}
+    }
+    
+    public static void massAddClasses(int start, int stop, int Class ){
+       for(int i = start; i <= stop ; i++){
+           try {
+               Query.anyUpdate("INSERT INTO `sbm_students-classes` SET `class_ID` = "+ Class +", `student_ID` = " + i);
+           } catch (Exception ex) {
+               Logger.getLogger(UpdateDb.class.getName()).log(Level.SEVERE, null, ex);
+           }
+                } 
     }
 }
