@@ -87,16 +87,16 @@ public class Copies {
     }
     
     // eine buch ausleihen (mit copy id)
-    public static void distributeCopy(String copy_id, String student_id){
+    public static void distributeCopy(String copy_id, String student_id, String buy){
         Date now = new Date();  	
         Long longTime = now.getTime()/1000;
         longTime.intValue();
         ArrayList<String> check = Singlecopy(copy_id);
             try {
                 if ("nicht ausgegeben".equals(check.get(2)) ){
-                Query.anyUpdate("INSERT INTO sbm_copieshistory SET bought = '0', paid = '0', notice = '', distributed = "+longTime+" ,collected = '' , student_id = "+ student_id +"  , copy_id = " + copy_id);                
+                Query.anyUpdate("INSERT INTO sbm_copieshistory SET bought = '"+ buy + "', paid = '0', notice = '', distributed = "+longTime+" ,collected = '' , student_id = "+ student_id +"  , copy_id = " + copy_id);                
                 }else{
-                Query.anyUpdate("UPDATE sbm_copieshistory SET bought = '0', paid = '0', notice = 0, distributed = "+longTime+" ,collected = '' , student_id = "+ student_id +"  WHERE copy_id LIKE " + copy_id);                    
+                Query.anyUpdate("UPDATE sbm_copieshistory SET bought = '"+ buy + "', paid = '0', notice = 0, distributed = "+longTime+" ,collected = '' , student_id = "+ student_id +"  WHERE copy_id LIKE " + copy_id);                    
                 }
                 }catch(Exception e){System.out.println(e + "distributeCopy");}
     }

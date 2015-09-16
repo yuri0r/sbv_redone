@@ -3,7 +3,8 @@ package sbv;
 public class Sbv {
 
     public static void main(String[] args) throws Exception {
-    Oberflaeche.main(args);
+        //Students.newStudent("max", "mustermann", "1999-10-05");
+        Oberflaeche.main(args);
     
     //Leave these methods where they are for testing purposes//////////////
     //UpdateDb.UpdateAll();

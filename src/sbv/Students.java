@@ -47,9 +47,7 @@ public class Students {
         return null;
     }
     
-    
-    
-        //checks if student has a copy of a book
+    //checks if student has a copy of a book
     public static boolean[] BookGroupListCheck(String class_id , String student_id){
         boolean results[] = null ;
         ArrayList<String>  books = BookGroups.getBookIds(class_id);
@@ -103,7 +101,7 @@ public class Students {
     //creates new student
     public static void newStudent(String forename, String surename,String birth){
         try{
-            Query.anyUpdate("INSERT INTO `sbm_students` SET forename =" + forename + ", surename = "+ surename + ", birth = "+birth );
+            Query.anyUpdate("INSERT INTO `sbm_students` SET forename = '" + forename + "', surname = '"+ surename + "', birth = '"+birth +"', class = 'nope', img = 'nope'" );
         }catch(Exception e){System.out.println(e + "newStudent");}       
     }    
 }

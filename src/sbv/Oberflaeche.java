@@ -170,6 +170,7 @@ public class Oberflaeche extends javax.swing.JFrame {
         schuelerKlassenBearbeiten = new javax.swing.JButton();
         ausgebenIDFeld = new javax.swing.JTextField();
         ausgeben = new javax.swing.JButton();
+        ausgebenKaufenFeld = new javax.swing.JTextField();
         buecherTab = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         buecherTbl = new javax.swing.JTable();
@@ -456,6 +457,8 @@ public class Oberflaeche extends javax.swing.JFrame {
             }
         });
 
+        ausgebenKaufenFeld.setText("0");
+
         javax.swing.GroupLayout einSchuelerTabLayout = new javax.swing.GroupLayout(einSchuelerTab);
         einSchuelerTab.setLayout(einSchuelerTabLayout);
         einSchuelerTabLayout.setHorizontalGroup(
@@ -501,6 +504,10 @@ public class Oberflaeche extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ausgebenIDFeld, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, einSchuelerTabLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ausgebenKaufenFeld, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46))
         );
         einSchuelerTabLayout.setVerticalGroup(
             einSchuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -534,7 +541,9 @@ public class Oberflaeche extends javax.swing.JFrame {
                     .addComponent(jButton2)
                     .addComponent(ausgebenIDFeld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ausgeben))
-                .addGap(65, 65, 65))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ausgebenKaufenFeld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
         );
 
         basePanel.addTab("Einzelner Schueler", einSchuelerTab);
@@ -1376,7 +1385,7 @@ public class Oberflaeche extends javax.swing.JFrame {
 
     private void ausgebenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ausgebenActionPerformed
         //Kopie in DB ausgeben
-        Copies.distributeCopy(ausgebenIDFeld.getText(), schuelerId);
+        Copies.distributeCopy(ausgebenIDFeld.getText(), schuelerId, ausgebenKaufenFeld.getText());
         
         //Tabelle auf Oberfläche aktualisieren
         String col[] = {"Label", "Gekauft", "Ausgegeben", "Bezahlt"};
@@ -1438,6 +1447,7 @@ public class Oberflaeche extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ausgeben;
     private javax.swing.JTextField ausgebenIDFeld;
+    private javax.swing.JTextField ausgebenKaufenFeld;
     public javax.swing.JTabbedPane basePanel;
     private javax.swing.JButton buchBearbeiten;
     public static javax.swing.JList buchKlassenList;
