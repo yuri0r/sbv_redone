@@ -46,7 +46,7 @@ public class Classes {
     //adds new class
     public static void newClass(String name){
         try{
-            Query.anyUpdate("INSERT INTO `sbm_classes` SET name =" + name);   
+            Query.anyUpdate("INSERT INTO `sbm_classes` SET name ='" + name +"'");   
         }catch(Exception e){System.out.println(e);}
     }
     

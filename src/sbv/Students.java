@@ -85,9 +85,10 @@ public class Students {
         }catch(Exception e){System.out.println(e + "newStudent");}       
     }
     
-       public static void addToClass(String student_id, String class_id){
+       public static void addToClass(String student_id, String className){
         try{
-            Query.anyUpdate("INSERT INTO `sbm_students-clases` SET class_id =" + class_id + ", student_id = "+ student_id);
+            String class_id = Query.getString("SELECT ID FROM sbm_classes WHERE name LIKE '" + className +"'", "ID");
+            Query.anyUpdate("INSERT INTO `sbm_students-classes` SET class_id =" + class_id + ", student_id = "+ student_id);
         }catch(Exception e){System.out.println(e + "newStudent");}       
     } 
     

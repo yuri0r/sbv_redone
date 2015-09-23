@@ -23,12 +23,6 @@ public class Oberflaeche extends javax.swing.JFrame {
     Connection conn = null;
     
     private void UpdateTable(ArrayList<String> data) {
-        try{
-            conn = DbConnector.getConnection();
-        }
-        catch (Exception e){
-            JOptionPane.showMessageDialog(null, e);
-        }
         
         if(currentPanel == 2) {
         String col[] = {"Nachname", "Vorname", "Geburtsdatum"};
@@ -151,6 +145,8 @@ public class Oberflaeche extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         schuelerTbl = new javax.swing.JTable();
         klasseExportBtn = new javax.swing.JButton();
+        neuKlasseFeld = new javax.swing.JTextField();
+        neuKlasseBtn = new javax.swing.JButton();
         einSchuelerTab = new javax.swing.JPanel();
         schuelerName = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -340,20 +336,29 @@ public class Oberflaeche extends javax.swing.JFrame {
             }
         });
 
+        neuKlasseBtn.setText("Hinzufügen");
+        neuKlasseBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                neuKlasseBtnMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout schuelerTabLayout = new javax.swing.GroupLayout(schuelerTab);
         schuelerTab.setLayout(schuelerTabLayout);
         schuelerTabLayout.setHorizontalGroup(
             schuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(schuelerTabLayout.createSequentialGroup()
-                .addGroup(schuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(schuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(neuKlasseFeld)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(schuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(schuelerTabLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(schuelerTblPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(schuelerTabLayout.createSequentialGroup()
-                        .addGap(550, 550, 550)
-                        .addComponent(klasseExportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(neuKlasseBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(klasseExportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(schuelerTblPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         schuelerTabLayout.setVerticalGroup(
@@ -365,7 +370,10 @@ public class Oberflaeche extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane3)))
                 .addGap(18, 18, 18)
-                .addComponent(klasseExportBtn)
+                .addGroup(schuelerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(klasseExportBtn)
+                    .addComponent(neuKlasseFeld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(neuKlasseBtn))
                 .addContainerGap())
         );
 
@@ -1337,6 +1345,7 @@ public class Oberflaeche extends javax.swing.JFrame {
         ListModel dlm = schuelerKlassenListNeu.getModel();
         Object item = dlm.getElementAt(index);
         schuelerKlassenListNeu.ensureIndexIsVisible(index);
+        Students.addToClass(schuelerId, item.toString());
     }//GEN-LAST:event_schuelerKlassenListNeuMouseClicked
 
     private void buchNeuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buchNeuActionPerformed
@@ -1417,6 +1426,7 @@ public class Oberflaeche extends javax.swing.JFrame {
     private void ausgebenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ausgebenActionPerformed
         //Kopie in DB ausgeben
         Copies.distributeCopy(ausgebenIDFeld.getText(), schuelerId, ausgebenKaufenFeld.getText());
+        ausgebenIDFeld.setText("");
     }//GEN-LAST:event_ausgebenActionPerformed
 
     private void buecherSchuelerTblAktActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buecherSchuelerTblAktActionPerformed
@@ -1443,6 +1453,15 @@ public class Oberflaeche extends javax.swing.JFrame {
         currentPanel = 3;
         UpdateTable(Books.BookList());
     }//GEN-LAST:event_buecherTblAktActionPerformed
+
+    private void neuKlasseBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_neuKlasseBtnMouseClicked
+        String klasse = neuKlasseFeld.getText();
+        if(klasse.isEmpty()){
+           
+        }else{
+            Classes.newClass(klasse);
+        }
+    }//GEN-LAST:event_neuKlasseBtnMouseClicked
 
     
     
@@ -1554,6 +1573,8 @@ public class Oberflaeche extends javax.swing.JFrame {
     private javax.swing.JLabel kopiePaid;
     private javax.swing.JLabel kopieSur;
     private javax.swing.JTextField labelSuche;
+    private javax.swing.JButton neuKlasseBtn;
+    private javax.swing.JTextField neuKlasseFeld;
     private javax.swing.JTextField neuKopieAnzahl;
     private javax.swing.JButton neuKopieBtn;
     private javax.swing.JTable schuelerBuecherTbl;
