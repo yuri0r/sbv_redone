@@ -108,13 +108,13 @@ public static void studentClassPDF(String class_ID, Oberflaeche ob){
          
           Chapter chapter1 = PdfChapter(studentID);
       
-        ArrayList<String> a1 = new ArrayList();
-      a1 = Students.BookList(studentID);
+        ArrayList<String> bookArray = new ArrayList();
+      bookArray = Students.BookList(studentID);
      PdfPTable table = new PdfPTable(5); 
     
-    if (((a1.size())/4)<29){
+    if (((bookArray.size())/4)<29){
            
-     table = studentPDFTable(studentID, a1.size())  ;   
+     table = studentPDFTable(studentID, bookArray.size())  ;   
       
       }else{
          PdfPTable table1 = studentPDFTable(studentID,29*4);//Tabelle mit 5 Spalten erstellen
@@ -151,15 +151,16 @@ public static void studentClassPDF(String class_ID, Oberflaeche ob){
       
      
     
-     String a;
+     String bought;
+     String paid;
       
      //Daten in die tabelle laden
-      for(int i=29*4; i<(a1.size());i++){
-       Paragraph titel3 = new Paragraph(a1.get(i),FontFactory.getFont(FontFactory.HELVETICA,8, Font.BOLD));   
+      for(int i=29*4; i<(bookArray.size());i++){
+       Paragraph titel3 = new Paragraph(bookArray.get(i),FontFactory.getFont(FontFactory.HELVETICA,8, Font.BOLD));   
       table.addCell(titel3);
       i++; 
-      a=a1.get(i);
-      if (!"1".equals(a)){
+      bought=bookArray.get(i);
+      if (!"1".equals(bought)){
           table.addCell("NEIN");
           table.addCell("JA"); 
       }
@@ -168,11 +169,11 @@ public static void studentClassPDF(String class_ID, Oberflaeche ob){
           table.addCell("NEIN");
       }
       i++;
-      Paragraph titel4 = new Paragraph(Date.ToNormal(a1.get(i)),FontFactory.getFont(FontFactory.HELVETICA,11));//just testing date formats
+      Paragraph titel4 = new Paragraph(Date.ToNormal(bookArray.get(i)),FontFactory.getFont(FontFactory.HELVETICA,11));//just testing date formats
       table.addCell(titel4);
       i++; 
-      a=a1.get(i);
-      if ("1".equals(a)){
+      paid=bookArray.get(i);
+      if ("1".equals(paid)){
          table.addCell("JA"); 
       }
       else{
@@ -223,8 +224,8 @@ public static void studentClassPDF(String class_ID, Oberflaeche ob){
    
 public static PdfPTable studentPDFTable(String studentID, int maxInd){
           
-      ArrayList<String> a1 = new ArrayList();
-      a1 = Students.BookList(studentID);
+      ArrayList<String> bookArray = new ArrayList();
+      bookArray = Students.BookList(studentID);
     
       
            PdfPTable table = new PdfPTable(5);//Tabelle mit 5 Spalten erstellen
@@ -259,10 +260,10 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
       
      //Daten in die tabelle laden
       for(int i=0; i<(maxInd);i++){
-       Paragraph titel3 = new Paragraph(a1.get(i),FontFactory.getFont(FontFactory.HELVETICA,8, Font.BOLD));   
+       Paragraph titel3 = new Paragraph(bookArray.get(i),FontFactory.getFont(FontFactory.HELVETICA,8, Font.BOLD));   
       table.addCell(titel3);
       i++; 
-      a=a1.get(i);
+      a=bookArray.get(i);
       if (!"1".equals(a)){
           table.addCell("NEIN");
           table.addCell("JA"); 
@@ -272,10 +273,10 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
           table.addCell("NEIN");
       }
       i++;
-      Paragraph titel4 = new Paragraph(Date.ToNormal(a1.get(i)),FontFactory.getFont(FontFactory.HELVETICA,11));//just testing date formats
+      Paragraph titel4 = new Paragraph(Date.ToNormal(bookArray.get(i)),FontFactory.getFont(FontFactory.HELVETICA,11));//just testing date formats
       table.addCell(titel4);
       i++; 
-      a=a1.get(i);
+      a=bookArray.get(i);
       if ("1".equals(a)){
          table.addCell("JA"); 
       }
@@ -360,8 +361,8 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
            Chapter chapter1 = new Chapter(titel1, 1);
         chapter1.setNumberDepth(0);
       
-        ArrayList<String> a1 = new ArrayList();
-      a1 = Books.BookIDList();
+        ArrayList<String> bookIDs = new ArrayList();
+      bookIDs = Books.BookIDList();
        PdfPTable table = new PdfPTable(5); 
     //Tabelle mit 5 Spalten erstellen
          
@@ -393,12 +394,12 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
       
      //Daten in die tabelle laden
      for(int i=0; i<(29);i++){
-     Paragraph titel = new Paragraph(Books.singleBookName(a1.get(i)),FontFactory.getFont(FontFactory.HELVETICA,8, Font.BOLD));    
+     Paragraph titel = new Paragraph(Books.singleBookName(bookIDs.get(i)),FontFactory.getFont(FontFactory.HELVETICA,8, Font.BOLD));    
      table.addCell(titel);
-     table.addCell(Copies.borrowedCopyCount(a1.get(i)));
-     table.addCell(Copies.boughtCopyCount(a1.get(i)));
-     table.addCell(Copies.copiesInStockBySammy(a1.get(i)));
-     table.addCell(Copies.SingleCopyCountTotal(a1.get(i)));
+     table.addCell(Copies.borrowedCopyCount(bookIDs.get(i)));
+     table.addCell(Copies.boughtCopyCount(bookIDs.get(i)));
+     table.addCell(Copies.copiesInStockBySammy(bookIDs.get(i)));
+     table.addCell(Copies.SingleCopyCountTotal(bookIDs.get(i)));
      
      }           
         document.add(chapter1); //Dokument Füllen
@@ -428,12 +429,12 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
       table1.addCell(c5);
      
      for(int i=29; i<(29+30);i++){
-     Paragraph titel = new Paragraph(Books.singleBookName(a1.get(i)),FontFactory.getFont(FontFactory.HELVETICA,8, Font.BOLD));    
+     Paragraph titel = new Paragraph(Books.singleBookName(bookIDs.get(i)),FontFactory.getFont(FontFactory.HELVETICA,8, Font.BOLD));    
      table1.addCell(titel);
-     table1.addCell(Copies.borrowedCopyCount(a1.get(i)));
-     table1.addCell(Copies.boughtCopyCount(a1.get(i)));
-     table1.addCell(Copies.copiesInStockBySammy(a1.get(i)));
-     table1.addCell(Copies.SingleCopyCountTotal(a1.get(i)));
+     table1.addCell(Copies.borrowedCopyCount(bookIDs.get(i)));
+     table1.addCell(Copies.boughtCopyCount(bookIDs.get(i)));
+     table1.addCell(Copies.copiesInStockBySammy(bookIDs.get(i)));
+     table1.addCell(Copies.SingleCopyCountTotal(bookIDs.get(i)));
     
       }   
      
@@ -462,13 +463,13 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
       
       table2.addCell(c5);
      
-     for(int i=59; i<(a1.size());i++){
-     Paragraph titel = new Paragraph(Books.singleBookName(a1.get(i)),FontFactory.getFont(FontFactory.HELVETICA,8, Font.BOLD));    
+     for(int i=59; i<(bookIDs.size());i++){
+     Paragraph titel = new Paragraph(Books.singleBookName(bookIDs.get(i)),FontFactory.getFont(FontFactory.HELVETICA,8, Font.BOLD));    
      table2.addCell(titel);
-     table2.addCell(Copies.borrowedCopyCount(a1.get(i)));
-     table2.addCell(Copies.boughtCopyCount(a1.get(i)));
-     table2.addCell(Copies.copiesInStockBySammy(a1.get(i)));
-     table2.addCell(Copies.SingleCopyCountTotal(a1.get(i)));
+     table2.addCell(Copies.borrowedCopyCount(bookIDs.get(i)));
+     table2.addCell(Copies.boughtCopyCount(bookIDs.get(i)));
+     table2.addCell(Copies.copiesInStockBySammy(bookIDs.get(i)));
+     table2.addCell(Copies.SingleCopyCountTotal(bookIDs.get(i)));
     
       }   
      
@@ -496,4 +497,161 @@ public static PdfPTable studentPDFTable(String studentID, int maxInd){
    String time = datum.format(zeit);
    return time;
    }
+   
+public static void studentBill(String studentID, Oberflaeche ob){
+    
+       
+    JFileChooser chooser = new JFileChooser();
+    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    int returnVal = chooser.showOpenDialog(ob);
+      
+    File savefile = chooser.getSelectedFile();
+    pathName = savefile.getPath();
+   
+    pdfName=Students.SingelStudent(studentID,1)+"-"+Students.SingelStudent(studentID,2)+"-Rechnung.pdf";
+    try{   
+    Document document = new Document(PageSize.A4); 
+    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pathName +"\\"+ pdfName));
+     // Attributes
+            document.addAuthor(System.getProperty("user.name"));
+            document.addCreationDate();
+            document.addCreator("Seminarkurs Programm Schulbuchverwaltung");
+            document.addTitle("PDF-Export Schüler "+Students.SingelStudent(studentID,1)+" "+Students.SingelStudent(studentID,2));
+            document.addSubject("PDF-Export des Schülers "+Students.SingelStudent(studentID,1)+" "+Students.SingelStudent(studentID,2));
+            
+        
+            document.open();
+         
+          Chapter chapter1 = PdfChapter(studentID);
+      
+        ArrayList<String> bookArray = new ArrayList();
+      bookArray = Copies.copyBill(studentID);
+     PdfPTable table = new PdfPTable(2); 
+       
+     table.setSpacingBefore(25);
+      
+      table.setSpacingAfter(25);
+      
+    
+     
+     PdfPCell name = new PdfPCell(new Phrase("Buch Name",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD)));
+      
+      table.addCell(name);
+     
+      PdfPCell price = new PdfPCell(new Phrase("Preis",FontFactory.getFont(FontFactory.HELVETICA, 15, Font.BOLD)));
+      
+      table.addCell(price);
+      
+      for(int i=0; i<(bookArray.size());i++){
+       
+       if(i==bookArray.size()-2){ 
+       Paragraph ges = new Paragraph(bookArray.get(i),FontFactory.getFont(FontFactory.HELVETICA,15, Font.BOLD));    
+       table.addCell(ges);
+       i++;
+       table.addCell(bookArray.get(i));
+       }else{
+       //Paragraph titel = new Paragraph(bookArray.get(i),FontFactory.getFont(FontFactory.HELVETICA,8, Font.BOLD));    
+       table.addCell(bookArray.get(i));
+       i++;
+       table.addCell(bookArray.get(i));
+       
+       }
+      }
+    
+         
+        document.add(chapter1); //Dokument Füllen
+        document.add(table);
+             
+     document.close();
+     writer.close();
+           
+        
+        
+    } catch (FileNotFoundException | DocumentException e) {
+    }
 }
+
+    
+    public static PdfPTable billTable(String studentID){
+            ArrayList<String> bookArray = new ArrayList();
+      bookArray = Copies.copyBill(studentID);
+     PdfPTable table = new PdfPTable(2); 
+       
+     table.setSpacingBefore(25);
+      
+      table.setSpacingAfter(25);
+      
+    
+     
+     PdfPCell name = new PdfPCell(new Phrase("Buch Name",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD)));
+      
+      table.addCell(name);
+     
+      PdfPCell price = new PdfPCell(new Phrase("Preis",FontFactory.getFont(FontFactory.HELVETICA, 15, Font.BOLD)));
+      
+      table.addCell(price);
+      
+      for(int i=0; i<(bookArray.size());i++){
+       
+       if(i==bookArray.size()-2){ 
+       Paragraph ges = new Paragraph(bookArray.get(i),FontFactory.getFont(FontFactory.HELVETICA,15, Font.BOLD));    
+       table.addCell(ges);
+       i++;
+       table.addCell(bookArray.get(i));
+       }else{
+       //Paragraph titel = new Paragraph(bookArray.get(i),FontFactory.getFont(FontFactory.HELVETICA,8, Font.BOLD));    
+       table.addCell(bookArray.get(i));
+       i++;
+       table.addCell(bookArray.get(i));
+       
+       }
+        
+    }
+      return table;
+    }  
+    public static void classBill(String class_ID, Oberflaeche ob){
+    String pathName2;
+ JFileChooser chooser = new JFileChooser();
+    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    int returnVal = chooser.showOpenDialog(ob);
+      
+    File savefile = chooser.getSelectedFile();
+    pathName2 = savefile.getPath();
+    try{
+    Document document = new Document(PageSize.A4); 
+    
+    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pathName2+"\\"+class_ID+"-Rechnung.pdf"));
+  
+    ArrayList<String> studentArray = new ArrayList();
+      studentArray = Classes.studentIDList(class_ID);
+      document.addAuthor(System.getProperty("user.name"));
+            document.addCreationDate();
+            document.addCreator("Seminarkurs Programm Schulbuchverwaltung");
+            document.addTitle("PDF-Export von Klasse "+class_ID);
+            document.addSubject("PDF-Export des Schülers "+class_ID);
+            
+        
+    document.open();
+            
+    for(int i=0; i<(studentArray.size());i++){
+    PdfPTable table =billTable(studentArray.get(i)) ;
+    Chapter chapter = PdfChapter(studentArray.get(i));
+    document.add(chapter);
+    document.add(table);   
+    
+    }
+    document.close();
+    writer.close();
+    
+    
+    }catch (FileNotFoundException | DocumentException e) {
+    }
+} 
+    
+    
+   
+   
+   
+   
+}
+
