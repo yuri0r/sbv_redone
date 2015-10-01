@@ -12,7 +12,7 @@ public class Query {
     
 final static Connection con = DbConnector.getConnection(); //connect   
 
-    //example get method just copy paste and modifie it :3
+    //example get method just copy paste and modifie it :3 (must have been drunk when wrote that...
     public static String getString(String Statement, String label){
         try{
 

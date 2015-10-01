@@ -79,4 +79,27 @@ public class UpdateDb {
            }
                 } 
     }
+    
+     public static void updateDPrice(){
+        try {
+            ArrayList<String> all = Query.anyQuery("SELECT ID, copy_id FROM sbm_copieshistory");
+            ArrayList<String> IDS = new ArrayList();
+            ArrayList<String> Copy_IDS = new ArrayList();
+           
+            for(int i = 0; i<all.size(); i=i+2){
+                IDS.add(all.get(i));    
+                Copy_IDS.add(all.get(i+1));
+                
+                
+            }
+             for(int i = 1; i<IDS.size(); i=i+1){
+                String price = Query.getString("SELECT price FROM sbm_copies, sbm_books WHERE sbm_books.ID LIKE book_id AND sbm_copies.ID like '"+Copy_IDS.get(i) +"'","price");
+                if(price == null){System.out.println("null");}
+                Query.anyUpdate("UPDATE sbm_copieshistory SET dprice = '"+ price +"' WHERE ID LIKE '" + IDS.get(i)+"'");
+                IDS.add(all.get(i-1));    
+                Copy_IDS.add(all.get(i));
+             }
+            
+       }catch(Exception e){System.out.println(e + "updateDPrice");}
+     }
 }

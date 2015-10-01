@@ -3,6 +3,8 @@ package sbv;
 public class Sbv {
 
     public static void main(String[] args) throws Exception {
+        Copies.copyBill("234");
+        //UpdateDb.updateDPrice();
         //UpdateDb.massAddClasses(328, 350, 14);
         //Students.newStudent("max", "mustermann", "1999-10-05");
         Oberflaeche.main(args);
